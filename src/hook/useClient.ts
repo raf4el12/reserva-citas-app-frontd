@@ -1,17 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   useQuery
 } from '@tanstack/react-query'
-import { Client, Response } from '../types/client';
 
 export const useClient = () => {
   const dataQuery = useQuery({
     queryKey: ['clients'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:8000/api/clients');
+      const response = await fetch('http://localhost:3000/api/categories');
       const data = await response.json();
-      const result = data as Response<Client[]>;
 
-      return result.data;
+      console.log('result.data', data)
+
+      return data;
     }
   })
 

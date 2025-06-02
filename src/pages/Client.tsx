@@ -1,6 +1,5 @@
 import { Box, LinearProgress, Typography } from '@mui/material'
 import Layout from '../components/Layout'
-import ClientCard from '../components/client/ClientCard'
 import { useClient } from '../hook/useClient'
 import CardNew from '../components/commons/CardNew'
 
@@ -28,9 +27,13 @@ const Client = () => {
         }
         {
           clients?.data && clients.data.map((item, index) => (
-            <ClientCard
-              key={`client-card-${index}`}
-              item={item} />
+            // <ClientCard
+            //   key={`client-card-${index}`}
+            //   item={item} />
+            <div
+              key={`client-card-${index}`}>
+              <pre>{JSON.stringify(item, null, 2)}</pre>
+            </div>
           ))
         }
         <CardNew href='/clients/new' />
