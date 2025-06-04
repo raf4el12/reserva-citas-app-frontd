@@ -3,8 +3,8 @@ import { Outlet } from 'react-router'
 
 const RouterMain = [
   {
-    name: 'Clientes',
-    href: '/clients'
+    name: 'Categorias',
+    href: '/categories'
   },
   {
     name: 'Productos',

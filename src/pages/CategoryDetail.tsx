@@ -1,11 +1,11 @@
 import { LinearProgress, Typography } from "@mui/material"
 import Layout from "../components/Layout"
 import { useParams } from "react-router"
-import { useClientById } from "../hook/useClientById"
+import { useGetCategoryById } from "../hook/categories/useCategoriesById"
 
-const ClientDetail = () => {
+const CategoryDetail = () => {
   const { id } = useParams<{ id: string }>()
-  const { isPending, data } = useClientById(id)
+  const { isPending, data } = useGetCategoryById(Number(id))
 
   if (isPending) return (
     <Layout>
@@ -16,13 +16,11 @@ const ClientDetail = () => {
   return (
     <Layout>
       <Typography variant="h4">Detalle cliente</Typography>
-      <Typography variant="h5">Cliente: {`${data?.name} ${data?.lastName}`}</Typography>
+      <Typography variant="h5">Cliente: {data?.name} </Typography>
       <Typography>Fecha creación: {data?.createdAt}</Typography>
       <Typography>ID: {id}</Typography>
-      <Typography>Email: {data?.email}</Typography>
-      <Typography>Cumpleaños: {data?.birthday}</Typography>
     </Layout>
   )
 }
 
-export default ClientDetail
+export default CategoryDetail

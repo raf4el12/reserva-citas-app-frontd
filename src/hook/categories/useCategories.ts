@@ -1,9 +1,10 @@
+import type { Category } from '../../types/category';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   useQuery
 } from '@tanstack/react-query'
 
-export const useClient = () => {
+export const useCategories = () => {
   const dataQuery = useQuery({
     queryKey: ['clients'],
     queryFn: async () => {
@@ -12,7 +13,7 @@ export const useClient = () => {
 
       console.log('result.data', data)
 
-      return data;
+      return data as Category[];
     }
   })
 

@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
-import ClientPage from './pages/Client'
-import ClientDetailPage from './pages/ClientDetail'
-import ClientNewPage from './pages/ClientNew'
+import CategoryPage from './pages/Category'
+import CategoryDetailPage from './pages/CategoryDetail'
+import CategoryNewPage from './pages/CategoryNew'
 import ProductPage from "./pages/Product";
 import OrderPage from "./pages/Order";
 import Navbar from "./components/Navbar";
@@ -17,19 +17,19 @@ const router = createBrowserRouter([
         element: <MainPage />
       },
       {
-        path: 'clients',
+        path: 'categories',
         children: [
           {
             path: '',
-            element: <ClientPage />
+            element: <CategoryPage />
           },
           {
             path: ':id/detail',
-            element: <ClientDetailPage />
+            element: <CategoryDetailPage />
           },
           {
             path: 'new',
-            element: <ClientNewPage />
+            element: <CategoryNewPage />
           }
         ],
       },

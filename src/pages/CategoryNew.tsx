@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material"
 import Layout from "../components/Layout"
 
-const ClientNew = () => {
+const CategoryNew = () => {
   return (
     <Layout>
       <Typography variant="h4">Nuevo cliente</Typography>
@@ -9,4 +9,4 @@ const ClientNew = () => {
   )
 }
 
-export default ClientNew
+export default CategoryNew

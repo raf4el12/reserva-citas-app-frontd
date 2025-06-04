@@ -1,10 +1,11 @@
 import { Box, LinearProgress, Typography } from '@mui/material'
 import Layout from '../components/Layout'
-import { useClient } from '../hook/useClient'
+import { useCategories } from '../hook/categories/useCategories'
 import CardNew from '../components/commons/CardNew'
+import ClientCard from '../components/category/CategoryCard'
 
-const Client = () => {
-  const { isPending, ...clients } = useClient()
+const CategoryPage = () => {
+  const { isPending, ...clients } = useCategories()
 
   if (isPending) return (
     <Layout>
@@ -27,19 +28,17 @@ const Client = () => {
         }
         {
           clients?.data && clients.data.map((item, index) => (
-            // <ClientCard
-            //   key={`client-card-${index}`}
-            //   item={item} />
             <div
               key={`client-card-${index}`}>
-              <pre>{JSON.stringify(item, null, 2)}</pre>
+                <ClientCard
+                  item={item} />
             </div>
           ))
         }
-        <CardNew href='/clients/new' />
+        <CardNew href='/categories/new' />
       </Box>
     </Layout>
   )
 }
 
-export default Client
+export default CategoryPage
