@@ -106,7 +106,7 @@ export default class HttpClient {
     const config: RequestInit = {
       method,
       headers,
-      credentials: 'include'
+      credentials: 'include',
     }
 
     if (data && method !== 'GET') {

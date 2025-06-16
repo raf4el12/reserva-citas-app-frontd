@@ -1,19 +1,19 @@
-import ApiBackend from '../../shared/services/api.backend';
-import type { Category } from '../../types/category';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query'
+import ApiBackend from '../../shared/services/api.backend'
+import type { Category } from '../../types/category'
 
-export const useGetCategoryById = (categoryId:number) => {
+export const useGetCategoryById = (categoryId: number) => {
   const query = useQuery({
-    queryKey: ['category', categoryId], 
+    queryKey: ['category', categoryId],
     queryFn: async () => {
-      if (!categoryId) return null; 
-      
-      const data = await ApiBackend.get(`/categories/${categoryId}`)
-      
-      return data as Category;
-    },
-    enabled: !!categoryId, 
-  });
+      if (!categoryId) return null
 
-  return query;
-};
+      const data = await ApiBackend.get(`/categories/${categoryId}`)
+
+      return data as Category
+    },
+    enabled: !!categoryId,
+  })
+
+  return query
+}

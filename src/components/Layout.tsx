@@ -1,5 +1,6 @@
-import React, { FC } from "react"
-import { Container } from "@mui/material"
+import { Container } from '@mui/material'
+import type React from 'react'
+import type { FC } from 'react'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -11,7 +12,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       maxWidth="lg"
       sx={{
         padding: 2,
-      }}>
+      }}
+    >
       {children}
     </Container>
   )

@@ -1,18 +1,19 @@
-import { useParams } from "react-router"
-import { LinearProgress, Typography } from "@mui/material"
+import { LinearProgress, Typography } from '@mui/material'
+import { useParams } from 'react-router'
 
-import Layout from "../../components/Layout"
-import { useGetCategoryById } from "../../hook/categories/useCategoriesById"
+import Layout from '../../components/Layout'
+import { useGetCategoryById } from '../../hook/categories/useCategoriesById'
 
 const CategoryDetail = () => {
   const { id } = useParams<{ id: string }>()
   const { isPending, data } = useGetCategoryById(Number(id))
 
-  if (isPending) return (
-    <Layout>
-       <LinearProgress />
-    </Layout>
-  )
+  if (isPending)
+    return (
+      <Layout>
+        <LinearProgress />
+      </Layout>
+    )
 
   return (
     <Layout>

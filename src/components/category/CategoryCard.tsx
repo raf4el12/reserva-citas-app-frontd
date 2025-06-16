@@ -1,10 +1,9 @@
-import { FC } from 'react'
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
+import PersonIcon from '@mui/icons-material/Person'
 import { Card, CardActionArea, CardContent, Typography } from '@mui/material'
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
-import PersonIcon from '@mui/icons-material/Person';
-import { Category } from '../../types/category'
-import ItemContainer from '../commons/ItemContainer';
-
+import type { FC } from 'react'
+import type { Category } from '../../types/category'
+import ItemContainer from '../commons/ItemContainer'
 
 interface CategoryCardProps {
   item: Category
@@ -12,21 +11,22 @@ interface CategoryCardProps {
 
 const CategoryCard: FC<CategoryCardProps> = ({ item }) => {
   return (
-    <Card
-      sx={{ minWidth: 275 }}
-      variant='outlined'>
+    <Card sx={{ minWidth: 275 }} variant="outlined">
       <CardActionArea component="a" href={`categories/${item.id}/detail`}>
         <CardContent>
           <ItemContainer>
-            <AlternateEmailIcon fontSize='small' />
-            <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+            <AlternateEmailIcon fontSize="small" />
+            <Typography
+              gutterBottom
+              sx={{ color: 'text.secondary', fontSize: 14 }}
+            >
               {item.name}
             </Typography>
           </ItemContainer>
           <ItemContainer>
-            <PersonIcon fontSize='small' />
+            <PersonIcon fontSize="small" />
             <Typography variant="h5" component="div">
-              {item.deleted} 
+              {item.deleted}
             </Typography>
           </ItemContainer>
         </CardContent>

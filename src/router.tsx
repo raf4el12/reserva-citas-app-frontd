@@ -1,14 +1,14 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from 'react-router-dom'
 
-import NavbarMain from "./components/NavbarMain";
-import NavbarAdmin from "./components/NavbarAdmin";
-import NavbarAuth from "./components/NavbarAuth";
-import MainPage from "./pages/Main";
+import NavbarAdmin from './components/NavbarAdmin'
+import NavbarAuth from './components/NavbarAuth'
+import NavbarMain from './components/NavbarMain'
+import MainPage from './pages/Main'
 
-import CategoryPage from './pages/categories/CategoryPage'
+import LoginPage from './pages/auth/LoginPage'
 import CategoryDetailPage from './pages/categories/CategoryDetail'
 import CategoryNewPage from './pages/categories/CategoryNew'
-import LoginPage from "./pages/auth/LoginPage";
+import CategoryPage from './pages/categories/CategoryPage'
 
 const router = createBrowserRouter([
   {
@@ -17,50 +17,50 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <MainPage />
+        element: <MainPage />,
       },
-    ]
+    ],
   },
   {
-    path: "admin",
+    path: 'admin',
     Component: NavbarAdmin,
     children: [
       {
         index: true,
-        element: <CategoryPage />
+        element: <CategoryPage />,
       },
       {
         path: 'categories',
         children: [
           {
             path: '',
-            element: <CategoryPage />
+            element: <CategoryPage />,
           },
           {
             path: ':id/detail',
-            element: <CategoryDetailPage />
+            element: <CategoryDetailPage />,
           },
           {
             path: 'new',
-            element: <CategoryNewPage />
-          }
+            element: <CategoryNewPage />,
+          },
         ],
       },
-    ]
+    ],
   },
   {
-    path: "auth",
+    path: 'auth',
     Component: NavbarAuth,
     children: [
       {
         index: true,
-        element: <LoginPage />
+        element: <LoginPage />,
       },
       {
         path: 'login',
-        element: <LoginPage />
-      }
-    ]
+        element: <LoginPage />,
+      },
+    ],
   },
 ])
 

@@ -1,21 +1,31 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { Box, Button, TextField, Typography, Alert, CircularProgress, Container, Paper } from '@mui/material';
-import { useLoginMutation } from '../../hook/auth/useLogin';
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Paper,
+  TextField,
+  Typography,
+} from '@mui/material'
+import type React from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router'
+import { useLoginMutation } from '../../hook/auth/useLogin'
 
 const LoginCard = () => {
   const navigate = useNavigate()
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const loginMutation = useLoginMutation();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const loginMutation = useLoginMutation()
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await loginMutation.mutateAsync({ email, password });
+    e.preventDefault()
+    await loginMutation.mutateAsync({ email, password })
 
     navigate('/admin')
-  };
+  }
 
   return (
     <Container maxWidth="sm">
@@ -23,12 +33,18 @@ const LoginCard = () => {
         <Typography variant="h5" mb={2} align="center">
           Iniciar sesión
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} display="flex" flexDirection="column" gap={2}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          display="flex"
+          flexDirection="column"
+          gap={2}
+        >
           <TextField
             label="Correo electrónico"
             type="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
             fullWidth
           />
@@ -36,7 +52,7 @@ const LoginCard = () => {
             label="Contraseña"
             type="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
             fullWidth
           />
@@ -48,7 +64,11 @@ const LoginCard = () => {
             fullWidth
             sx={{ mt: 2 }}
           >
-            {loginMutation.isPending ? <CircularProgress size={24} /> : 'Entrar'}
+            {loginMutation.isPending ? (
+              <CircularProgress size={24} />
+            ) : (
+              'Entrar'
+            )}
           </Button>
           {loginMutation.isError && (
             <Alert severity="error" sx={{ mt: 2 }}>
@@ -65,7 +85,7 @@ const LoginCard = () => {
         </Box>
       </Paper>
     </Container>
-  );
-};
+  )
+}
 
-export default LoginCard;
+export default LoginCard

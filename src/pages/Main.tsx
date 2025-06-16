@@ -1,5 +1,5 @@
-import Layout from "../components/Layout"
-import { Box, Button, Container, Typography, Grid, Paper } from '@mui/material';
+import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material'
+import Layout from '../components/Layout'
 
 const features = [
   {
@@ -8,13 +8,15 @@ const features = [
   },
   {
     title: 'Recordatorios Automáticos',
-    description: 'Recibe notificaciones para que nunca olvides una cita importante.',
+    description:
+      'Recibe notificaciones para que nunca olvides una cita importante.',
   },
   {
     title: 'Gestión de Clientes',
-    description: 'Administra tus clientes y su historial de reservas de manera sencilla.',
+    description:
+      'Administra tus clientes y su historial de reservas de manera sencilla.',
   },
-];
+]
 
 const Main = () => {
   return (
@@ -52,7 +54,8 @@ const Main = () => {
         </Grid>
         <Box mt={8} textAlign="center">
           <Typography variant="body2" color="text.secondary">
-            &copy; {new Date().getFullYear()} ReservaCitasApp. Todos los derechos reservados.
+            &copy; {new Date().getFullYear()} ReservaCitasApp. Todos los
+            derechos reservados.
           </Typography>
         </Box>
       </Container>

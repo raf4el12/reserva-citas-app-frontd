@@ -7,13 +7,20 @@ const NavbarAuth = () => {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            <Box sx={{
-              flexGrow: 1,
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}>
-              <Typography variant="h6" sx={{ marginRight: 1, color: 'white' }} component={Link} href='/'>
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <Typography
+                variant="h6"
+                sx={{ marginRight: 1, color: 'white' }}
+                component={Link}
+                href="/"
+              >
                 Reserva Cita
               </Typography>
             </Box>
