@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Link, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, Link, Toolbar, Typography } from '@mui/material'
 import { Outlet } from 'react-router'
 
 const RouterMain = [
@@ -6,17 +6,9 @@ const RouterMain = [
     name: 'Categorias',
     href: '/categories'
   },
-  {
-    name: 'Productos',
-    href: '/products'
-  },
-  {
-    name: 'Ordenes',
-    href: '/orders'
-  }
 ]
 
-const Navbar = () => {
+const NavbarAdmin = () => {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -29,7 +21,7 @@ const Navbar = () => {
               alignItems: 'center'
             }}>
               <Typography variant="h6" sx={{ marginRight: 1, color: 'white' }} component={Link} href='/'>
-                Carrito Compra
+                Reserva Cita
               </Typography>
               {
                 RouterMain.map((item, index) => {
@@ -47,7 +39,6 @@ const Navbar = () => {
                 })
               }
             </Box>
-            <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
       </Box>
@@ -56,4 +47,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default NavbarAdmin

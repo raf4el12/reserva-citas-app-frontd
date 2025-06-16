@@ -6,11 +6,11 @@ import { Category } from '../../types/category'
 import ItemContainer from '../commons/ItemContainer';
 
 
-interface ClientCardProps {
+interface CategoryCardProps {
   item: Category
 }
 
-const ClientCard: FC<ClientCardProps> = ({ item }) => {
+const CategoryCard: FC<CategoryCardProps> = ({ item }) => {
   return (
     <Card
       sx={{ minWidth: 275 }}
@@ -35,4 +35,4 @@ const ClientCard: FC<ClientCardProps> = ({ item }) => {
   )
 }
 
-export default ClientCard
+export default CategoryCard

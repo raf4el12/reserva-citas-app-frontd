@@ -1,20 +1,33 @@
 import { createBrowserRouter } from "react-router-dom";
-import CategoryPage from './pages/Category'
-import CategoryDetailPage from './pages/CategoryDetail'
-import CategoryNewPage from './pages/CategoryNew'
-import ProductPage from "./pages/Product";
-import OrderPage from "./pages/Order";
-import Navbar from "./components/Navbar";
+
+import NavbarMain from "./components/NavbarMain";
+import NavbarAdmin from "./components/NavbarAdmin";
+import NavbarAuth from "./components/NavbarAuth";
 import MainPage from "./pages/Main";
+
+import CategoryPage from './pages/categories/CategoryPage'
+import CategoryDetailPage from './pages/categories/CategoryDetail'
+import CategoryNewPage from './pages/categories/CategoryNew'
+import LoginPage from "./pages/auth/LoginPage";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    Component: Navbar,
+    path: '/',
+    Component: NavbarMain,
     children: [
       {
         index: true,
         element: <MainPage />
+      },
+    ]
+  },
+  {
+    path: "admin",
+    Component: NavbarAdmin,
+    children: [
+      {
+        index: true,
+        element: <CategoryPage />
       },
       {
         path: 'categories',
@@ -33,13 +46,19 @@ const router = createBrowserRouter([
           }
         ],
       },
+    ]
+  },
+  {
+    path: "auth",
+    Component: NavbarAuth,
+    children: [
       {
-        path: 'products',
-        element: <ProductPage />
+        index: true,
+        element: <LoginPage />
       },
       {
-        path: 'orders',
-        element: <OrderPage />
+        path: 'login',
+        element: <LoginPage />
       }
     ]
   },

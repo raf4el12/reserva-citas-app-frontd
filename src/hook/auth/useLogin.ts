@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import ApiBackend from '../../shared/services/api.backend';
 
 interface LoginData {
   email: string;
@@ -6,19 +7,7 @@ interface LoginData {
 }
 
 async function loginUser(data: LoginData) {
-  const response = await fetch('http://localhost:3000/api/auth/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  });
-
-  if (!response.ok) {
-    throw new Error('Login failed');
-  }
-
-  return response.json();
+  return ApiBackend.post('/auth/login', data)
 }
 
 export function useLoginMutation() {
