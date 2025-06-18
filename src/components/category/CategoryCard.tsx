@@ -12,7 +12,7 @@ interface CategoryCardProps {
 const CategoryCard: FC<CategoryCardProps> = ({ item }) => {
   return (
     <Card sx={{ minWidth: 275 }} variant="outlined">
-      <CardActionArea component="a" href={`categories/${item.id}/detail`}>
+      <CardActionArea component="a" href={`/admin/categories/${item.id}/detail`}>
         <CardContent>
           <ItemContainer>
             <AlternateEmailIcon fontSize="small" />

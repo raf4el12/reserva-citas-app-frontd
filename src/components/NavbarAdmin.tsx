@@ -4,7 +4,7 @@ import { Outlet } from 'react-router'
 const RouterMain = [
   {
     name: 'Categorias',
-    href: '/categories',
+    href: '/admin/categories',
   },
 ]
 

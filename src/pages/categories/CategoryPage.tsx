@@ -33,7 +33,7 @@ const CategoryPage = () => {
             <CategoryCard item={item} />
           </div>
         ))}
-        <CardNew href="/categories/new" />
+        <CardNew href="/admin/categories/new" />
       </Box>
     </Layout>
   )
