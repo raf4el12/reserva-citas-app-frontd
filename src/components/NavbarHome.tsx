@@ -1,7 +1,10 @@
 import { AppBar, Box, Button, Link, Toolbar, Typography } from '@mui/material'
 import { Outlet } from 'react-router'
+import { useUserById } from '../hook/users/useUserById'
 
 const NavbarUser = () => {
+  const { data: user } = useUserById(1)
+  
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -31,7 +34,7 @@ const NavbarUser = () => {
               Mis citas
             </Button>
             <Button href="/auth/login" LinkComponent="a" color="inherit">
-              Logout
+              Salir ({user?.name})
             </Button>
           </Toolbar>
         </AppBar>

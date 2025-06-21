@@ -27,14 +27,14 @@ const router = createBrowserRouter([
       },
     ],
   },
-{
-  path: 'turno-home',
-  Component: NavbarHome,
-  children: [
-    { index: true, element: <TurnoHome /> },
-    { path: 'sacar-cita', element: <AppointmentForm /> },
-  ],
-},
+  {
+    path: 'turno-home',
+    Component: NavbarHome,
+    children: [
+      { index: true, element: <TurnoHome /> },
+      { path: 'sacar-cita', element: <AppointmentForm /> },
+    ],
+  },
   {
     path: 'admin',
     Component: NavbarAdmin,
