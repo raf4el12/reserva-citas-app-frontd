@@ -1,6 +1,6 @@
 import { Alert, Box, Button, Paper, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
-import { useCreateCategory } from '../../hook/categories/createdCategories'
+import { useCreateCategory } from '../../hook/categories/useCreatedCategories'
 
 const CategoryNew = () => {
   const [name, setName] = useState('')

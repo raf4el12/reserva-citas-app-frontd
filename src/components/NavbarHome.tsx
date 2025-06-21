@@ -1,9 +1,33 @@
-import { AppBar, Box, Button, Link, Toolbar, Typography } from '@mui/material'
-import { Outlet } from 'react-router'
+import { Alert, AppBar, Box, Button, Link, Snackbar, Toolbar, Typography } from '@mui/material'
+import { Outlet, useNavigate } from 'react-router'
 import { useUserById } from '../hook/users/useUserById'
+import { useGetUserIdContext } from '../hook/auth/useGetUserIdContext'
+import { useLogoutMutation } from '../hook/auth/useLogout'
+import { useState } from 'react'
 
 const NavbarUser = () => {
-  const { data: user } = useUserById(1)
+  const navigate = useNavigate()
+  const userId = useGetUserIdContext()
+  const logoutMutation = useLogoutMutation()
+  const { data: user } = useUserById(userId)
+
+  const [openSnack, setOpenSnack] = useState(false)
+
+  const handleLogout = async () => {
+    try {
+      await logoutMutation.mutateAsync()
+      navigate('/auth/login')
+    } catch {
+      setOpenSnack(true)
+    }
+  }
+
+  const handleCloseSnackbar = () => {
+    setOpenSnack(false)
+  }
+
+  if (!user)
+    return navigate('/auth/login')
 
   return (
     <>
@@ -33,12 +57,22 @@ const NavbarUser = () => {
             <Button href="/mis-citas" LinkComponent="a" color="inherit">
               Mis citas
             </Button>
-            <Button href="/auth/login" LinkComponent="a" color="inherit">
+            <Button onClick={handleLogout} color="inherit">
               Salir ({user?.name})
             </Button>
           </Toolbar>
         </AppBar>
       </Box>
+      <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="error"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Ocurrio un error al cerrar sesión
+        </Alert>
+      </Snackbar>
       <Outlet />
     </>
   )

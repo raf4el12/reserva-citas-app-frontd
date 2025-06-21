@@ -1,14 +1,17 @@
-import { CssBaseline } from '@mui/material'
+import { CssBaseline, ThemeProvider } from '@mui/material'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { RouterProvider } from 'react-router-dom'
+import './index.css'
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
-import './index.css'
+
+import { createRoot } from 'react-dom/client'
+import { RouterProvider } from 'react-router-dom'
+
+import theme from './theme.ts'
 import router from './router.tsx'
 
 const queryClient = new QueryClient()
@@ -19,10 +22,12 @@ const root = createRoot(rootElement)
 
 root.render(
   <StrictMode>
-    <CssBaseline />
-    <QueryClientProvider client={queryClient}>
-      {import.meta.env.MODE !== 'production' && <ReactQueryDevtools />}
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <QueryClientProvider client={queryClient}>
+        {import.meta.env.MODE !== 'production' && <ReactQueryDevtools />}
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </ThemeProvider>
   </StrictMode>
 )
