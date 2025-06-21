@@ -1,5 +1,5 @@
+import { Alert, Box, Button, Paper, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
-import { Box, Button, Paper, TextField, Typography, Alert } from '@mui/material'
 import { useCreateCategory } from '../../hook/categories/createdCategories'
 
 const CategoryNew = () => {
@@ -26,11 +26,17 @@ const CategoryNew = () => {
       <Typography variant="h6" mb={2} align="center" fontWeight="bold">
         Nueva Categoría
       </Typography>
-      <Box component="form" onSubmit={handleSubmit} display="flex" flexDirection="column" gap={2}>
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        display="flex"
+        flexDirection="column"
+        gap={2}
+      >
         <TextField
           label="Nombre"
           value={name}
-          onChange={e => setName(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
           required
           fullWidth
         />

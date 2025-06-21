@@ -1,15 +1,15 @@
-import { useState } from 'react'
 import {
+  Alert,
   Box,
   Button,
+  CircularProgress,
   Container,
   MenuItem,
   Paper,
   TextField,
   Typography,
-  Alert,
-  CircularProgress,
 } from '@mui/material'
+import { useState } from 'react'
 
 const initialForm = {
   patientId: '',
@@ -77,7 +77,13 @@ const AppointmentForm = () => {
           background: 'rgba(255, 255, 255, 0.95)',
         }}
       >
-        <Typography variant="h5" mb={2} align="center" fontWeight="bold" color="#1976d2">
+        <Typography
+          variant="h5"
+          mb={2}
+          align="center"
+          fontWeight="bold"
+          color="#1976d2"
+        >
           Sacar una cita
         </Typography>
         <Box

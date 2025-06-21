@@ -1,16 +1,16 @@
 import { useMutation } from '@tanstack/react-query'
 import ApiBackend from '../../shared/services/api.backend'
 
-type RegisterDto = {
+type createUserDto = {
   name: string
   email: string
   password: string
   role: string
 }
 
-export const useRegister = () => {
+export const createUser = () => {
   return useMutation({
-    mutationFn: async (user: RegisterDto) => {
+    mutationFn: async (user: createUserDto) => {
       const data = await ApiBackend.post('/users', user)
       return data
     },

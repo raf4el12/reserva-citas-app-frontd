@@ -4,7 +4,7 @@ import { useUserById } from '../hook/users/useUserById'
 
 const NavbarUser = () => {
   const { data: user } = useUserById(1)
-  
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>

@@ -2,19 +2,18 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import NavbarAdmin from './components/NavbarAdmin'
 import NavbarAuth from './components/NavbarAuth'
-import NavbarMain from './components/NavbarMain'
 import NavbarHome from './components/NavbarHome'
+import NavbarMain from './components/NavbarMain'
 
 import MainPage from './pages/Main'
 
+import AppointmentForm from './components/appoitments/AppoitmentsCard'
+import TurnoHome from './components/home/TurnoHomeCard'
+import RegisterCard from './components/register/registerCard'
 import LoginPage from './pages/auth/LoginPage'
 import CategoryDetailPage from './pages/categories/CategoryDetail'
 import CategoryNewPage from './pages/categories/CategoryNew'
 import CategoryPage from './pages/categories/CategoryPage'
-import RegisterCard from './components/register/registerCard'
-import TurnoHome from './components/home/TurnoHomeCard'
-import AppointmentForm from './components/appoitments/AppoitmentsCard'
-
 
 const router = createBrowserRouter([
   {

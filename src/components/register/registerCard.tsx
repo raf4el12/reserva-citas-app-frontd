@@ -2,15 +2,15 @@ import {
   Alert,
   Box,
   Button,
+  CircularProgress,
   Container,
   Paper,
   TextField,
   Typography,
-  CircularProgress,
 } from '@mui/material'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import { useRegister } from '../../hook/register/createdRegister'
+import { createUser } from '../../hook/users/createUser'
 
 const RegisterCard = () => {
   const navigate = useNavigate()
@@ -21,7 +21,7 @@ const RegisterCard = () => {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
 
-  const registerMutation = useRegister()
+  const registerMutation = createUser()
 
   // Validación de email: debe tener @ y terminar en .com
   const isValidEmail = (email: string) => {
@@ -96,7 +96,7 @@ const RegisterCard = () => {
           <TextField
             label="Nombre"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             required
             fullWidth
             sx={{
@@ -108,7 +108,7 @@ const RegisterCard = () => {
             label="Correo electrónico"
             type="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
             fullWidth
             sx={{
@@ -120,7 +120,7 @@ const RegisterCard = () => {
             label="Contraseña"
             type="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
             fullWidth
             sx={{
@@ -132,7 +132,7 @@ const RegisterCard = () => {
             label="Confirmar contraseña"
             type="password"
             value={confirmPassword}
-            onChange={e => setConfirmPassword(e.target.value)}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             required
             fullWidth
             sx={{
@@ -155,7 +155,11 @@ const RegisterCard = () => {
               boxShadow: '0 2px 8px rgba(25, 118, 210, 0.15)',
             }}
           >
-            {registerMutation.isPending ? <CircularProgress size={24} /> : 'Registrarse'}
+            {registerMutation.isPending ? (
+              <CircularProgress size={24} />
+            ) : (
+              'Registrarse'
+            )}
           </Button>
           {error && (
             <Alert severity="error" sx={{ mt: 2 }}>
