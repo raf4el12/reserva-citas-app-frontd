@@ -1,13 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import ApiBackend from '../../shared/services/api.backend'
-import type { Role } from '../../types/user'
-
-type SignupDto = {
-  name: string
-  email: string
-  password: string
-  role: Role
-}
+import type { SignupDto } from '../../types/auth'
 
 export const useSignup = () => {
   return useMutation({

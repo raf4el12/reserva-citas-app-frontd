@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useSignup } from '../../hook/auth/useSignup'
+import { userSignupSchema } from '../../types/auth'
 import { Role } from '../../types/user'
 import LayoutAuth from './LayoutAuth'
 
@@ -11,44 +12,28 @@ const SignupCard = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
-  const [success, setSuccess] = useState(false)
 
   const signupMutation = useSignup()
 
-  const isValidEmail = (email: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.endsWith('.com')
-  }
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setError('')
-    setSuccess(false)
+    const data = { name, email, password, role: Role.USER }
+    const result = userSignupSchema.safeParse(data)
 
-    if (!name || !email || !password) {
-      setError('Todos los campos son obligatorios')
-      return
-    }
-    if (!isValidEmail(email)) {
-      setError('Ingresa un correo electrónico válido que termine en .com')
-      return
-    }
-    if (password !== confirmPassword) {
-      setError('Las contraseñas no coinciden')
+    if (!result.success) {
+      setError(JSON.stringify(result.error.errors) || 'Datos inválidos')
+
       return
     }
 
-    signupMutation.mutate(
-      { name, email, password, role: Role.USER },
-      {
-        onSuccess: () => {
-          setSuccess(true)
-          setTimeout(() => navigate('/auth/login'), 1500)
-        },
-        onError: (err: any) => {
-          setError(err?.message || 'Error al registrar la cuenta')
-        },
-      }
-    )
+    signupMutation.mutate(data, {
+      onSuccess: () => {
+        navigate('/auth/login')
+      },
+      onError: (err: any) => {
+        setError(err?.message || 'Error al registrar la cuenta')
+      },
+    })
   }
 
   return (
@@ -67,8 +52,6 @@ const SignupCard = () => {
             </label>
             <input
               id="name"
-              type="text"
-              required
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
@@ -81,8 +64,6 @@ const SignupCard = () => {
             </label>
             <input
               id="email"
-              type="email"
-              required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
@@ -99,7 +80,6 @@ const SignupCard = () => {
             <input
               id="password"
               type="password"
-              required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
@@ -116,7 +96,6 @@ const SignupCard = () => {
             <input
               id="confirmPassword"
               type="password"
-              required
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
@@ -131,13 +110,8 @@ const SignupCard = () => {
             {signupMutation.isPending ? 'Registrando...' : 'Registrarse'}
           </button>
           {error && (
-            <div className="bg-red-100 text-red-700 rounded px-4 py-2 mt-2 text-center text-sm">
+            <div className="bg-red-100 text-red-700 rounded px-4 py-2 mt-2 text-center text-sm break-words">
               {error}
-            </div>
-          )}
-          {success && (
-            <div className="bg-green-100 text-green-700 rounded px-4 py-2 mt-2 text-center text-sm">
-              ¡Cuenta creada correctamente! Redirigiendo...
             </div>
           )}
         </form>
