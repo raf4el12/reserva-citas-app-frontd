@@ -1,6 +1,5 @@
-import { type ReactNode, createContext, useContext, useState } from 'react'
-import { useGetUserIdContext } from '../hook/auth/useGetUserIdContext'
-import { useUserById } from '../hook/users/useUserById'
+import { type ReactNode, createContext, useContext } from 'react'
+import { useGetUserById } from '../hook/users/useGetUserById'
 import type { User } from '../types/user'
 
 interface AuthState {
@@ -14,13 +13,16 @@ interface AuthProviderProps {
   children: ReactNode
 }
 
+const getUserId = () => localStorage.getItem('userId')
+
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const userId = useGetUserIdContext()
-  const { data: user, isPending } = useUserById(userId)
+  const userId = getUserId()
+  const userQuery = useGetUserById(userId)
+  const { data: user, isPending } = userQuery
 
   const value = {
     user: user || null,
-    isLoading: isPending,
+    isLoading: !!userId && isPending,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

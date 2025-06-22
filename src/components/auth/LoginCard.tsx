@@ -1,18 +1,26 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useLoginMutation } from '../../hook/auth/useLogin'
 import LayoutAuth from './LayoutAuth'
 
 const LoginCard = () => {
-  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const loginMutation = useLoginMutation()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    await loginMutation.mutateAsync({ email, password })
-    navigate('/admin')
+    await loginMutation.mutateAsync(
+      { email, password },
+      {
+        onSuccess: (data) => {
+          const { userId } = data
+          localStorage.setItem('userId', userId)
+
+          window.location.href = '/admin'
+        },
+      }
+    )
   }
 
   return (

@@ -13,9 +13,5 @@ async function loginUser(data: LoginDto) {
 export function useLoginMutation() {
   return useMutation({
     mutationFn: loginUser,
-    onSuccess: (data) => {
-      const { userId } = data
-      localStorage.setItem('userId', userId)
-    },
   })
 }
