@@ -10,7 +10,8 @@ import {
 } from '@mui/material'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import { useCreateUser } from '../../hook/users/useCreateUser'
+import { useSignup } from '../../hook/auth/useSignup'
+import { Role } from '../../types/user'
 
 const SignupCard = () => {
   const navigate = useNavigate()
@@ -21,9 +22,8 @@ const SignupCard = () => {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
 
-  const createUserMutation = useCreateUser()
+  const signupMutation = useSignup()
 
-  // Validación de email: debe tener @ y terminar en .com
   const isValidEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.endsWith('.com')
   }
@@ -46,8 +46,8 @@ const SignupCard = () => {
       return
     }
 
-    createUserMutation.mutate(
-      { name, email, password, role: 'user' },
+    signupMutation.mutate(
+      { name, email, password, role: Role.USER },
       {
         onSuccess: () => {
           setSuccess(true)
@@ -145,7 +145,7 @@ const SignupCard = () => {
             variant="contained"
             color="primary"
             fullWidth
-            disabled={createUserMutation.isPending}
+            disabled={signupMutation.isPending}
             sx={{
               mt: 2,
               fontWeight: 'bold',
@@ -155,7 +155,7 @@ const SignupCard = () => {
               boxShadow: '0 2px 8px rgba(25, 118, 210, 0.15)',
             }}
           >
-            {createUserMutation.isPending ? (
+            {signupMutation.isPending ? (
               <CircularProgress size={24} />
             ) : (
               'Registrarse'

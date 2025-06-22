@@ -10,8 +10,8 @@ export interface User {
   updatedAt: any
 }
 
-export const Role = {
-  ADMIN: 'ADMIN',
-  DOCTOR: 'DOCTOR',
-  USER: 'USER',
+export enum Role {
+  ADMIN = 'ADMIN',
+  DOCTOR = 'DOCTOR',
+  USER = 'USER',
 }
