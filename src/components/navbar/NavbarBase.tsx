@@ -11,7 +11,7 @@ import {
 import { type FC, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router'
 
-import useAuthContext from '../../context/auth-provider'
+import useAuthContext from '../../context/AuthContext'
 import { useLogoutMutation } from '../../hook/auth/useLogout'
 import LoadingPage from '../LoadingPage'
 import DropdownAvatar from '../auth/DropdownAvatar'

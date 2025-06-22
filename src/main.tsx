@@ -11,7 +11,7 @@ import '@fontsource/roboto/700.css'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 
-import { AuthProvider } from './context/auth-provider.tsx'
+import { AuthProvider } from './context/AuthContext.tsx'
 import router from './router.tsx'
 import theme from './theme.ts'
 

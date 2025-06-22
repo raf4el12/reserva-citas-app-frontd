@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
-import useAuthContext from '../context/auth-provider'
+import useAuthContext from '../context/AuthContext'
 
 const features = [
   {
