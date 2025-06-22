@@ -3,8 +3,12 @@ import { createBrowserRouter } from 'react-router-dom'
 import NavbarAdmin from './components/NavbarAdmin'
 import NavbarAuth from './components/NavbarAuth'
 import NavbarMain from './components/NavbarMain'
+
 import MainPage from './pages/Main'
+
 import LoginPage from './pages/auth/LoginPage'
+import SignupPage from './pages/auth/SignupPage'
+
 import CategoryDetailPage from './pages/categories/CategoryDetail'
 import CategoryNewPage from './pages/categories/CategoryNew'
 import CategoryPage from './pages/categories/CategoryPage'
@@ -58,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <LoginPage />,
+      },
+      {
+        path: 'signup',
+        element: <SignupPage />,
       },
     ],
   },

@@ -1,7 +1,7 @@
 import NavbarBase from './navbar/NavbarBase'
 
 const NavbarMain = () => {
-  const title = 'Reserva Cita'
+  const title = 'Sisol Reserva'
 
   return <NavbarBase title={title} />
 }

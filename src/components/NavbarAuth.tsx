@@ -21,7 +21,7 @@ const NavbarAuth = () => {
                 component={Link}
                 href="/"
               >
-                Reserva Cita
+                Sisol Auth
               </Typography>
             </Box>
           </Toolbar>

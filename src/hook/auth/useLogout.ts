@@ -5,11 +5,15 @@ async function loginUser() {
   return ApiBackend.post('/auth/logout')
 }
 
+export function removeAuthLocalStorage() {
+  localStorage.removeItem('userId')
+}
+
 export function useLogoutMutation() {
   return useMutation({
     mutationFn: loginUser,
     onSuccess: () => {
-      localStorage.removeItem('userId')
+      removeAuthLocalStorage()
     },
   })
 }

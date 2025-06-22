@@ -14,6 +14,7 @@ import { Outlet, useNavigate } from 'react-router'
 import useAuthContext from '../../context/auth-provider'
 import { useLogoutMutation } from '../../hook/auth/useLogout'
 import LoadingPage from '../LoadingPage'
+import DropdownAvatar from '../auth/DropdownAvatar'
 
 interface NavbarBaseProps {
   isPrivate?: boolean
@@ -24,7 +25,7 @@ interface NavbarBaseProps {
 const NavbarBase: FC<NavbarBaseProps> = ({
   actionLeft,
   isPrivate,
-  title = 'Reserva Cita',
+  title = 'Sisol Reserva',
 }) => {
   const navigate = useNavigate()
   const { user, isLoading } = useAuthContext()
@@ -78,11 +79,7 @@ const NavbarBase: FC<NavbarBaseProps> = ({
               </Typography>
             </Box>
             {actionLeft}
-            {user && (
-              <Button onClick={handleLogout} color="inherit">
-                Salir ({user?.name})
-              </Button>
-            )}
+            {user && <DropdownAvatar user={user} onLogout={handleLogout} />}
             {!user && (
               <Button href="/auth/login" LinkComponent="a" color="inherit">
                 Login

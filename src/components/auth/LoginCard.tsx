@@ -1,24 +1,11 @@
-import {
-  Alert,
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Paper,
-  TextField,
-  Typography,
-} from '@mui/material'
-import Link from '@mui/material/Link'
-import type React from 'react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useLoginMutation } from '../../hook/auth/useLogin'
-import logo from '../../images/LOGO-SISOL.png' // Ajusta la ruta según tu estructura
+import logo from '../../images/LOGO-SISOL.png'
+import LayoutAuth from './LayoutAuth'
 
 const LoginCard = () => {
   const navigate = useNavigate()
-
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const loginMutation = useLoginMutation()
@@ -26,125 +13,88 @@ const LoginCard = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     await loginMutation.mutateAsync({ email, password })
-
     navigate('/admin')
   }
 
   return (
-    <Container maxWidth="sm">
-      <Paper
-        elevation={8}
-        sx={{
-          p: 4,
-          mt: 8,
-          borderRadius: 4,
-          boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-          background: 'rgba(255, 255, 255, 0.95)',
-          backdropFilter: 'blur(4px)',
-        }}
-      >
-        <Box display="flex" justifyContent="center" mb={2}>
+    <LayoutAuth>
+      <div className="bg-white border border-gray-100 rounded-2xl shadow-lg p-8 w-full max-w-md">
+        <div className="flex justify-center mb-4">
           <img
             src={logo}
             alt="Logo"
-            style={{
-              maxWidth: 120,
-              borderRadius: '50%',
-              boxShadow: '0 4px 16px rgba(25, 118, 210, 0.15)',
-              border: '3px solid #1976d2',
-              background: '#fff',
-              padding: 8,
-            }}
+            className="w-[180px] h-24 rounded-full border-4 border-primary bg-white shadow"
           />
-        </Box>
-        <Typography
-          variant="h5"
-          mb={2}
-          align="center"
-          sx={{
-            fontWeight: 'bold',
-            color: '#1976d2',
-            letterSpacing: 1,
-            textShadow: '0 2px 8px rgba(25, 118, 210, 0.08)',
-          }}
-        >
-          Iniciar sesión
-        </Typography>
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          display="flex"
-          flexDirection="column"
-          gap={2}
-        >
-          <TextField
-            label="Correo electrónico"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            fullWidth
-            sx={{
-              background: '#f5faff',
-              borderRadius: 2,
-            }}
-          />
-          <TextField
-            label="Contraseña"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            fullWidth
-            sx={{
-              background: '#f5faff',
-              borderRadius: 2,
-            }}
-          />
-          <Button
+        </div>
+        <h2 className="text-2xl font-bold text-center mb-1">
+          Inicia sesión en tu cuenta
+        </h2>
+        <p className="text-gray-500 text-center mb-6 text-sm">
+          Ingresa tu correo y contraseña para acceder
+        </p>
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <label className="block text-sm font-medium mb-1" htmlFor="email">
+              Correo electrónico
+            </label>
+            <input
+              id="email"
+              type="email"
+              autoComplete="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
+              placeholder="m@ejemplo.com"
+            />
+          </div>
+          <div>
+            <div className="flex justify-between items-center mb-1">
+              <label className="text-sm font-medium" htmlFor="password">
+                Contraseña
+              </label>
+              {/* <Link to="/auth/forgot" className="text-xs text-primary hover:underline">
+                ¿Olvidaste tu contraseña?
+              </Link> */}
+            </div>
+            <input
+              id="password"
+              type="password"
+              autoComplete="current-password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
+            />
+          </div>
+          <button
             type="submit"
-            variant="contained"
-            color="primary"
             disabled={loginMutation.isPending}
-            fullWidth
-            sx={{
-              mt: 2,
-              fontWeight: 'bold',
-              letterSpacing: 1,
-              py: 1.5,
-              fontSize: '1rem',
-              boxShadow: '0 2px 8px rgba(25, 118, 210, 0.15)',
-            }}
+            className="w-full bg-black text-white rounded-md py-2 font-semibold mt-2 hover:bg-gray-900 transition disabled:opacity-60"
           >
-            {loginMutation.isPending ? (
-              <CircularProgress size={24} />
-            ) : (
-              'Entrar'
-            )}
-          </Button>
+            {loginMutation.isPending ? 'Ingresando...' : 'Ingresar'}
+          </button>
           {loginMutation.isError && (
-            <Alert severity="error" sx={{ mt: 2 }}>
+            <div className="bg-red-100 text-red-700 rounded px-4 py-2 mt-2 text-center text-sm">
               {loginMutation.error instanceof Error
                 ? loginMutation.error.message
                 : 'Error al iniciar sesión'}
-            </Alert>
+            </div>
           )}
           {loginMutation.isSuccess && (
-            <Alert severity="success" sx={{ mt: 2 }}>
+            <div className="bg-green-100 text-green-700 rounded px-4 py-2 mt-2 text-center text-sm">
               ¡Sesión iniciada correctamente!
-            </Alert>
+            </div>
           )}
-        </Box>
-        <Box mt={3} textAlign="center">
-          <Typography variant="body2">
-            ¿No tienes cuenta?{' '}
-            <Link component={RouterLink} to="/auth/register" underline="hover">
-              Regístrate aquí
-            </Link>
-          </Typography>
-        </Box>
-      </Paper>
-    </Container>
+        </form>
+        <div className="mt-6 text-center text-sm text-gray-600">
+          ¿No tienes cuenta?{' '}
+          <Link to="/auth/signup" className="underline hover:text-primary">
+            Regístrate aquí
+          </Link>
+        </div>
+      </div>
+    </LayoutAuth>
   )
 }
 

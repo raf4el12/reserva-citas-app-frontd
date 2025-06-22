@@ -1,3 +1,4 @@
+import { removeAuthLocalStorage } from '../../hook/auth/useLogout'
 import Envs from '../envs'
 import HttpClient from './http-client'
 
@@ -13,6 +14,7 @@ ApiBackend.interceptResponse(async (response, context) => {
 
       return await tempClient.request(context.method, context.endpoint)
     } catch {
+      removeAuthLocalStorage()
       window.location.href = '/auth/login'
     }
   }

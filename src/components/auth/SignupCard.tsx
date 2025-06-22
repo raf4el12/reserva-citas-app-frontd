@@ -12,7 +12,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useCreateUser } from '../../hook/users/useCreateUser'
 
-const RegisterCard = () => {
+const SignupCard = () => {
   const navigate = useNavigate()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -177,4 +177,4 @@ const RegisterCard = () => {
   )
 }
 
-export default RegisterCard
+export default SignupCard
