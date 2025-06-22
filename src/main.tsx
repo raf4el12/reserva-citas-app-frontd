@@ -11,8 +11,8 @@ import '@fontsource/roboto/700.css'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 
-import theme from './theme.ts'
 import router from './router.tsx'
+import theme from './theme.ts'
 
 const queryClient = new QueryClient()
 

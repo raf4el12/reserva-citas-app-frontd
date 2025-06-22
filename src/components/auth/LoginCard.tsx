@@ -27,7 +27,7 @@ const LoginCard = () => {
     e.preventDefault()
     await loginMutation.mutateAsync({ email, password })
 
-    navigate('/turno-home')
+    navigate('/admin')
   }
 
   return (

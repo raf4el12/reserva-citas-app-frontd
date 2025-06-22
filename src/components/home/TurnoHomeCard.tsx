@@ -7,7 +7,7 @@ const TurnoHome = () => {
   const navigate = useNavigate()
 
   const handleSacarCita = () => {
-    navigate('/turno-home/sacar-cita')
+    navigate('/admin/sacar-cita')
   }
 
   return (

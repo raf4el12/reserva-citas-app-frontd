@@ -1,3 +1,3 @@
 export const useGetUserIdContext = () => {
-  return parseInt(localStorage.getItem('userId') ?? '0')
+  return Number.parseInt(localStorage.getItem('userId') ?? '0')
 }

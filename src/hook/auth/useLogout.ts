@@ -10,6 +10,6 @@ export function useLogoutMutation() {
     mutationFn: loginUser,
     onSuccess: () => {
       localStorage.removeItem('userId')
-    }
+    },
   })
 }

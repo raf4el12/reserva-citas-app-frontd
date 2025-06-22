@@ -1,5 +1,7 @@
 import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material'
 import Layout from '../components/Layout'
+import { useGetUserIdContext } from '../hook/auth/useGetUserIdContext'
+import { useUserById } from '../hook/users/useUserById'
 
 const features = [
   {
@@ -19,6 +21,9 @@ const features = [
 ]
 
 const Main = () => {
+  const userId = useGetUserIdContext()
+  const { data: user } = useUserById(userId)
+
   return (
     <Layout>
       <Container maxWidth="md" sx={{ mt: 8 }}>
@@ -33,7 +38,7 @@ const Main = () => {
             variant="contained"
             color="primary"
             size="large"
-            href="/auth/login"
+            href={user ? '/admin' : '/auth/login'}
           >
             Comenzar ahora
           </Button>

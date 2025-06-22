@@ -16,6 +16,6 @@ export function useLoginMutation() {
     onSuccess: (data) => {
       const { userId } = data
       localStorage.setItem('userId', userId)
-    }
+    },
   })
 }
