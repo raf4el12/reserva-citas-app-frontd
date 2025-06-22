@@ -1,13 +1,3 @@
-import {
-  Alert,
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Paper,
-  TextField,
-  Typography,
-} from '@mui/material'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useSignup } from '../../hook/auth/useSignup'
@@ -61,119 +51,103 @@ const SignupCard = () => {
   }
 
   return (
-    <Container maxWidth="sm">
-      <Paper
-        elevation={8}
-        sx={{
-          p: 4,
-          mt: 8,
-          borderRadius: 4,
-          boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-          background: 'rgba(255, 255, 255, 0.95)',
-          backdropFilter: 'blur(4px)',
-        }}
-      >
-        <Typography
-          variant="h5"
-          mb={2}
-          align="center"
-          sx={{
-            fontWeight: 'bold',
-            color: '#1976d2',
-            letterSpacing: 1,
-            textShadow: '0 2px 8px rgba(25, 118, 210, 0.08)',
-          }}
-        >
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center mb-1 text-primary">
           Crear cuenta
-        </Typography>
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          display="flex"
-          flexDirection="column"
-          gap={2}
-        >
-          <TextField
-            label="Nombre"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            fullWidth
-            sx={{
-              background: '#f5faff',
-              borderRadius: 2,
-            }}
-          />
-          <TextField
-            label="Correo electrónico"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            fullWidth
-            sx={{
-              background: '#f5faff',
-              borderRadius: 2,
-            }}
-          />
-          <TextField
-            label="Contraseña"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            fullWidth
-            sx={{
-              background: '#f5faff',
-              borderRadius: 2,
-            }}
-          />
-          <TextField
-            label="Confirmar contraseña"
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            fullWidth
-            sx={{
-              background: '#f5faff',
-              borderRadius: 2,
-            }}
-          />
-          <Button
+        </h2>
+        <p className="text-gray-500 text-center mb-6 text-sm">
+          Completa el formulario para registrarte
+        </p>
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <label className="block text-sm font-medium mb-1" htmlFor="name">
+              Nombre
+            </label>
+            <input
+              id="name"
+              type="text"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
+              placeholder="Tu nombre"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1" htmlFor="email">
+              Correo electrónico
+            </label>
+            <input
+              id="email"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
+              placeholder="m@ejemplo.com"
+            />
+          </div>
+          <div>
+            <label
+              className="block text-sm font-medium mb-1"
+              htmlFor="password"
+            >
+              Contraseña
+            </label>
+            <input
+              id="password"
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
+              placeholder="Contraseña"
+            />
+          </div>
+          <div>
+            <label
+              className="block text-sm font-medium mb-1"
+              htmlFor="confirmPassword"
+            >
+              Confirmar contraseña
+            </label>
+            <input
+              id="confirmPassword"
+              type="password"
+              required
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
+              placeholder="Repite tu contraseña"
+            />
+          </div>
+          <button
             type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
             disabled={signupMutation.isPending}
-            sx={{
-              mt: 2,
-              fontWeight: 'bold',
-              letterSpacing: 1,
-              py: 1.5,
-              fontSize: '1rem',
-              boxShadow: '0 2px 8px rgba(25, 118, 210, 0.15)',
-            }}
+            className="w-full bg-black text-white rounded-md py-2 font-semibold mt-2 hover:bg-gray-900 transition disabled:opacity-60"
           >
-            {signupMutation.isPending ? (
-              <CircularProgress size={24} />
-            ) : (
-              'Registrarse'
-            )}
-          </Button>
+            {signupMutation.isPending ? 'Registrando...' : 'Registrarse'}
+          </button>
           {error && (
-            <Alert severity="error" sx={{ mt: 2 }}>
+            <div className="bg-red-100 text-red-700 rounded px-4 py-2 mt-2 text-center text-sm">
               {error}
-            </Alert>
+            </div>
           )}
           {success && (
-            <Alert severity="success" sx={{ mt: 2 }}>
+            <div className="bg-green-100 text-green-700 rounded px-4 py-2 mt-2 text-center text-sm">
               ¡Cuenta creada correctamente! Redirigiendo...
-            </Alert>
+            </div>
           )}
-        </Box>
-      </Paper>
-    </Container>
+        </form>
+        <div className="mt-6 text-center text-sm text-gray-600">
+          ¿Ya tienes cuenta?{' '}
+          <a href="/auth/login" className="underline hover:text-primary">
+            Inicia sesión aquí
+          </a>
+        </div>
+      </div>
+    </div>
   )
 }
 

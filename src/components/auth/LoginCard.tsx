@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useLoginMutation } from '../../hook/auth/useLogin'
-import logo from '../../images/LOGO-SISOL.png'
 import LayoutAuth from './LayoutAuth'
 
 const LoginCard = () => {
@@ -19,13 +18,6 @@ const LoginCard = () => {
   return (
     <LayoutAuth>
       <div className="bg-white border border-gray-100 rounded-2xl shadow-lg p-8 w-full max-w-md">
-        <div className="flex justify-center mb-4">
-          <img
-            src={logo}
-            alt="Logo"
-            className="w-[180px] h-24 rounded-full border-4 border-primary bg-white shadow"
-          />
-        </div>
         <h2 className="text-2xl font-bold text-center mb-1">
           Inicia sesión en tu cuenta
         </h2>
