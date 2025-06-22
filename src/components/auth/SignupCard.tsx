@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useSignup } from '../../hook/auth/useSignup'
 import { Role } from '../../types/user'
+import LayoutAuth from './LayoutAuth'
 
 const SignupCard = () => {
   const navigate = useNavigate()
@@ -51,7 +52,7 @@ const SignupCard = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <LayoutAuth>
       <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-1 text-primary">
           Crear cuenta
@@ -147,7 +148,7 @@ const SignupCard = () => {
           </a>
         </div>
       </div>
-    </div>
+    </LayoutAuth>
   )
 }
 
