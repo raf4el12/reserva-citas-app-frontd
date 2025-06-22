@@ -9,8 +9,8 @@ import MainPage from './pages/Main'
 import LoginPage from './pages/auth/LoginPage'
 import SignupPage from './pages/auth/SignupPage'
 
-import CategoryDetailPage from './pages/categories/CategoryDetail'
-import CategoryNewPage from './pages/categories/CategoryNew'
+import CategoryDetailPage from './pages/categories/CategoryDetailPage'
+import CategoryNewPage from './pages/categories/CategoryNewPage'
 import CategoryPage from './pages/categories/CategoryPage'
 
 const router = createBrowserRouter([

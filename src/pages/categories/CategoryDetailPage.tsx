@@ -4,7 +4,7 @@ import { useParams } from 'react-router'
 import Layout from '../../components/Layout'
 import { useGetCategoryById } from '../../hook/categories/useCategoriesById'
 
-const CategoryDetail = () => {
+const CategoryDetailPage = () => {
   const { id } = useParams<{ id: string }>()
   const { isPending, data } = useGetCategoryById(Number(id))
 
@@ -25,4 +25,4 @@ const CategoryDetail = () => {
   )
 }
 
-export default CategoryDetail
+export default CategoryDetailPage
