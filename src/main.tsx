@@ -11,6 +11,7 @@ import '@fontsource/roboto/700.css'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 
+import { AuthProvider } from './context/auth-provider.tsx'
 import router from './router.tsx'
 import theme from './theme.ts'
 
@@ -26,7 +27,9 @@ root.render(
       <CssBaseline />
       <QueryClientProvider client={queryClient}>
         {import.meta.env.MODE !== 'production' && <ReactQueryDevtools />}
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
   </StrictMode>

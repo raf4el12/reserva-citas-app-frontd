@@ -9,3 +9,9 @@ export interface User {
   createdAt: string
   updatedAt: any
 }
+
+export const Role = {
+  ADMIN: 'ADMIN',
+  DOCTOR: 'DOCTOR',
+  USER: 'USER',
+}

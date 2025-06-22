@@ -1,69 +1,84 @@
-import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
-import { useGetUserIdContext } from '../hook/auth/useGetUserIdContext'
-import { useUserById } from '../hook/users/useUserById'
+import useAuthContext from '../context/auth-provider'
 
 const features = [
   {
-    title: 'Reserva Fácil',
-    description: 'Agenda tus citas en segundos desde cualquier dispositivo.',
+    title: 'Agenda de citas sin complicaciones',
+    description:
+      'Permite a tus pacientes reservar, reprogramar o cancelar citas fácilmente desde cualquier dispositivo, en cualquier momento.',
   },
   {
-    title: 'Recordatorios Automáticos',
+    title: 'Encuentra al especialista ideal',
     description:
-      'Recibe notificaciones para que nunca olvides una cita importante.',
+      'Los pacientes pueden buscar médicos por especialidad, experiencia o disponibilidad, facilitando la conexión con el profesional adecuado.',
   },
   {
-    title: 'Gestión de Clientes',
+    title: 'Recordatorios automáticos',
     description:
-      'Administra tus clientes y su historial de reservas de manera sencilla.',
+      'Reduce ausencias y cancelaciones enviando notificaciones automáticas por correo o mensaje de texto para recordar cada cita.',
+  },
+  {
+    title: 'Control total de la agenda médica',
+    description:
+      'Médicos y recepcionistas pueden gestionar la agenda de forma flexible: ajustar horarios, bloquear días, gestionar urgencias y optimizar el tiempo de consulta.',
+  },
+  {
+    title: 'Seguridad de la información',
+    description:
+      'Protegemos los datos personales y médicos cumpliendo con los más altos estándares de privacidad y regulaciones internacionales.',
+  },
+  {
+    title: 'Mejor experiencia para tus pacientes',
+    description:
+      'Ofrece un servicio moderno, cómodo y confiable. Pacientes satisfechos regresan y recomiendan tu centro médico.',
+  },
+  {
+    title: 'Soporte y acompañamiento',
+    description:
+      'Nuestro equipo brinda soporte técnico y capacitación para que tu personal y médicos aprovechen al máximo la plataforma.',
   },
 ]
 
 const Main = () => {
-  const userId = useGetUserIdContext()
-  const { data: user } = useUserById(userId)
+  const { user } = useAuthContext()
 
   return (
     <Layout>
-      <Container maxWidth="md" sx={{ mt: 8 }}>
-        <Box textAlign="center" mb={6}>
-          <Typography variant="h2" fontWeight="bold" gutterBottom>
-            Reserva tu cita en segundos
-          </Typography>
-          <Typography variant="h5" color="text.secondary" mb={4}>
-            La forma más rápida y sencilla de gestionar tus reservas y clientes.
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            href={user ? '/admin' : '/auth/login'}
+      <div className="max-w-5xl mx-auto mt-16 px-4">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Reserva tu cita médica en segundos
+          </h1>
+          <p className="text-lg text-muted-foreground mb-8">
+            La forma más moderna y sencilla de gestionar tus reservas, agenda y
+            pacientes.
+          </p>
+          <Link
+            to={user ? '/admin' : '/auth/login'}
+            className="inline-block bg-black text-white px-8 py-3 rounded-md text-lg font-semibold shadow hover:bg-gray-900 transition"
           >
             Comenzar ahora
-          </Button>
-        </Box>
-        <Grid container spacing={4}>
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {features.map((feature) => (
-            <Grid item xs={12} md={4} key={feature.title}>
-              <Paper elevation={3} sx={{ p: 3, height: '100%' }}>
-                <Typography variant="h6" fontWeight="bold" gutterBottom>
-                  {feature.title}
-                </Typography>
-                <Typography color="text.secondary">
-                  {feature.description}
-                </Typography>
-              </Paper>
-            </Grid>
+            <div
+              key={feature.title}
+              className="bg-card text-card-foreground rounded-lg shadow p-6 flex flex-col"
+            >
+              <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+              <p className="text-muted-foreground">{feature.description}</p>
+            </div>
           ))}
-        </Grid>
-        <Box mt={8} textAlign="center">
-          <Typography variant="body2" color="text.secondary">
+        </div>
+        <div className="mt-16 text-center">
+          <p className="text-sm text-muted-foreground">
             &copy; {new Date().getFullYear()} ReservaCitasApp. Todos los
             derechos reservados.
-          </Typography>
-        </Box>
-      </Container>
+          </p>
+        </div>
+      </div>
     </Layout>
   )
 }

@@ -11,9 +11,8 @@ import {
 import { type FC, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router'
 
-import { useGetUserIdContext } from '../../hook/auth/useGetUserIdContext'
+import useAuthContext from '../../context/auth-provider'
 import { useLogoutMutation } from '../../hook/auth/useLogout'
-import { useUserById } from '../../hook/users/useUserById'
 import LoadingPage from '../LoadingPage'
 
 interface NavbarBaseProps {
@@ -28,9 +27,8 @@ const NavbarBase: FC<NavbarBaseProps> = ({
   title = 'Reserva Cita',
 }) => {
   const navigate = useNavigate()
-  const userId = useGetUserIdContext()
+  const { user, isLoading } = useAuthContext()
   const logoutMutation = useLogoutMutation()
-  const { data: user, isPending } = useUserById(userId)
 
   const [openSnack, setOpenSnack] = useState(false)
 
@@ -47,11 +45,11 @@ const NavbarBase: FC<NavbarBaseProps> = ({
     setOpenSnack(false)
   }
 
-  if (isPrivate && isPending) {
+  if (isPrivate && isLoading) {
     return <LoadingPage />
   }
 
-  if (!user && isPrivate && !isPending) {
+  if (!user && isPrivate && !isLoading) {
     window.location.href = '/auth/login'
 
     return <LoadingPage />
