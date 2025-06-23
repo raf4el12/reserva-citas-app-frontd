@@ -1,8 +1,8 @@
 import { Box, LinearProgress, Typography } from '@mui/material'
 
-import Layout from '../../components/Layout'
 import CategoryCard from '../../components/category/CategoryCard'
 import CardNew from '../../components/commons/CardNew'
+import Layout from '../../components/layout/Layout'
 import { useCategories } from '../../hook/categories/useCategories'
 
 const CategoryPage = () => {

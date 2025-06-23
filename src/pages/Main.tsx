@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import Layout from '../components/Layout'
 import useAuthContext from '../context/AuthContext'
 
 const features = [
@@ -44,42 +43,40 @@ const Main = () => {
   const { user } = useAuthContext()
 
   return (
-    <Layout>
-      <div className="max-w-5xl mx-auto mt-16 px-4">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Reserva tu cita médica en segundos
-          </h1>
-          <p className="text-lg text-muted-foreground mb-8">
-            La forma más moderna y sencilla de gestionar tus reservas, agenda y
-            pacientes.
-          </p>
-          <Link
-            to={user ? '/admin' : '/auth/login'}
-            className="inline-block bg-black text-white px-8 py-3 rounded-md text-lg font-semibold shadow hover:bg-gray-900 transition"
-          >
-            Comenzar ahora
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {features.map((feature) => (
-            <div
-              key={feature.title}
-              className="bg-card text-card-foreground rounded-lg shadow p-6 flex flex-col"
-            >
-              <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-              <p className="text-muted-foreground">{feature.description}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-16 text-center">
-          <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} ReservaCitasApp. Todos los
-            derechos reservados.
-          </p>
-        </div>
+    <div className="max-w-5xl mx-auto mt-16 px-4">
+      <div className="text-center mb-12">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          Reserva tu cita médica en segundos
+        </h1>
+        <p className="text-lg text-muted-foreground mb-8">
+          La forma más moderna y sencilla de gestionar tus reservas, agenda y
+          pacientes.
+        </p>
+        <Link
+          to={user ? '/admin' : '/auth/login'}
+          className="inline-block bg-black text-white px-8 py-3 rounded-md text-lg font-semibold shadow hover:bg-gray-900 transition"
+        >
+          Comenzar ahora
+        </Link>
       </div>
-    </Layout>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {features.map((feature) => (
+          <div
+            key={feature.title}
+            className="bg-card text-card-foreground rounded-lg shadow p-6 flex flex-col"
+          >
+            <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+            <p className="text-muted-foreground">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-16 text-center">
+        <p className="text-sm text-muted-foreground">
+          &copy; {new Date().getFullYear()} ReservaCitasApp. Todos los derechos
+          reservados.
+        </p>
+      </div>
+    </div>
   )
 }
 

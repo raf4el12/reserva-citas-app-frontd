@@ -1,5 +1,5 @@
-import Layout from '../../components/Layout'
 import LoginCard from '../../components/auth/LoginCard'
+import Layout from '../../components/layout/Layout'
 
 const LoginPage = () => {
   return (

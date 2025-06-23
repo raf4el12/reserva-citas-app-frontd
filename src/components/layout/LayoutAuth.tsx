@@ -1,7 +1,7 @@
 import { AppBar, Box, Link, Toolbar, Typography } from '@mui/material'
 import { Outlet } from 'react-router'
 
-const NavbarAuth = () => {
+const LayoutAuth = () => {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -19,6 +19,7 @@ const NavbarAuth = () => {
                 variant="h6"
                 sx={{ marginRight: 1, color: 'white' }}
                 component={Link}
+                underline="none"
                 href="/"
               >
                 Sisol Auth
@@ -32,4 +33,4 @@ const NavbarAuth = () => {
   )
 }
 
-export default NavbarAuth
+export default LayoutAuth

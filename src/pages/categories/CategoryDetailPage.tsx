@@ -1,7 +1,7 @@
 import { LinearProgress, Typography } from '@mui/material'
 import { useParams } from 'react-router'
 
-import Layout from '../../components/Layout'
+import Layout from '../../components/layout/Layout'
 import { useGetCategoryById } from '../../hook/categories/useCategoriesById'
 
 const CategoryDetailPage = () => {

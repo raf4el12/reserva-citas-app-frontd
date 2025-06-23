@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import NavbarAdmin from './components/NavbarAdmin'
-import NavbarAuth from './components/NavbarAuth'
-import NavbarMain from './components/NavbarMain'
+import LayoutAdmin from './components/layout/LayoutAdmin'
+import LayoutAuth from './components/layout/LayoutAuth'
+import LayoutMain from './components/layout/LayoutMain'
 
 import MainPage from './pages/Main'
 
@@ -16,7 +16,7 @@ import CategoryPage from './pages/categories/CategoryPage'
 const router = createBrowserRouter([
   {
     path: '/',
-    Component: NavbarMain,
+    Component: LayoutMain,
     children: [
       {
         index: true,
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'admin',
-    Component: NavbarAdmin,
+    Component: LayoutAdmin,
     children: [
       {
         index: true,
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'auth',
-    Component: NavbarAuth,
+    Component: LayoutAuth,
     children: [
       {
         index: true,

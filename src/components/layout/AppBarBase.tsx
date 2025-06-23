@@ -9,23 +9,23 @@ import {
   Typography,
 } from '@mui/material'
 import { type FC, useState } from 'react'
-import { Outlet, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 
 import useAuthContext from '../../context/AuthContext'
 import { useLogoutMutation } from '../../hook/auth/useLogout'
-import LoadingPage from '../LoadingPage'
 import DropdownAvatar from '../auth/DropdownAvatar'
+import LoadingPage from '../commons/LoadingPage'
 
-interface NavbarBaseProps {
+interface AppBarBaseProps {
   isPrivate?: boolean
   title?: string
   actionLeft?: React.ReactNode
 }
 
-const NavbarBase: FC<NavbarBaseProps> = ({
+const AppBarBase: FC<AppBarBaseProps> = ({
   actionLeft,
   isPrivate,
-  title = 'Sisol Reserva',
+  title = 'Sisol',
 }) => {
   const navigate = useNavigate()
   const { user, isLoading } = useAuthContext()
@@ -58,36 +58,40 @@ const NavbarBase: FC<NavbarBaseProps> = ({
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}
+      <AppBar
+        position="static"
+        variant="outlined"
+        color="inherit"
+        className="!border-0"
+      >
+        <Toolbar>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{ marginRight: 1 }}
+              component={Link}
+              underline="none"
+              href="/"
             >
-              <Typography
-                variant="h6"
-                sx={{ marginRight: 1, color: 'white' }}
-                component={Link}
-                href="/"
-              >
-                {title}
-              </Typography>
-            </Box>
-            {actionLeft}
-            {user && <DropdownAvatar user={user} onLogout={handleLogout} />}
-            {!user && (
-              <Button href="/auth/login" LinkComponent="a" color="inherit">
-                Login
-              </Button>
-            )}
-          </Toolbar>
-        </AppBar>
-      </Box>
+              {title}
+            </Typography>
+          </Box>
+          {actionLeft}
+          {user && <DropdownAvatar user={user} onLogout={handleLogout} />}
+          {!user && (
+            <Button href="/auth/login" LinkComponent="a" color="inherit">
+              Login
+            </Button>
+          )}
+        </Toolbar>
+      </AppBar>
       <Snackbar
         open={openSnack}
         autoHideDuration={6000}
@@ -102,9 +106,8 @@ const NavbarBase: FC<NavbarBaseProps> = ({
           Ocurrio un error al cerrar sesión
         </Alert>
       </Snackbar>
-      <Outlet />
     </>
   )
 }
 
-export default NavbarBase
+export default AppBarBase
