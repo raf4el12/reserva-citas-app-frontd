@@ -1,11 +1,13 @@
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import DashboardIcon from '@mui/icons-material/Dashboard'
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital'
 import LoginIcon from '@mui/icons-material/Login'
 import LogoutIcon from '@mui/icons-material/Logout'
 import MonitorHeartIcon from '@mui/icons-material/MonitorHeart'
 import SettingsIcon from '@mui/icons-material/Settings'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom'
 
 import useAuthContext from '../../context/AuthContext'
 import { useLogoutMutation } from '../../hook/auth/useLogout'
@@ -17,7 +19,7 @@ const menu = [
   { label: 'Dashboard', icon: <DashboardIcon />, href: '/admin/dashboard' },
   {
     label: 'Citas Médicas',
-    icon: <MonitorHeartIcon />,
+    icon: <LocalHospitalIcon />,
     href: '/admin/medical-appointments',
   },
   {
@@ -29,9 +31,9 @@ const menu = [
 
 const docs = [
   { label: 'Categorias', href: '/admin/categories' },
-  { label: 'Especialidades', href: '/admin' },
-  { label: 'Médicos', href: '/admin' },
-  { label: 'Pacientes', href: '/admin' },
+  { label: 'Especialidades', href: '/admin/specialties' },
+  { label: 'Médicos', href: '/admin/doctors' },
+  { label: 'Pacientes', href: '/admin/patients' },
 ]
 
 export default function SidebarBase() {
@@ -66,20 +68,26 @@ export default function SidebarBase() {
 
   return (
     <aside className="flex flex-col w-64 h-screen bg-white border-r px-4 py-6">
-      <div className="flex items-center mb-8">
+      <Link
+        to="/"
+        className="flex items-center mb-8 rounded-lg p-3 text-white bg-black hover:bg-gray-900 transition"
+      >
+        <span className="mr-3">
+          <MonitorHeartIcon />
+        </span>
         <span className="font-bold text-xl">Sisol Admin</span>
-      </div>
+      </Link>
       <nav className="flex-1">
         <ul className="space-y-1">
           {menu.map((item) => (
             <li key={item.label}>
-              <button
-                type="button"
+              <Link
+                to={item.href}
                 className="flex items-center w-full px-3 py-2 rounded-lg text-left hover:bg-gray-100 transition"
               >
                 <span className="mr-3">{item.icon}</span>
                 {item.label}
-              </button>
+              </Link>
             </li>
           ))}
         </ul>
@@ -89,30 +97,30 @@ export default function SidebarBase() {
         <ul className="space-y-1">
           {docs.map((item) => (
             <li key={item.label}>
-              <button
-                type="button"
+              <Link
+                to={item.href}
                 className="flex items-center w-full px-3 py-2 rounded-lg text-left hover:bg-gray-100 transition"
               >
                 {item.label}
-              </button>
+              </Link>
             </li>
           ))}
         </ul>
       </nav>
       <div className="mt-auto space-y-2">
-        <button
-          type="button"
-          className="flex items-center w-full px-3 py-2 rounded-lg text-left hover:bg-gray-100"
+        <Link
+          to="/admin/settings"
+          className="flex items-center w-full px-3 py-2 rounded-lg text-left hover:bg-gray-100 transition"
         >
           <span className="mr-3">
             <SettingsIcon />
           </span>{' '}
           Configuración
-        </button>
+        </Link>
         {!user && (
           <button
             type="button"
-            className="flex items-center w-full px-3 py-2 rounded-lg text-left hover:bg-gray-100"
+            className="flex items-center w-full px-3 py-2 rounded-lg text-left hover:bg-gray-100 transition"
           >
             <span className="mr-3">
               <LoginIcon />

@@ -33,6 +33,33 @@ const router = createBrowserRouter([
         element: <CategoryPage />,
       },
       {
+        path: 'dashboard',
+        children: [
+          {
+            path: '',
+            element: <CategoryPage />,
+          },
+        ],
+      },
+      {
+        path: 'medical-appointments',
+        children: [
+          {
+            path: '',
+            element: <CategoryPage />,
+          },
+        ],
+      },
+      {
+        path: 'planning',
+        children: [
+          {
+            path: '',
+            element: <CategoryPage />,
+          },
+        ],
+      },
+      {
         path: 'categories',
         children: [
           {
@@ -46,6 +73,51 @@ const router = createBrowserRouter([
           {
             path: 'new',
             element: <CategoryNewPage />,
+          },
+        ],
+      },
+      {
+        path: 'specialties',
+        children: [
+          {
+            path: '',
+            element: <CategoryPage />,
+          },
+        ],
+      },
+      {
+        path: 'specialties',
+        children: [
+          {
+            path: '',
+            element: <CategoryPage />,
+          },
+        ],
+      },
+      {
+        path: 'doctors',
+        children: [
+          {
+            path: '',
+            element: <CategoryPage />,
+          },
+        ],
+      },
+      {
+        path: 'patients',
+        children: [
+          {
+            path: '',
+            element: <CategoryPage />,
+          },
+        ],
+      },
+      {
+        path: 'settings',
+        children: [
+          {
+            path: '',
+            element: <CategoryPage />,
           },
         ],
       },
