@@ -1,13 +1,4 @@
-import {
-  Alert,
-  AppBar,
-  Box,
-  Button,
-  Link,
-  Snackbar,
-  Toolbar,
-  Typography,
-} from '@mui/material'
+import { AppBar, Box, Button, Link, Toolbar, Typography } from '@mui/material'
 import { type FC, useState } from 'react'
 import { useNavigate } from 'react-router'
 
@@ -15,6 +6,7 @@ import useAuthContext from '../../context/AuthContext'
 import { useLogoutMutation } from '../../hook/auth/useLogout'
 import DropdownAvatar from '../auth/DropdownAvatar'
 import LoadingPage from '../commons/LoadingPage'
+import SnackbarErrorBase from './SnackbarErrorBase'
 
 interface AppBarBaseProps {
   isPrivate?: boolean
@@ -61,6 +53,7 @@ const AppBarBase: FC<AppBarBaseProps> = ({
       <AppBar
         position="static"
         variant="outlined"
+        elevation={0}
         color="inherit"
         className="!border-0"
       >
@@ -87,25 +80,16 @@ const AppBarBase: FC<AppBarBaseProps> = ({
           {user && <DropdownAvatar user={user} onLogout={handleLogout} />}
           {!user && (
             <Button href="/auth/login" LinkComponent="a" color="inherit">
-              Login
+              Iniciar Sesión
             </Button>
           )}
         </Toolbar>
       </AppBar>
-      <Snackbar
+      <SnackbarErrorBase
         open={openSnack}
-        autoHideDuration={6000}
         onClose={handleCloseSnackbar}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity="error"
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          Ocurrio un error al cerrar sesión
-        </Alert>
-      </Snackbar>
+        title="Ocurrio un error al cerrar sesión"
+      />
     </>
   )
 }

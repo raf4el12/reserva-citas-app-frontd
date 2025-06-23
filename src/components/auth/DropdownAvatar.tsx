@@ -2,12 +2,12 @@ import { Divider } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import type { User } from '../../types/user'
 
-interface DropdownProps {
+interface DropdownAvatarProps {
   user: User
   onLogout: () => void
 }
 
-const DropdownAvatar: React.FC<DropdownProps> = ({ onLogout, user }) => {
+const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ onLogout, user }) => {
   const [open, setOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
