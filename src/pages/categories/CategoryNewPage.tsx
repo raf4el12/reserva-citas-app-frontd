@@ -1,7 +1,7 @@
 import { Alert, Box, Button, Paper, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
-import { useCreateCategory } from '../../hook/categories/useCreatedCategories'
 import { useNavigate } from 'react-router-dom'
+import { useCreateCategory } from '../../hook/categories/useCreatedCategories'
 
 const CategoryNewPage = () => {
   const [name, setName] = useState('')

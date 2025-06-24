@@ -1,11 +1,11 @@
+import { Box, LinearProgress, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
-import { Box, LinearProgress, Typography, TextField } from '@mui/material'
-import EntityCard from '../../components/commons/EntityCard'
 import CardNew from '../../components/commons/CardNew'
+import ConfirmDialog from '../../components/commons/ConfimDialog'
+import EntityCard from '../../components/commons/EntityCard'
 import { useCategories } from '../../hook/categories/useCategories'
 import { useRemoveCategories } from '../../hook/categories/useRemoveCategories'
 import { useUpdateCategory } from '../../hook/categories/useUpdateCategories'
-import ConfirmDialog from '../../components/commons/ConfimDialog'
 
 const CategoryPage = () => {
   const { isPending, data } = useCategories()
@@ -16,7 +16,10 @@ const CategoryPage = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null)
 
   const [openSave, setOpenSave] = useState(false)
-  const [pendingUpdate, setPendingUpdate] = useState<{ id: string; name: string } | null>(null)
+  const [pendingUpdate, setPendingUpdate] = useState<{
+    id: string
+    name: string
+  } | null>(null)
 
   const handleDeleteClick = (id: string) => {
     setSelectedId(id)
@@ -72,8 +75,8 @@ const CategoryPage = () => {
             mainField="name"
             onDelete={handleDeleteClick}
             onUpdate={handleUpdate}
-            getId={item => String(item.id)}
-            detailUrl={item => `/admin/categories/${Number(item.id)}/detail`}
+            getId={(item) => String(item.id)}
+            detailUrl={(item) => `/admin/categories/${Number(item.id)}/detail`}
           />
         ))}
         <CardNew href="/admin/categories/new" />

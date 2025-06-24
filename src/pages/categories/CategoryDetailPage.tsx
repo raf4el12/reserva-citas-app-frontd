@@ -1,5 +1,12 @@
-import { Box, Button, Card, CardContent, LinearProgress, Typography } from '@mui/material'
-import { useParams, useNavigate } from 'react-router-dom'
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  LinearProgress,
+  Typography,
+} from '@mui/material'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useGetCategoryById } from '../../hook/categories/useCategoriesById'
 
 const CategoryDetailPage = () => {
@@ -25,7 +32,11 @@ const CategoryDetailPage = () => {
           <Typography variant="subtitle1">
             <strong>Fecha creación:</strong> {data?.createdAt}
           </Typography>
-          <Button sx={{ mt: 2 }} variant="outlined" onClick={() => navigate(-1)}>
+          <Button
+            sx={{ mt: 2 }}
+            variant="outlined"
+            onClick={() => navigate(-1)}
+          >
             VOLVER
           </Button>
         </CardContent>

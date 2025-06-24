@@ -13,9 +13,9 @@ import CategoryDetailPage from './pages/categories/CategoryDetailPage'
 import CategoryNewPage from './pages/categories/CategoryNewPage'
 import CategoryPage from './pages/categories/CategoryPage'
 
-import SpecialtiesPage from './pages/specialties/SpecialtiesPage'
-import SpecialtiesNewPage from './pages/specialties/SpecialtiesNewPage'
 import SpecialtiesDetailPage from './pages/specialties/SpecialtiesDetailPage'
+import SpecialtiesNewPage from './pages/specialties/SpecialtiesNewPage'
+import SpecialtiesPage from './pages/specialties/SpecialtiesPage'
 
 const router = createBrowserRouter([
   {

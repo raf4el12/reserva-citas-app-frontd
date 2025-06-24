@@ -1,5 +1,5 @@
-import type { FC, ReactNode } from 'react'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
+import type { FC, ReactNode } from 'react'
 
 const FormFieldError: FC<{ children: ReactNode }> = ({ children }) => (
   <div className="bg-red-100 text-red-700 rounded px-4 py-2 mt-1 text-sm flex items-center gap-2">

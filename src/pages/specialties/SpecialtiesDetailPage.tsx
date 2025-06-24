@@ -1,7 +1,7 @@
 import { Box, Button, Card, CardContent, Typography } from '@mui/material'
-import { useParams, useNavigate } from 'react-router-dom'
-import { useGetSpecialtyById } from '../../hook/specialties/useSpecialtiesById'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useCategories } from '../../hook/categories/useCategories'
+import { useGetSpecialtyById } from '../../hook/specialties/useSpecialtiesById'
 
 const SpecialtiesDetailPage = () => {
   const { id } = useParams<{ id: string }>()
@@ -15,7 +15,8 @@ const SpecialtiesDetailPage = () => {
 
   // Buscar el nombre de la categoría por categoryId
   const categoryName =
-    categories?.find(cat => cat.id === data.categoryId)?.name ?? 'Sin categoría'
+    categories?.find((cat) => cat.id === data.categoryId)?.name ??
+    'Sin categoría'
 
   return (
     <Box maxWidth={400} mx="auto" mt={4}>
@@ -33,7 +34,11 @@ const SpecialtiesDetailPage = () => {
           <Typography variant="subtitle1">
             <strong>Categoría:</strong> {categoryName}
           </Typography>
-          <Button sx={{ mt: 2 }} variant="outlined" onClick={() => navigate(-1)}>
+          <Button
+            sx={{ mt: 2 }}
+            variant="outlined"
+            onClick={() => navigate(-1)}
+          >
             VOLVER
           </Button>
         </CardContent>

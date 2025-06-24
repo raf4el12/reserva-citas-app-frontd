@@ -1,8 +1,16 @@
-import { Alert, Box, Button, MenuItem, Paper, TextField, Typography } from '@mui/material'
+import {
+  Alert,
+  Box,
+  Button,
+  MenuItem,
+  Paper,
+  TextField,
+  Typography,
+} from '@mui/material'
 import { useState } from 'react'
-import { useSpecialtiesCreate } from '../../hook/specialties/useSpecialtiesCreate'
-import { useCategories } from '../../hook/categories/useCategories'
 import { useNavigate } from 'react-router-dom'
+import { useCategories } from '../../hook/categories/useCategories'
+import { useSpecialtiesCreate } from '../../hook/specialties/useSpecialtiesCreate'
 
 const SpecialtiesNewPage = () => {
   const [name, setName] = useState('')

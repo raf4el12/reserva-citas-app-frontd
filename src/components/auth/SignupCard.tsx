@@ -1,13 +1,13 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 import { useSignup } from '../../hook/auth/useSignup'
 import { userSignupSchema } from '../../types/auth'
 import type { SignupDto } from '../../types/auth'
 import { Role } from '../../types/user'
-import LayoutAuth from './LayoutAuth'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import FormFieldError from '../commons/FormFieldError'
+import LayoutAuth from './LayoutAuth'
 
 const SignupCard = () => {
   const navigate = useNavigate()
@@ -32,7 +32,9 @@ const SignupCard = () => {
     signupMutation.mutate(data, {
       onSuccess: () => navigate('/auth/login'),
       onError: (err: any) => {
-        setError('root', { message: err?.message || 'Error al registrar la cuenta' })
+        setError('root', {
+          message: err?.message || 'Error al registrar la cuenta',
+        })
       },
     })
   }
@@ -58,7 +60,9 @@ const SignupCard = () => {
             }`}
             placeholder="Nombre"
           />
-          {errors.name && <FormFieldError>{errors.name.message}</FormFieldError>}
+          {errors.name && (
+            <FormFieldError>{errors.name.message}</FormFieldError>
+          )}
         </div>
         <div>
           <label className="block text-sm font-medium mb-1" htmlFor="email">
@@ -72,7 +76,9 @@ const SignupCard = () => {
             }`}
             placeholder="r@ejemplo.com"
           />
-          {errors.email && <FormFieldError>{errors.email.message}</FormFieldError>}
+          {errors.email && (
+            <FormFieldError>{errors.email.message}</FormFieldError>
+          )}
         </div>
         <div>
           <label className="block text-sm font-medium mb-1" htmlFor="password">
@@ -87,10 +93,15 @@ const SignupCard = () => {
             }`}
             placeholder="Contraseña"
           />
-          {errors.password && <FormFieldError>{errors.password.message}</FormFieldError>}
+          {errors.password && (
+            <FormFieldError>{errors.password.message}</FormFieldError>
+          )}
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="confirmPassword">
+          <label
+            className="block text-sm font-medium mb-1"
+            htmlFor="confirmPassword"
+          >
             Confirmar contraseña
           </label>
           <input
@@ -102,7 +113,9 @@ const SignupCard = () => {
             }`}
             placeholder="Confirmar tu contraseña"
           />
-          {errors.confirmPassword && <FormFieldError>{errors.confirmPassword.message}</FormFieldError>}
+          {errors.confirmPassword && (
+            <FormFieldError>{errors.confirmPassword.message}</FormFieldError>
+          )}
         </div>
         <button
           type="submit"
@@ -111,9 +124,7 @@ const SignupCard = () => {
         >
           {signupMutation.isPending ? 'Registrando...' : 'Registrarse'}
         </button>
-        {errors.root && (
-          <FormFieldError>{errors.root.message}</FormFieldError>
-        )}
+        {errors.root && <FormFieldError>{errors.root.message}</FormFieldError>}
       </form>
       <div className="mt-6 text-center text-sm text-gray-600">
         ¿Ya tienes cuenta?{' '}

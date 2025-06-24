@@ -5,5 +5,4 @@ export interface Specialties {
   deleted: boolean
   createdAt: string
   updatedAt?: string | null
-  
 }

@@ -8,9 +8,16 @@ interface SpecialtiesCardProps {
   detailUrl?: (item: Specialties) => string
 }
 
-const SpecialtiesCard = ({ item, onDelete, onUpdate, detailUrl }: SpecialtiesCardProps) => {
+const SpecialtiesCard = ({
+  item,
+  onDelete,
+  onUpdate,
+  detailUrl,
+}: SpecialtiesCardProps) => {
   return (
-    <Box sx={{ border: '1px solid #eee', p: 2, borderRadius: 2, minWidth: 220 }}>
+    <Box
+      sx={{ border: '1px solid #eee', p: 2, borderRadius: 2, minWidth: 220 }}
+    >
       <Typography variant="h6" sx={{ mb: 1 }}>
         {item.name}
       </Typography>
@@ -35,11 +42,7 @@ const SpecialtiesCard = ({ item, onDelete, onUpdate, detailUrl }: SpecialtiesCar
           </Button>
         )}
         {detailUrl && (
-          <Button
-            size="small"
-            variant="outlined"
-            href={detailUrl(item)}
-          >
+          <Button size="small" variant="outlined" href={detailUrl(item)}>
             Detalle
           </Button>
         )}

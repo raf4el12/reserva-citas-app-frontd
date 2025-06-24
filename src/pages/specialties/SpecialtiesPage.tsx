@@ -1,11 +1,11 @@
+import { Box, LinearProgress, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
-import { Box, LinearProgress, Typography, TextField } from '@mui/material'
-import SpecialtiesCard from '../../components/specialties/SpecialtiesCard'
 import CardNew from '../../components/commons/CardNew'
+import ConfirmDialog from '../../components/commons/ConfimDialog'
+import SpecialtiesCard from '../../components/specialties/SpecialtiesCard'
 import { useSpecialties } from '../../hook/specialties/useSpecialties'
 import { useSpecialtiesRemove } from '../../hook/specialties/useSpecialtiesRemove'
 import { useUpdateSpecialty } from '../../hook/specialties/useSpecialtiesUpdate'
-import ConfirmDialog from '../../components/commons/ConfimDialog'
 import type { Specialties } from '../../types/specialties'
 
 const SpecialtiesPage = () => {
@@ -18,7 +18,10 @@ const SpecialtiesPage = () => {
 
   // Estado para edición
   const [openEdit, setOpenEdit] = useState(false)
-  const [pendingUpdate, setPendingUpdate] = useState<{ id: number; name: string } | null>(null)
+  const [pendingUpdate, setPendingUpdate] = useState<{
+    id: number
+    name: string
+  } | null>(null)
 
   const handleDeleteClick = (id: number) => {
     setSelectedId(id)
@@ -76,7 +79,7 @@ const SpecialtiesPage = () => {
             item={item}
             onDelete={handleDeleteClick}
             onUpdate={handleEditClick} // <-- Cambia a handleEditClick
-            detailUrl={item => `/admin/specialties/${item.id}/detail`}
+            detailUrl={(item) => `/admin/specialties/${item.id}/detail`}
           />
         ))}
         <CardNew href="/admin/specialties/new" />
@@ -96,16 +99,14 @@ const SpecialtiesPage = () => {
         open={openEdit}
         title="Editar especialidad"
         message={
-          
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Nombre de la especialidad"
-              value={pendingUpdate?.name ?? ''}
-              onChange={handleNameChange}
-              autoFocus
-            />
-          
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Nombre de la especialidad"
+            value={pendingUpdate?.name ?? ''}
+            onChange={handleNameChange}
+            autoFocus
+          />
         }
         onConfirm={handleConfirmEdit}
         onCancel={() => setOpenEdit(false)}
