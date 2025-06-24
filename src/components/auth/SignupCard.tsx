@@ -1,39 +1,38 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import { useState } from 'react'
 import { useNavigate } from 'react-router'
-
 import { useSignup } from '../../hook/auth/useSignup'
 import { userSignupSchema } from '../../types/auth'
+import type { SignupDto } from '../../types/auth'
 import { Role } from '../../types/user'
 import LayoutAuth from './LayoutAuth'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import FormFieldError from '../commons/FormFieldError'
 
 const SignupCard = () => {
   const navigate = useNavigate()
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [error, setError] = useState('')
-
   const signupMutation = useSignup()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm<SignupDto>({
+    resolver: zodResolver(userSignupSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      role: Role.USER,
+    },
+  })
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const data = { name, email, password, role: Role.USER }
-    const result = userSignupSchema.safeParse(data)
-
-    if (!result.success) {
-      setError(JSON.stringify(result.error.errors) || 'Datos inválidos')
-
-      return
-    }
-
+  const onSubmit = (data: SignupDto) => {
     signupMutation.mutate(data, {
-      onSuccess: () => {
-        navigate('/auth/login')
-      },
+      onSuccess: () => navigate('/auth/login'),
       onError: (err: any) => {
-        setError(err?.message || 'Error al registrar la cuenta')
+        setError('root', { message: err?.message || 'Error al registrar la cuenta' })
       },
     })
   }
@@ -46,18 +45,20 @@ const SignupCard = () => {
       <p className="text-gray-500 text-center mb-6 text-sm">
         Completa el formulario para registrarte
       </p>
-      <form className="space-y-4" onSubmit={handleSubmit}>
+      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label className="block text-sm font-medium mb-1" htmlFor="name">
             Nombre
           </label>
           <input
             id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
-            placeholder="Tu nombre"
+            {...register('name')}
+            className={`w-full rounded-md border px-3 py-2 bg-gray-50 ${
+              errors.name ? 'border-red-400' : 'border-gray-300'
+            }`}
+            placeholder="Nombre"
           />
+          {errors.name && <FormFieldError>{errors.name.message}</FormFieldError>}
         </div>
         <div>
           <label className="block text-sm font-medium mb-1" htmlFor="email">
@@ -65,11 +66,13 @@ const SignupCard = () => {
           </label>
           <input
             id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
-            placeholder="m@ejemplo.com"
+            {...register('email')}
+            className={`w-full rounded-md border px-3 py-2 bg-gray-50 ${
+              errors.email ? 'border-red-400' : 'border-gray-300'
+            }`}
+            placeholder="r@ejemplo.com"
           />
+          {errors.email && <FormFieldError>{errors.email.message}</FormFieldError>}
         </div>
         <div>
           <label className="block text-sm font-medium mb-1" htmlFor="password">
@@ -78,27 +81,28 @@ const SignupCard = () => {
           <input
             id="password"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
+            {...register('password')}
+            className={`w-full rounded-md border px-3 py-2 bg-gray-50 ${
+              errors.password ? 'border-red-400' : 'border-gray-300'
+            }`}
             placeholder="Contraseña"
           />
+          {errors.password && <FormFieldError>{errors.password.message}</FormFieldError>}
         </div>
         <div>
-          <label
-            className="block text-sm font-medium mb-1"
-            htmlFor="confirmPassword"
-          >
+          <label className="block text-sm font-medium mb-1" htmlFor="confirmPassword">
             Confirmar contraseña
           </label>
           <input
             id="confirmPassword"
             type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
-            placeholder="Repite tu contraseña"
+            {...register('confirmPassword')}
+            className={`w-full rounded-md border px-3 py-2 bg-gray-50 ${
+              errors.confirmPassword ? 'border-red-400' : 'border-gray-300'
+            }`}
+            placeholder="Confirmar tu contraseña"
           />
+          {errors.confirmPassword && <FormFieldError>{errors.confirmPassword.message}</FormFieldError>}
         </div>
         <button
           type="submit"
@@ -107,10 +111,8 @@ const SignupCard = () => {
         >
           {signupMutation.isPending ? 'Registrando...' : 'Registrarse'}
         </button>
-        {error && (
-          <div className="bg-red-100 text-red-700 rounded px-4 py-2 mt-2 text-center text-sm break-words">
-            {error}
-          </div>
+        {errors.root && (
+          <FormFieldError>{errors.root.message}</FormFieldError>
         )}
       </form>
       <div className="mt-6 text-center text-sm text-gray-600">

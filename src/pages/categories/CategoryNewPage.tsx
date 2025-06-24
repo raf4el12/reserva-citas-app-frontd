@@ -1,10 +1,12 @@
 import { Alert, Box, Button, Paper, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import { useCreateCategory } from '../../hook/categories/useCreatedCategories'
+import { useNavigate } from 'react-router-dom'
 
 const CategoryNewPage = () => {
   const [name, setName] = useState('')
   const [success, setSuccess] = useState(false)
+  const navigate = useNavigate()
   const createCategory = useCreateCategory()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -16,6 +18,9 @@ const CategoryNewPage = () => {
         onSuccess: () => {
           setSuccess(true)
           setName('')
+          setTimeout(() => {
+            navigate('/admin/categories')
+          }, 200)
         },
       }
     )
