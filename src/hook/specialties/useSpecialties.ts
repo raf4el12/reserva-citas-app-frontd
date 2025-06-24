@@ -1,12 +1,16 @@
-import { useQuery } from '@tanstack/react-query'
 import ApiBackend from '../../shared/services/api.backend'
+import type { Specialties } from '../../types/specialties'
+
+import { useQuery } from '@tanstack/react-query'
 
 export const useSpecialties = () => {
-  return useQuery({
+  const dataQuery = useQuery({
     queryKey: ['specialties'],
     queryFn: async () => {
-      const { data } = await ApiBackend.get('/specialties')
-      return data
+      const data = await ApiBackend.get('/specialties')
+      return data as Specialties[]
     },
   })
+
+  return dataQuery
 }

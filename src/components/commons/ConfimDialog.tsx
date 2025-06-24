@@ -1,4 +1,4 @@
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material'
 import type { FC, ReactNode } from 'react'
 
 interface ConfirmDialogProps {
@@ -23,7 +23,7 @@ const ConfirmDialog: FC<ConfirmDialogProps> = ({
   <Dialog open={open} onClose={onCancel}>
     <DialogTitle>{title}</DialogTitle>
     <DialogContent>
-      <DialogContentText>{message}</DialogContentText>
+      {message}
     </DialogContent>
     <DialogActions>
       <Button onClick={onCancel} color="primary" variant="outlined">

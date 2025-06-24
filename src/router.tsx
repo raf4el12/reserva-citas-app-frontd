@@ -13,6 +13,10 @@ import CategoryDetailPage from './pages/categories/CategoryDetailPage'
 import CategoryNewPage from './pages/categories/CategoryNewPage'
 import CategoryPage from './pages/categories/CategoryPage'
 
+import SpecialtiesPage from './pages/specialties/SpecialtiesPage'
+import SpecialtiesNewPage from './pages/specialties/SpecialtiesNewPage'
+import SpecialtiesDetailPage from './pages/specialties/SpecialtiesDetailPage'
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -81,16 +85,15 @@ const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <CategoryPage />,
+            element: <SpecialtiesPage />,
           },
-        ],
-      },
-      {
-        path: 'specialties',
-        children: [
           {
-            path: '',
-            element: <CategoryPage />,
+            path: 'new',
+            element: <SpecialtiesNewPage />,
+          },
+          {
+            path: ':id/detail',
+            element: <SpecialtiesDetailPage />, // <-- Ruta agregada para ver detalle de especialidad
           },
         ],
       },
@@ -142,5 +145,4 @@ const router = createBrowserRouter([
     ],
   },
 ])
-
 export default router
