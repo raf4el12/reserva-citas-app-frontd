@@ -1,32 +1,36 @@
 import { Box, Button, Card, CardContent, Typography } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useGetSpecialtyById } from '../../hook/specialties/useSpecialtiesById'
+import { useProfileById } from '../../hook/profiles/useProfilesById'
 
-const SpecialtiesDetailPage = () => {
+const ProfilesDetailPage = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const specialtyId = Number(id)
-  const { data, isLoading, isError } = useGetSpecialtyById(specialtyId)
+  const profileId = Number(id)
+  const { data, isLoading, isError } = useProfileById(profileId)
 
   if (isLoading) return <div>Cargando...</div>
-  if (isError || !data) return <div>No se encontró la especialidad.</div>
+  if (isError || !data) return <div>No se encontró el perfil.</div>
 
   return (
     <Box maxWidth={400} mx="auto" mt={4}>
       <Card>
         <CardContent>
           <Typography variant="h5" mb={2}>
-            Detalle de Especialidad
+            Detalle de Perfil
           </Typography>
           <Typography variant="subtitle1">
             <strong>ID:</strong> {data.id}
           </Typography>
           <Typography variant="subtitle1">
-            <strong>Nombre Especialidad:</strong> {data.name}
+            <strong>Nombre:</strong> {data.name}
           </Typography>
           <Typography variant="subtitle1">
-            <strong>Categoría:</strong> {data.category?.name ?? 'Sin categoría'}
+            <strong>Apellido:</strong> {data.lastName}
           </Typography>
+          <Typography variant="subtitle1">
+            <strong>Email:</strong> {data.email}
+          </Typography>
+          {/* Agrega aquí más campos si tu modelo de perfil los tiene */}
           <Button
             sx={{ mt: 2 }}
             variant="outlined"
@@ -40,4 +44,4 @@ const SpecialtiesDetailPage = () => {
   )
 }
 
-export default SpecialtiesDetailPage
+export default ProfilesDetailPage

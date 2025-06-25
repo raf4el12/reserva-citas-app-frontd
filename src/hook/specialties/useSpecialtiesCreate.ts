@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import ApiBackend from '../../shared/services/api.backend'
-
 interface CreateSpecialtyDto {
   name: string
   categoryId: number

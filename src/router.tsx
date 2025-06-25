@@ -17,6 +17,10 @@ import SpecialtiesDetailPage from './pages/specialties/SpecialtiesDetailPage'
 import SpecialtiesNewPage from './pages/specialties/SpecialtiesNewPage'
 import SpecialtiesPage from './pages/specialties/SpecialtiesPage'
 
+import ProfilesPage from './pages/profiles/ProfilesPage'
+import ProfilesCreatePage from './pages/profiles/ProfilesCreatePage'
+import ProfilesDetailPage from './pages/profiles/ProfilesDetailPage'
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -93,7 +97,24 @@ const router = createBrowserRouter([
           },
           {
             path: ':id/detail',
-            element: <SpecialtiesDetailPage />, // <-- Ruta agregada para ver detalle de especialidad
+            element: <SpecialtiesDetailPage />,
+          },
+        ],
+      },
+      {
+        path: 'profiles',
+        children: [
+          {
+            path: '',
+            element: <ProfilesPage />,
+          },
+          {
+            path: 'new',
+            element: <ProfilesCreatePage />,
+          },
+          {
+            path: ':id/detail',
+            element: <ProfilesDetailPage />,
           },
         ],
       },

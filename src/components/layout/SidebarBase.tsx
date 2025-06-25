@@ -34,6 +34,7 @@ const docs = [
   { label: 'Especialidades', href: '/admin/specialties' },
   { label: 'Médicos', href: '/admin/doctors' },
   { label: 'Pacientes', href: '/admin/patients' },
+  { label: 'Perfiles', href: '/admin/profiles' },
 ]
 
 export default function SidebarBase() {
