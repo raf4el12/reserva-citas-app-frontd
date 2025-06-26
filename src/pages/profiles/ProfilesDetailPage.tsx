@@ -30,18 +30,43 @@ const ProfilesDetailPage = () => {
           <Typography variant="subtitle1">
             <strong>Email:</strong> {data.email}
           </Typography>
-          {/* Agrega aquí más campos si tu modelo de perfil los tiene */}
+          <Typography variant="subtitle1">
+            <strong>Fecha de nacimiento:</strong> {data.birthday ? data.birthday : 'No registrado'}
+          </Typography>
+          <Typography variant="subtitle1">
+            <strong>Género:</strong> {data.gender ? data.gender : 'No registrado'}
+          </Typography>
+          <Typography variant="subtitle1">
+            <strong>Nacionalidad:</strong> {data.national ? data.national : 'No registrado'}
+          </Typography>
+          <Typography variant="subtitle1">
+            <strong>Foto:</strong> {data.photo ? <img src={data.photo} alt="Foto" width={60} /> : 'No registrado'}
+          </Typography>
+          <Typography variant="subtitle1">
+            <strong>Teléfono:</strong> {data.phone ? data.phone : 'No registrado'}
+          </Typography>
+          <Typography variant="subtitle1">
+            <strong>Dirección:</strong> {data.address ? data.address : 'No registrado'}
+          </Typography>
+          <Typography variant="subtitle1">
+            <strong>Tipo de perfil (ID):</strong> {data.typeProfileId ?? 'No registrado'}
+          </Typography>
+          <Typography variant="subtitle1">
+            <strong>Tipo de documento:</strong> {data.typeDocument ? data.typeDocument : 'No registrado'}
+          </Typography>
+          <Typography variant="subtitle1">
+            <strong>Número de documento:</strong> {data.numberDocument ? data.numberDocument : 'No registrado'}
+          </Typography>
           <Button
             sx={{ mt: 2 }}
             variant="outlined"
             onClick={() => navigate(-1)}
           >
-            VOLVER
+            Volver
           </Button>
         </CardContent>
       </Card>
     </Box>
   )
 }
-
 export default ProfilesDetailPage
