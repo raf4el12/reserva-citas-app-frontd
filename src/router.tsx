@@ -13,6 +13,15 @@ import CategoryDetailPage from './pages/categories/CategoryDetailPage'
 import CategoryNewPage from './pages/categories/CategoryNewPage'
 import CategoryPage from './pages/categories/CategoryPage'
 
+import SpecialtiesDetailPage from './pages/specialties/SpecialtiesDetailPage'
+import SpecialtiesNewPage from './pages/specialties/SpecialtiesNewPage'
+import SpecialtiesPage from './pages/specialties/SpecialtiesPage'
+
+import ProfilesCreatePage from './pages/profiles/ProfilesCreatePage'
+import ProfilesDetailPage from './pages/profiles/ProfilesDetailPage'
+import ProfilesPage from './pages/profiles/ProfilesPage'
+import ProfilesUpdatePage from './pages/profiles/ProfilesPageUpdate'
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -81,16 +90,36 @@ const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <CategoryPage />,
+            element: <SpecialtiesPage />,
+          },
+          {
+            path: 'new',
+            element: <SpecialtiesNewPage />,
+          },
+          {
+            path: ':id/detail',
+            element: <SpecialtiesDetailPage />,
           },
         ],
       },
       {
-        path: 'specialties',
+        path: 'profiles',
         children: [
           {
             path: '',
-            element: <CategoryPage />,
+            element: <ProfilesPage />,
+          },
+          {
+            path: 'new',
+            element: <ProfilesCreatePage />,
+          },
+          {
+            path: ':id/detail',
+            element: <ProfilesDetailPage />,
+          },
+          {
+            path: 'update/:id',
+            element: <ProfilesUpdatePage />,
           },
         ],
       },
@@ -142,5 +171,4 @@ const router = createBrowserRouter([
     ],
   },
 ])
-
 export default router

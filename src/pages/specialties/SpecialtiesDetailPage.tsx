@@ -1,36 +1,31 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  LinearProgress,
-  Typography,
-} from '@mui/material'
+import { Box, Button, Card, CardContent, Typography } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useGetCategoryById } from '../../hook/categories/useCategoriesById'
+import { useGetSpecialtyById } from '../../hook/specialties/useSpecialtiesById'
 
-const CategoryDetailPage = () => {
+const SpecialtiesDetailPage = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const { isPending, data } = useGetCategoryById(Number(id))
+  const specialtyId = Number(id)
+  const { data, isLoading, isError } = useGetSpecialtyById(specialtyId)
 
-  if (isPending) return <LinearProgress />
+  if (isLoading) return <div>Cargando...</div>
+  if (isError || !data) return <div>No se encontró la especialidad.</div>
 
   return (
     <Box maxWidth={400} mx="auto" mt={4}>
       <Card>
         <CardContent>
           <Typography variant="h5" mb={2}>
-            Detalle de Categoría
+            Detalle de Especialidad
           </Typography>
           <Typography variant="subtitle1">
-            <strong>ID:</strong> {data?.id}
+            <strong>ID:</strong> {data.id}
           </Typography>
           <Typography variant="subtitle1">
-            <strong>Nombre Categoría:</strong> {data?.name}
+            <strong>Nombre Especialidad:</strong> {data.name}
           </Typography>
           <Typography variant="subtitle1">
-            <strong>Fecha creación:</strong> {data?.createdAt}
+            <strong>Categoría:</strong> {data.category?.name ?? 'Sin categoría'}
           </Typography>
           <Button
             sx={{ mt: 2 }}
@@ -45,4 +40,4 @@ const CategoryDetailPage = () => {
   )
 }
 
-export default CategoryDetailPage
+export default SpecialtiesDetailPage

@@ -11,6 +11,7 @@ const TITLES: Record<string, string> = {
   '/admin/specialties': 'Especialidades',
   '/admin/doctors': 'Médicos',
   '/admin/patients': 'Pacientes',
+  '/admin/profiles': 'Perfiles',
   '/admin/settings': 'Configuración',
 }
 

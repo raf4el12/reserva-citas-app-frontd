@@ -2,54 +2,59 @@ import { Box, LinearProgress, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import CardNew from '../../components/commons/CardNew'
 import ConfirmDialog from '../../components/commons/ConfimDialog'
-import EntityCard from '../../components/commons/EntityCard'
-import { useCategories } from '../../hook/categories/useCategories'
-import { useRemoveCategories } from '../../hook/categories/useRemoveCategories'
-import { useUpdateCategory } from '../../hook/categories/useUpdateCategories'
+import SpecialtiesCard from '../../components/specialties/SpecialtiesCard'
+import { useSpecialties } from '../../hook/specialties/useSpecialties'
+import { useSpecialtiesRemove } from '../../hook/specialties/useSpecialtiesRemove'
+import { useUpdateSpecialty } from '../../hook/specialties/useSpecialtiesUpdate'
+import type { Specialties } from '../../types/specialties'
 
-const CategoryPage = () => {
-  const { isPending, data } = useCategories()
-  const removeCategory = useRemoveCategories()
-  const updateCategory = useUpdateCategory()
+const SpecialtiesPage = () => {
+  const { isPending, data } = useSpecialties()
+  const removeSpecialty = useSpecialtiesRemove()
+  const updateSpecialty = useUpdateSpecialty()
 
   const [openDelete, setOpenDelete] = useState(false)
-  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [selectedId, setSelectedId] = useState<number | null>(null)
 
-  const [openSave, setOpenSave] = useState(false)
+  // Estado para edición
+  const [openEdit, setOpenEdit] = useState(false)
   const [pendingUpdate, setPendingUpdate] = useState<{
-    id: string
+    id: number
     name: string
   } | null>(null)
 
-  const handleDeleteClick = (id: string) => {
+  const handleDeleteClick = (id: number) => {
     setSelectedId(id)
     setOpenDelete(true)
   }
 
   const handleConfirmDelete = () => {
-    if (selectedId) {
-      removeCategory.mutate(selectedId)
+    if (selectedId !== null) {
+      removeSpecialty.mutate(selectedId)
     }
     setOpenDelete(false)
     setSelectedId(null)
   }
 
-  const handleUpdate = (id: string, name: string) => {
+  // Al hacer clic en editar, abre el diálogo de edición
+  const handleEditClick = (id: number, name: string) => {
     setPendingUpdate({ id, name })
-    setOpenSave(true)
+    setOpenEdit(true)
   }
 
+  // Actualiza el nombre en el input
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (pendingUpdate) {
       setPendingUpdate({ ...pendingUpdate, name: e.target.value })
     }
   }
 
-  const handleConfirmSave = () => {
+  // Confirma la edición
+  const handleConfirmEdit = () => {
     if (pendingUpdate) {
-      updateCategory.mutate({ id: pendingUpdate.id, name: pendingUpdate.name })
+      updateSpecialty.mutate({ id: pendingUpdate.id, name: pendingUpdate.name })
     }
-    setOpenSave(false)
+    setOpenEdit(false)
     setPendingUpdate(null)
   }
 
@@ -66,20 +71,18 @@ const CategoryPage = () => {
         }}
       >
         {Array.isArray(data) && data.length === 0 && (
-          <Typography variant="h4">No hay categorias</Typography>
+          <Typography variant="h4">No hay especialidades</Typography>
         )}
-        {data?.map((item) => (
-          <EntityCard
-            key={Number(item.id)}
+        {data?.map((item: Specialties) => (
+          <SpecialtiesCard
+            key={item.id}
             item={item}
-            mainField="name"
             onDelete={handleDeleteClick}
-            onUpdate={handleUpdate}
-            getId={(item) => String(item.id)}
-            detailUrl={(item) => `/admin/categories/${Number(item.id)}/detail`}
+            onUpdate={handleEditClick} // <-- Cambia a handleEditClick
+            detailUrl={(item) => `/admin/specialties/${item.id}/detail`}
           />
         ))}
-        <CardNew href="/admin/categories/new" />
+        <CardNew href="/admin/specialties/new" />
       </Box>
       {/* Diálogo de confirmación para eliminar */}
       <ConfirmDialog
@@ -93,20 +96,20 @@ const CategoryPage = () => {
       />
       {/* Diálogo de edición para actualizar nombre */}
       <ConfirmDialog
-        open={openSave}
-        title="Editar categoría"
+        open={openEdit}
+        title="Editar especialidad"
         message={
           <TextField
             fullWidth
             margin="normal"
-            label="Nombre de la categoría"
+            label="Nombre de la especialidad"
             value={pendingUpdate?.name ?? ''}
             onChange={handleNameChange}
             autoFocus
           />
         }
-        onConfirm={handleConfirmSave}
-        onCancel={() => setOpenSave(false)}
+        onConfirm={handleConfirmEdit}
+        onCancel={() => setOpenEdit(false)}
         confirmText="Guardar"
         cancelText="Cancelar"
       />
@@ -114,4 +117,4 @@ const CategoryPage = () => {
   )
 }
 
-export default CategoryPage
+export default SpecialtiesPage
