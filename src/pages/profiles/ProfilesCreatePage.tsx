@@ -1,12 +1,20 @@
-import { Box, Button, Card, CardContent, Grid, TextField, Typography, MenuItem } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
-import { useCreateProfile } from '../../hook/profiles/useProfilesCreate'
-import useAuthContext from '../../context/AuthContext'
-import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { profileSchema, type ProfileForm } from '../../types/profileSchema'
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  MenuItem,
+  TextField,
+  Typography,
+} from '@mui/material'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import FormFieldError from '../../components/commons/FormFieldError'
-
+import useAuthContext from '../../context/AuthContext'
+import { useCreateProfile } from '../../hook/profiles/useProfilesCreate'
+import { type ProfileForm, profileSchema } from '../../types/profileSchema'
 
 const ProfilesCreatePage = () => {
   const { user } = useAuthContext()
@@ -35,23 +43,20 @@ const ProfilesCreatePage = () => {
     },
   })
 
-  const onSubmit = async (data: ProfileForm) => {
+  const onSubmit = async (form: ProfileForm) => {
     if (!user?.id) {
       alert('No se encontró el usuario. No se puede crear el perfil.')
       return
     }
 
-    // Limpiar campos vacíos para evitar errores con Prisma
-    const cleanData = {
-      ...data,
-      birthday: data.birthday ? data.birthday : undefined,
-      photo: data.photo ? data.photo : undefined,
-      typeProfileId: data.typeProfileId ? Number(data.typeProfileId) : null,
-    }
-
     await createProfile.mutateAsync({
-      ...cleanData,
+      ...form,
       userId: user.id,
+      birthday: form.birthday
+        ? new Date(form.birthday).toISOString()
+        : undefined,
+      photo: form.photo ? form.photo : undefined,
+      typeProfileId: form.typeProfileId ? Number(form.typeProfileId) : null,
     })
     navigate('/admin/profiles')
   }
@@ -74,7 +79,9 @@ const ProfilesCreatePage = () => {
                   error={!!errors.name}
                   required
                 />
-                {errors.name && <FormFieldError>{errors.name.message}</FormFieldError>}
+                {errors.name && (
+                  <FormFieldError>{errors.name.message}</FormFieldError>
+                )}
                 <TextField
                   fullWidth
                   margin="normal"
@@ -83,7 +90,9 @@ const ProfilesCreatePage = () => {
                   error={!!errors.lastName}
                   required
                 />
-                {errors.lastName && <FormFieldError>{errors.lastName.message}</FormFieldError>}
+                {errors.lastName && (
+                  <FormFieldError>{errors.lastName.message}</FormFieldError>
+                )}
                 <TextField
                   fullWidth
                   margin="normal"
@@ -93,7 +102,9 @@ const ProfilesCreatePage = () => {
                   type="email"
                   required
                 />
-                {errors.email && <FormFieldError>{errors.email.message}</FormFieldError>}
+                {errors.email && (
+                  <FormFieldError>{errors.email.message}</FormFieldError>
+                )}
                 <TextField
                   fullWidth
                   margin="normal"
@@ -102,7 +113,9 @@ const ProfilesCreatePage = () => {
                   type="date"
                   InputLabelProps={{ shrink: true }}
                 />
-                {errors.birthday && <FormFieldError>{errors.birthday.message}</FormFieldError>}
+                {errors.birthday && (
+                  <FormFieldError>{errors.birthday.message}</FormFieldError>
+                )}
                 <TextField
                   select
                   fullWidth
@@ -117,14 +130,18 @@ const ProfilesCreatePage = () => {
                   <MenuItem value="Masculino">Masculino</MenuItem>
                   <MenuItem value="Otro">Otro</MenuItem>
                 </TextField>
-                {errors.gender && <FormFieldError>{errors.gender.message}</FormFieldError>}
+                {errors.gender && (
+                  <FormFieldError>{errors.gender.message}</FormFieldError>
+                )}
                 <TextField
                   fullWidth
                   margin="normal"
                   label="Nacionalidad"
                   {...register('national')}
                 />
-                {errors.national && <FormFieldError>{errors.national.message}</FormFieldError>}
+                {errors.national && (
+                  <FormFieldError>{errors.national.message}</FormFieldError>
+                )}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -133,42 +150,58 @@ const ProfilesCreatePage = () => {
                   label="Foto (URL)"
                   {...register('photo')}
                 />
-                {errors.photo && <FormFieldError>{errors.photo.message}</FormFieldError>}
+                {errors.photo && (
+                  <FormFieldError>{errors.photo.message}</FormFieldError>
+                )}
                 <TextField
                   fullWidth
                   margin="normal"
                   label="Teléfono"
                   {...register('phone')}
                 />
-                {errors.phone && <FormFieldError>{errors.phone.message}</FormFieldError>}
+                {errors.phone && (
+                  <FormFieldError>{errors.phone.message}</FormFieldError>
+                )}
                 <TextField
                   fullWidth
                   margin="normal"
                   label="Dirección"
                   {...register('address')}
                 />
-                {errors.address && <FormFieldError>{errors.address.message}</FormFieldError>}
+                {errors.address && (
+                  <FormFieldError>{errors.address.message}</FormFieldError>
+                )}
                 <TextField
                   fullWidth
                   margin="normal"
                   label="Tipo de perfil (ID)"
                   {...register('typeProfileId')}
                 />
-                {errors.typeProfileId && <FormFieldError>{errors.typeProfileId.message}</FormFieldError>}
+                {errors.typeProfileId && (
+                  <FormFieldError>
+                    {errors.typeProfileId.message}
+                  </FormFieldError>
+                )}
                 <TextField
                   fullWidth
                   margin="normal"
                   label="Tipo de documento"
                   {...register('typeDocument')}
                 />
-                {errors.typeDocument && <FormFieldError>{errors.typeDocument.message}</FormFieldError>}
+                {errors.typeDocument && (
+                  <FormFieldError>{errors.typeDocument.message}</FormFieldError>
+                )}
                 <TextField
                   fullWidth
                   margin="normal"
                   label="Número de documento"
                   {...register('numberDocument')}
                 />
-                {errors.numberDocument && <FormFieldError>{errors.numberDocument.message}</FormFieldError>}
+                {errors.numberDocument && (
+                  <FormFieldError>
+                    {errors.numberDocument.message}
+                  </FormFieldError>
+                )}
               </Grid>
             </Grid>
             <Box display="flex" justifyContent="flex-end" mt={2}>

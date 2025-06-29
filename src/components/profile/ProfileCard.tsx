@@ -1,6 +1,6 @@
-import PersonIcon from '@mui/icons-material/Person'
 import EmailIcon from '@mui/icons-material/Email'
-import { Card, CardContent, Typography, Button, Box } from '@mui/material'
+import PersonIcon from '@mui/icons-material/Person'
+import { Box, Button, Card, CardContent, Typography } from '@mui/material'
 import type { FC } from 'react'
 import type { Profile } from '../../types/profile'
 import ItemContainer from '../commons/ItemContainer'
@@ -12,13 +12,21 @@ interface ProfileCardProps {
   detailUrl: (item: Profile) => string
 }
 
-const ProfileCard: FC<ProfileCardProps> = ({ item, onDelete, onUpdate, detailUrl }) => {
+const ProfileCard: FC<ProfileCardProps> = ({
+  item,
+  onDelete,
+  onUpdate,
+  detailUrl,
+}) => {
   return (
     <Card sx={{ minWidth: 275 }} variant="outlined">
       <CardContent>
         <ItemContainer>
           <PersonIcon fontSize="small" />
-          <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+          <Typography
+            gutterBottom
+            sx={{ color: 'text.secondary', fontSize: 14 }}
+          >
             {item.name}
           </Typography>
         </ItemContainer>
@@ -44,11 +52,7 @@ const ProfileCard: FC<ProfileCardProps> = ({ item, onDelete, onUpdate, detailUrl
           >
             Eliminar
           </Button>
-          <Button
-            size="small"
-            variant="outlined"
-            href={detailUrl(item)}
-          >
+          <Button size="small" variant="outlined" href={detailUrl(item)}>
             Detalle
           </Button>
         </Box>

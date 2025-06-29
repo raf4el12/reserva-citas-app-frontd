@@ -17,9 +17,10 @@ import SpecialtiesDetailPage from './pages/specialties/SpecialtiesDetailPage'
 import SpecialtiesNewPage from './pages/specialties/SpecialtiesNewPage'
 import SpecialtiesPage from './pages/specialties/SpecialtiesPage'
 
-import ProfilesPage from './pages/profiles/ProfilesPage'
 import ProfilesCreatePage from './pages/profiles/ProfilesCreatePage'
 import ProfilesDetailPage from './pages/profiles/ProfilesDetailPage'
+import ProfilesPage from './pages/profiles/ProfilesPage'
+import ProfilesUpdatePage from './pages/profiles/ProfilesPageUpdate'
 
 const router = createBrowserRouter([
   {
@@ -115,6 +116,10 @@ const router = createBrowserRouter([
           {
             path: ':id/detail',
             element: <ProfilesDetailPage />,
+          },
+          {
+            path: 'update/:id',
+            element: <ProfilesUpdatePage />,
           },
         ],
       },

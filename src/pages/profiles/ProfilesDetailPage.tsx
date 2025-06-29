@@ -31,31 +31,44 @@ const ProfilesDetailPage = () => {
             <strong>Email:</strong> {data.email}
           </Typography>
           <Typography variant="subtitle1">
-            <strong>Fecha de nacimiento:</strong> {data.birthday ? data.birthday : 'No registrado'}
+            <strong>Fecha de nacimiento:</strong>{' '}
+            {data.birthday ? data.birthday : 'No registrado'}
           </Typography>
           <Typography variant="subtitle1">
-            <strong>Género:</strong> {data.gender ? data.gender : 'No registrado'}
+            <strong>Género:</strong>{' '}
+            {data.gender ? data.gender : 'No registrado'}
           </Typography>
           <Typography variant="subtitle1">
-            <strong>Nacionalidad:</strong> {data.national ? data.national : 'No registrado'}
+            <strong>Nacionalidad:</strong>{' '}
+            {data.national ? data.national : 'No registrado'}
           </Typography>
           <Typography variant="subtitle1">
-            <strong>Foto:</strong> {data.photo ? <img src={data.photo} alt="Foto" width={60} /> : 'No registrado'}
+            <strong>Foto:</strong>{' '}
+            {data.photo ? (
+              <img src={data.photo} alt="Foto" width={60} />
+            ) : (
+              'No registrado'
+            )}
           </Typography>
           <Typography variant="subtitle1">
-            <strong>Teléfono:</strong> {data.phone ? data.phone : 'No registrado'}
+            <strong>Teléfono:</strong>{' '}
+            {data.phone ? data.phone : 'No registrado'}
           </Typography>
           <Typography variant="subtitle1">
-            <strong>Dirección:</strong> {data.address ? data.address : 'No registrado'}
+            <strong>Dirección:</strong>{' '}
+            {data.address ? data.address : 'No registrado'}
           </Typography>
           <Typography variant="subtitle1">
-            <strong>Tipo de perfil (ID):</strong> {data.typeProfileId ?? 'No registrado'}
+            <strong>Tipo de perfil (ID):</strong>{' '}
+            {data.typeProfileId ?? 'No registrado'}
           </Typography>
           <Typography variant="subtitle1">
-            <strong>Tipo de documento:</strong> {data.typeDocument ? data.typeDocument : 'No registrado'}
+            <strong>Tipo de documento:</strong>{' '}
+            {data.typeDocument ? data.typeDocument : 'No registrado'}
           </Typography>
           <Typography variant="subtitle1">
-            <strong>Número de documento:</strong> {data.numberDocument ? data.numberDocument : 'No registrado'}
+            <strong>Número de documento:</strong>{' '}
+            {data.numberDocument ? data.numberDocument : 'No registrado'}
           </Typography>
           <Button
             sx={{ mt: 2 }}

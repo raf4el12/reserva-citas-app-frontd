@@ -21,21 +21,26 @@ export const useUpdateProfile = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async ({ id, ...updatedProfile }: { id: number } & UpdateProfileDto) => {
+    mutationFn: async ({
+      id,
+      ...updatedProfile
+    }: { id: number } & UpdateProfileDto) => {
       const data = await ApiBackend.put(`/profiles/${id}`, updatedProfile)
       return data as Profile
     },
     onSuccess: (data) => {
-
       queryClient.invalidateQueries({ queryKey: ['profiles'] })
 
-      queryClient.setQueryData(['profiles'], (oldData: Profile[] | undefined) => {
-        if (!oldData) return []
+      queryClient.setQueryData(
+        ['profiles'],
+        (oldData: Profile[] | undefined) => {
+          if (!oldData) return []
 
-        return oldData.map(profile =>
-          profile.id === data.id ? { ...profile, ...data } : profile
-        )
-      })
+          return oldData.map((profile) =>
+            profile.id === data.id ? { ...profile, ...data } : profile
+          )
+        }
+      )
     },
   })
 }

@@ -7,8 +7,9 @@ export const profileSchema = z.object({
   birthday: z
     .string()
     .optional()
-    .refine(val => !val || !Number.isNaN(Date.parse(val)), {
-      message: 'La fecha de nacimiento debe ser una fecha válida en formato YYYY-MM-DD',
+    .refine((val) => !val || !Number.isNaN(Date.parse(val)), {
+      message:
+        'La fecha de nacimiento debe ser una fecha válida en formato YYYY-MM-DD',
     }),
   gender: z.string().optional(),
   national: z.string().optional(),

@@ -1,8 +1,21 @@
-import { Box, Button, Card, CardContent, TextField, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  MenuItem,
+  TextField,
+  Typography,
+} from '@mui/material'
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
+import FormFieldError from '../../components/commons/FormFieldError'
 import { useProfileById } from '../../hook/profiles/useProfilesById'
 import { useUpdateProfile } from '../../hook/profiles/useProfilesUpdate'
+import { type ProfileForm, profileSchema } from '../../types/profileSchema'
 
 const ProfilesUpdatePage = () => {
   const { id } = useParams<{ id: string }>()
@@ -11,26 +24,33 @@ const ProfilesUpdatePage = () => {
   const updateProfile = useUpdateProfile()
   const navigate = useNavigate()
 
-  // Estado para los campos editables
-  const [form, setForm] = useState({
-    name: '',
-    lastName: '',
-    email: '',
-    birthday: '',
-    gender: '',
-    national: '',
-    photo: '',
-    phone: '',
-    address: '',
-    typeProfileId: '',
-    typeDocument: '',
-    numberDocument: '',
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ProfileForm>({
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      name: '',
+      lastName: '',
+      email: '',
+      birthday: '',
+      gender: '',
+      national: '',
+      photo: '',
+      phone: '',
+      address: '',
+      typeProfileId: '',
+      typeDocument: '',
+      numberDocument: '',
+    },
   })
 
-  // Cargar datos actuales al montar
+  // Cuando llegan los datos, los seteamos en el formulario
   useEffect(() => {
     if (data) {
-      setForm({
+      reset({
         name: data.name ?? '',
         lastName: data.lastName ?? '',
         email: data.email ?? '',
@@ -45,17 +65,14 @@ const ProfilesUpdatePage = () => {
         numberDocument: data.numberDocument ?? '',
       })
     }
-  }, [data])
+  }, [data, reset])
 
-  const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [field]: e.target.value })
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const onSubmit = async (form: ProfileForm) => {
     await updateProfile.mutateAsync({
       id: profileId,
       ...form,
+      birthday: form.birthday ? form.birthday : undefined,
+      photo: form.photo ? form.photo : undefined,
       typeProfileId: form.typeProfileId ? Number(form.typeProfileId) : null,
     })
     navigate('/admin/profiles')
@@ -65,103 +82,148 @@ const ProfilesUpdatePage = () => {
   if (!data) return <div>No se encontró el perfil.</div>
 
   return (
-    <Box maxWidth={500} mx="auto" mt={4}>
+    <Box maxWidth={700} mx="auto" mt={4}>
       <Card>
         <CardContent>
           <Typography variant="h5" mb={2}>
             Editar Perfil
           </Typography>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Nombre"
-              value={form.name}
-              onChange={handleChange('name')}
-              required
-            />
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Apellido"
-              value={form.lastName}
-              onChange={handleChange('lastName')}
-              required
-            />
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Email"
-              value={form.email}
-              onChange={handleChange('email')}
-              type="email"
-              required
-            />
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Fecha de nacimiento"
-              value={form.birthday}
-              onChange={handleChange('birthday')}
-              type="date"
-              InputLabelProps={{ shrink: true }}
-            />
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Género"
-              value={form.gender}
-              onChange={handleChange('gender')}
-            />
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Nacionalidad"
-              value={form.national}
-              onChange={handleChange('national')}
-            />
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Foto (URL)"
-              value={form.photo}
-              onChange={handleChange('photo')}
-            />
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Teléfono"
-              value={form.phone}
-              onChange={handleChange('phone')}
-            />
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Dirección"
-              value={form.address}
-              onChange={handleChange('address')}
-            />
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Tipo de perfil (ID)"
-              value={form.typeProfileId}
-              onChange={handleChange('typeProfileId')}
-            />
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Tipo de documento"
-              value={form.typeDocument}
-              onChange={handleChange('typeDocument')}
-            />
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Número de documento"
-              value={form.numberDocument}
-              onChange={handleChange('numberDocument')}
-            />
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Nombre"
+                  {...register('name')}
+                  error={!!errors.name}
+                  required
+                />
+                {errors.name && (
+                  <FormFieldError>{errors.name.message}</FormFieldError>
+                )}
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Apellido"
+                  {...register('lastName')}
+                  error={!!errors.lastName}
+                  required
+                />
+                {errors.lastName && (
+                  <FormFieldError>{errors.lastName.message}</FormFieldError>
+                )}
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Email"
+                  {...register('email')}
+                  error={!!errors.email}
+                  type="email"
+                  required
+                />
+                {errors.email && (
+                  <FormFieldError>{errors.email.message}</FormFieldError>
+                )}
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Fecha de nacimiento"
+                  {...register('birthday')}
+                  type="date"
+                  InputLabelProps={{ shrink: true }}
+                />
+                {errors.birthday && (
+                  <FormFieldError>{errors.birthday.message}</FormFieldError>
+                )}
+                <TextField
+                  select
+                  fullWidth
+                  margin="normal"
+                  label="Género"
+                  {...register('gender')}
+                  error={!!errors.gender}
+                  defaultValue=""
+                >
+                  <MenuItem value="">Selecciona una opción</MenuItem>
+                  <MenuItem value="Femenino">Femenino</MenuItem>
+                  <MenuItem value="Masculino">Masculino</MenuItem>
+                  <MenuItem value="Otro">Otro</MenuItem>
+                </TextField>
+                {errors.gender && (
+                  <FormFieldError>{errors.gender.message}</FormFieldError>
+                )}
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Nacionalidad"
+                  {...register('national')}
+                />
+                {errors.national && (
+                  <FormFieldError>{errors.national.message}</FormFieldError>
+                )}
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Foto (URL)"
+                  {...register('photo')}
+                />
+                {errors.photo && (
+                  <FormFieldError>{errors.photo.message}</FormFieldError>
+                )}
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Teléfono"
+                  {...register('phone')}
+                />
+                {errors.phone && (
+                  <FormFieldError>{errors.phone.message}</FormFieldError>
+                )}
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Dirección"
+                  {...register('address')}
+                />
+                {errors.address && (
+                  <FormFieldError>{errors.address.message}</FormFieldError>
+                )}
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Tipo de perfil (ID)"
+                  {...register('typeProfileId')}
+                />
+                {errors.typeProfileId && (
+                  <FormFieldError>
+                    {errors.typeProfileId.message}
+                  </FormFieldError>
+                )}
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Tipo de documento"
+                  {...register('typeDocument')}
+                />
+                {errors.typeDocument && (
+                  <FormFieldError>{errors.typeDocument.message}</FormFieldError>
+                )}
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Número de documento"
+                  {...register('numberDocument')}
+                />
+                {errors.numberDocument && (
+                  <FormFieldError>
+                    {errors.numberDocument.message}
+                  </FormFieldError>
+                )}
+              </Grid>
+            </Grid>
             <Box display="flex" gap={2} mt={2}>
               <Button
                 type="button"
@@ -174,7 +236,7 @@ const ProfilesUpdatePage = () => {
                 type="submit"
                 variant="contained"
                 color="primary"
-                disabled={updateProfile.isPending}
+                disabled={isSubmitting || updateProfile.isPending}
               >
                 Guardar
               </Button>

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' 
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
 type RequestOptions = {
   headers?: Record<string, string>
