@@ -9,6 +9,10 @@ import MainPage from './pages/Main'
 import LoginPage from './pages/auth/LoginPage'
 import SignupPage from './pages/auth/SignupPage'
 
+import CommonPage from './pages/commons/CommonPage'
+
+import DashboardPage from './pages/dashboard/DashboardPage'
+
 import CategoryDetailPage from './pages/categories/CategoryDetailPage'
 import CategoryNewPage from './pages/categories/CategoryNewPage'
 import CategoryPage from './pages/categories/CategoryPage'
@@ -30,14 +34,14 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <CategoryPage />,
+        element: <DashboardPage />,
       },
       {
         path: 'dashboard',
         children: [
           {
             path: '',
-            element: <CategoryPage />,
+            element: <DashboardPage />,
           },
         ],
       },
@@ -46,7 +50,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <CategoryPage />,
+            element: <CommonPage />,
           },
         ],
       },
@@ -55,7 +59,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <CategoryPage />,
+            element: <CommonPage />,
           },
         ],
       },
@@ -81,7 +85,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <CategoryPage />,
+            element: <CommonPage />,
           },
         ],
       },
@@ -90,7 +94,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <CategoryPage />,
+            element: <CommonPage />,
           },
         ],
       },
@@ -99,7 +103,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <CategoryPage />,
+            element: <CommonPage />,
           },
         ],
       },
@@ -108,7 +112,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <CategoryPage />,
+            element: <CommonPage />,
           },
         ],
       },
@@ -117,7 +121,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <CategoryPage />,
+            element: <CommonPage />,
           },
         ],
       },
