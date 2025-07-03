@@ -1,4 +1,4 @@
-import { Box, Typography, Paper } from '@mui/material'
+import { Box, Paper, Typography } from '@mui/material'
 
 const DashboardPage = () => {
   return (
@@ -24,8 +24,15 @@ const DashboardPage = () => {
           maxWidth: 420,
         }}
       >
-        {/* SVG ilustrativo */}
-        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+        <svg
+          width="120"
+          height="120"
+          viewBox="0 0 120 120"
+          fill="none"
+          role="img"
+          aria-label="Ilustración de dashboard"
+        >
+          <title>Ilustración de dashboard</title>
           <rect x="10" y="30" width="100" height="60" rx="12" fill="#E0E7FF" />
           <rect x="25" y="45" width="70" height="30" rx="6" fill="#6366F1" />
           <circle cx="60" cy="60" r="8" fill="#fff" />
@@ -35,7 +42,8 @@ const DashboardPage = () => {
           ¡Bienvenido al Panel de Administración!
         </Typography>
         <Typography variant="body1" color="text.secondary" align="center">
-          Aquí podrás visualizar estadísticas, gestionar citas médicas y administrar la información de tu clínica.
+          Aquí podrás visualizar estadísticas, gestionar citas médicas y
+          administrar la información de tu clínica.
         </Typography>
       </Paper>
     </Box>

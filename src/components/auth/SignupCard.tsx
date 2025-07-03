@@ -1,39 +1,41 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 
 import { useSignup } from '../../hook/auth/useSignup'
-import { userSignupSchema } from '../../types/auth'
+import { type SignupDto, userSignupSchema } from '../../types/auth'
 import { Role } from '../../types/user'
 import LayoutAuth from './LayoutAuth'
 
 const SignupCard = () => {
   const navigate = useNavigate()
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [error, setError] = useState('')
-
   const signupMutation = useSignup()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm<SignupDto>({
+    resolver: zodResolver(userSignupSchema),
+    defaultValues: {
+      role: Role.USER,
+    },
+  })
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const data = { name, email, password, role: Role.USER }
-    const result = userSignupSchema.safeParse(data)
-
-    if (!result.success) {
-      setError(JSON.stringify(result.error.errors) || 'Datos inválidos')
-
+  const onSubmit = (data: SignupDto) => {
+    if (data.password !== data.confirmPassword) {
+      setError('confirmPassword', { message: 'Las contraseñas no coinciden' })
       return
     }
-
     signupMutation.mutate(data, {
       onSuccess: () => {
         navigate('/auth/login')
       },
       onError: (err: any) => {
-        setError(err?.message || 'Error al registrar la cuenta')
+        setError('root', {
+          message: err?.message || 'Error al registrar la cuenta',
+        })
       },
     })
   }
@@ -46,18 +48,20 @@ const SignupCard = () => {
       <p className="text-gray-500 text-center mb-6 text-sm">
         Completa el formulario para registrarte
       </p>
-      <form className="space-y-4" onSubmit={handleSubmit}>
+      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label className="block text-sm font-medium mb-1" htmlFor="name">
             Nombre
           </label>
           <input
             id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            {...register('name', { required: 'El nombre es obligatorio' })}
             className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
             placeholder="Tu nombre"
           />
+          {errors.name && (
+            <span className="text-xs text-red-600">{errors.name.message}</span>
+          )}
         </div>
         <div>
           <label className="block text-sm font-medium mb-1" htmlFor="email">
@@ -65,11 +69,13 @@ const SignupCard = () => {
           </label>
           <input
             id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            {...register('email', { required: 'El correo es obligatorio' })}
             className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
             placeholder="m@ejemplo.com"
           />
+          {errors.email && (
+            <span className="text-xs text-red-600">{errors.email.message}</span>
+          )}
         </div>
         <div>
           <label className="block text-sm font-medium mb-1" htmlFor="password">
@@ -78,11 +84,17 @@ const SignupCard = () => {
           <input
             id="password"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            {...register('password', {
+              required: 'La contraseña es obligatoria',
+            })}
             className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
             placeholder="Contraseña"
           />
+          {errors.password && (
+            <span className="text-xs text-red-600">
+              {errors.password.message}
+            </span>
+          )}
         </div>
         <div>
           <label
@@ -94,11 +106,17 @@ const SignupCard = () => {
           <input
             id="confirmPassword"
             type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            {...register('confirmPassword', {
+              required: 'Confirma tu contraseña',
+            })}
             className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
             placeholder="Repite tu contraseña"
           />
+          {errors.confirmPassword && (
+            <span className="text-xs text-red-600">
+              {errors.confirmPassword.message}
+            </span>
+          )}
         </div>
         <button
           type="submit"
@@ -107,9 +125,9 @@ const SignupCard = () => {
         >
           {signupMutation.isPending ? 'Registrando...' : 'Registrarse'}
         </button>
-        {error && (
+        {errors.root && (
           <div className="bg-red-100 text-red-700 rounded px-4 py-2 mt-2 text-center text-sm break-words">
-            {error}
+            {errors.root.message}
           </div>
         )}
       </form>

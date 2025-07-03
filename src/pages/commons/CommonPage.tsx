@@ -12,7 +12,14 @@ const CommonPage = () => {
         gap: 2,
       }}
     >
-      <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+      <svg
+        width="100"
+        height="100"
+        viewBox="0 0 100 100"
+        fill="none"
+        role="img"
+        aria-label="Ilustración de construcción"
+      >
         <rect x="15" y="60" width="70" height="20" rx="5" fill="#FBBF24" />
         <rect x="30" y="40" width="40" height="20" rx="4" fill="#FDE68A" />
         <rect x="45" y="25" width="10" height="15" rx="2" fill="#F59E42" />
