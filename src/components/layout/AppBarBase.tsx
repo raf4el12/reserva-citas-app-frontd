@@ -2,7 +2,6 @@ import {
   AppBar,
   Box,
   Button,
-  LinearProgress,
   Link,
   Toolbar,
   Typography,
@@ -13,7 +12,6 @@ import { useNavigate } from 'react-router'
 import useAuthContext from '../../context/AuthContext'
 import { useLogoutMutation } from '../../hook/auth/useLogout'
 import DropdownAvatar from '../auth/DropdownAvatar'
-import LoadingPage from '../commons/LoadingPage'
 import SnackbarErrorBase from './SnackbarErrorBase'
 
 interface AppBarBaseProps {
@@ -47,13 +45,13 @@ const AppBarBase: FC<AppBarBaseProps> = ({
   }
 
   if (isPrivate && isLoading) {
-    return <LinearProgress />
+    return null
   }
 
   if (!user && isPrivate && !isLoading) {
     window.location.href = '/auth/login'
 
-    return <LoadingPage />
+    return null
   }
 
   return (
