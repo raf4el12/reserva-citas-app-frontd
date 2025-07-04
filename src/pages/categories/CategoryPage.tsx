@@ -1,6 +1,6 @@
 import { Box, LinearProgress, Typography } from '@mui/material'
 
-import CategoryCard from '../../components/category/CategoryCard'
+import CategoryCard from '../../components/categories/CategoryCard'
 import CardNew from '../../components/commons/CardNew'
 import { useCategories } from '../../hook/categories/useCategories'
 

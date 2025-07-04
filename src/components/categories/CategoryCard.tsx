@@ -12,7 +12,7 @@ const CategoryCard: FC<CategoryCardProps> = ({ item }) => {
     <CardItem
       href={`/admin/categories/${item.id}/detail`}
       textMain={item.name}
-      textSecondary={item.id}
+      textSecondary={item.id.toString()}
     />
   )
 }

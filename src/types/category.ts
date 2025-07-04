@@ -1,7 +1,5 @@
 export interface Category {
-  id: string
+  id: number
   name: string
   deleted: boolean
-  createdAt: string
-  updatedAt: string
 }

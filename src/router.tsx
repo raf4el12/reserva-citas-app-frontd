@@ -59,6 +59,22 @@ const CategoryPage = lazy(
       './pages/categories/CategoryPage' /* webpackChunkName: "category-page" */
     )
 )
+const DoctorDetailPage = lazy(
+  () =>
+    import(
+      './pages/doctors/DoctorDetailPage' /* webpackChunkName: "doctor-detail-page" */
+    )
+)
+const DoctorNewPage = lazy(
+  () =>
+    import(
+      './pages/doctors/DoctorNewPage' /* webpackChunkName: "doctor-new-page" */
+    )
+)
+const DoctorPage = lazy(
+  () =>
+    import('./pages/doctors/DoctorPage' /* webpackChunkName: "doctor-page" */)
+)
 
 const router = createBrowserRouter([
   {
@@ -137,7 +153,15 @@ const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <CommonPage />,
+            element: <DoctorPage />,
+          },
+          {
+            path: ':id/detail',
+            element: <DoctorDetailPage />,
+          },
+          {
+            path: 'new',
+            element: <DoctorNewPage />,
           },
         ],
       },
