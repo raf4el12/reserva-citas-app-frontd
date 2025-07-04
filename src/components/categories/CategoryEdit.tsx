@@ -1,9 +1,10 @@
-import CloseIcon from '@mui/icons-material/Close'
-import { Alert, Box, Button, IconButton, Paper, TextField } from '@mui/material'
+import { Alert, Button, TextField } from '@mui/material'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
+
 import { useCreateCategory } from '../../hook/categories/useCreatedCategory'
+import CardTitle from '../commons/CardTitle'
 
 const CategoryEdit = () => {
   const navigate = useNavigate()
@@ -23,49 +24,45 @@ const CategoryEdit = () => {
   }
 
   return (
-    <Paper elevation={4} sx={{ p: 4, maxWidth: 400, mx: 'auto', mt: 4 }}>
-      <div className="flex gap-2 justify-between h-[50px] items-center">
-        <h2 className="text-2xl font-bold text-primary mb-2">
-          Nueva Categoría
-        </h2>
-        <IconButton size="small">
-          <Link to="/admin/categories">
-            <CloseIcon />
-          </Link>
-        </IconButton>
-      </div>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        display="flex"
-        flexDirection="column"
-        gap={2}
-      >
-        <TextField
-          label="Nombre"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          fullWidth
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          disabled={createCategory.isPending}
-        >
-          {createCategory.isPending ? 'Creando...' : 'Crear'}
-        </Button>
+    <div className="max-w-xl mx-auto mt-10 bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+      <CardTitle title="Nueva Categoría" to="/admin/categories" />
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="mb-6">
+          <TextField
+            label="Nombre"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            fullWidth
+          />
+        </div>
         {createCategory.isError && (
-          <Alert severity="error">
+          <Alert severity="error" className="mt-2">
             {createCategory.error instanceof Error
               ? createCategory.error.message
               : 'Error al crear la categoría'}
           </Alert>
         )}
-      </Box>
-    </Paper>
+        <div className="flex justify-end gap-2 mt-4">
+          <Button
+            variant="outlined"
+            color="secondary"
+            component={Link}
+            to="/admin/categories"
+          >
+            Cancelar
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            disabled={createCategory.isPending}
+          >
+            Guardar
+          </Button>
+        </div>
+      </form>
+    </div>
   )
 }
 

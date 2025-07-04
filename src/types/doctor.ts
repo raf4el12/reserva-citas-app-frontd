@@ -9,6 +9,11 @@ const doctorSchemaBase = {
 export const doctorSchema = z.object({
   ...doctorSchemaBase,
   id: z.number().int(),
+  profile: z.object({
+    id: z.number().int(),
+    lastName: z.string(),
+    name: z.string(),
+  }),
 })
 
 export type Doctor = z.infer<typeof doctorSchema>

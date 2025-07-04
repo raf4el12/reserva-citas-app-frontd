@@ -18,7 +18,7 @@ const DoctorPage = () => {
         gap: 1,
       }}
     >
-      {!doctors?.data && <Typography variant="h4">No hay doctores</Typography>}
+      {!doctors?.data && <Typography variant="h4">No hay medicos</Typography>}
       {doctors?.data?.map((item, index) => (
         <div key={`doctor-card-${index}`}>
           <DoctorCard item={item} />

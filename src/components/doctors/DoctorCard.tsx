@@ -11,7 +11,7 @@ const DoctorCard: FC<DoctorCardProps> = ({ item }) => {
   return (
     <CardItem
       href={`/admin/doctors/${item.id}/detail`}
-      textMain={item.profileId.toString()}
+      textMain={`${item.profile.name} ${item.profile.lastName}`}
       textSecondary={item.id.toString()}
     />
   )
