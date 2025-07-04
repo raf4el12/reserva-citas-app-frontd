@@ -1,7 +1,6 @@
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
-import PersonIcon from '@mui/icons-material/Person'
 import { Card, CardActionArea, CardContent, Typography } from '@mui/material'
 import type { FC } from 'react'
+
 import type { Category } from '../../types/category'
 import ItemContainer from '../commons/ItemContainer'
 
@@ -18,18 +17,17 @@ const CategoryCard: FC<CategoryCardProps> = ({ item }) => {
       >
         <CardContent>
           <ItemContainer>
-            <AlternateEmailIcon fontSize="small" />
             <Typography
               gutterBottom
+              noWrap
               sx={{ color: 'text.secondary', fontSize: 14 }}
             >
               {item.name}
             </Typography>
           </ItemContainer>
           <ItemContainer>
-            <PersonIcon fontSize="small" />
             <Typography variant="h5" component="div">
-              {item.deleted}
+              {item.id}
             </Typography>
           </ItemContainer>
         </CardContent>

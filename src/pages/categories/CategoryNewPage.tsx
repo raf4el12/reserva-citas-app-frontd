@@ -1,8 +1,12 @@
-import { Alert, Box, Button, Paper, TextField, Typography } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+import { Alert, Box, Button, IconButton, Paper, TextField } from '@mui/material'
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom'
 import { useCreateCategory } from '../../hook/categories/useCreatedCategories'
 
 const CategoryNewPage = () => {
+  const navigate = useNavigate()
   const [name, setName] = useState('')
   const [success, setSuccess] = useState(false)
   const createCategory = useCreateCategory()
@@ -14,8 +18,7 @@ const CategoryNewPage = () => {
       { name },
       {
         onSuccess: () => {
-          setSuccess(true)
-          setName('')
+          navigate('/admin/categories')
         },
       }
     )
@@ -23,9 +26,16 @@ const CategoryNewPage = () => {
 
   return (
     <Paper elevation={4} sx={{ p: 4, maxWidth: 400, mx: 'auto', mt: 4 }}>
-      <Typography variant="h6" mb={2} align="center" fontWeight="bold">
-        Nueva Categoría
-      </Typography>
+      <div className="flex gap-2 justify-between h-[50px] items-center">
+        <h2 className="text-2xl font-bold text-primary mb-2">
+          Nueva Categoría
+        </h2>
+        <IconButton size="small">
+          <Link to="/admin/categories">
+            <CloseIcon />
+          </Link>
+        </IconButton>
+      </div>
       <Box
         component="form"
         onSubmit={handleSubmit}

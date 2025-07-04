@@ -1,21 +1,64 @@
+import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
-import LayoutAdmin from './components/layout/LayoutAdmin'
-import LayoutAuth from './components/layout/LayoutAuth'
-import LayoutMain from './components/layout/LayoutMain'
+// Layouts
+const LayoutAdmin = lazy(
+  () =>
+    import(
+      './components/layout/LayoutAdmin' /* webpackChunkName: "layout-admin" */
+    )
+)
+const LayoutAuth = lazy(
+  () =>
+    import(
+      './components/layout/LayoutAuth' /* webpackChunkName: "layout-auth" */
+    )
+)
+const LayoutMain = lazy(
+  () =>
+    import(
+      './components/layout/LayoutMain' /* webpackChunkName: "layout-main" */
+    )
+)
 
-import MainPage from './pages/Main'
-
-import LoginPage from './pages/auth/LoginPage'
-import SignupPage from './pages/auth/SignupPage'
-
-import CommonPage from './pages/commons/CommonPage'
-
-import DashboardPage from './pages/dashboard/DashboardPage'
-
-import CategoryDetailPage from './pages/categories/CategoryDetailPage'
-import CategoryNewPage from './pages/categories/CategoryNewPage'
-import CategoryPage from './pages/categories/CategoryPage'
+// Pages
+const MainPage = lazy(
+  () => import('./pages/Main' /* webpackChunkName: "main-page" */)
+)
+const LoginPage = lazy(
+  () => import('./pages/auth/LoginPage' /* webpackChunkName: "login-page" */)
+)
+const SignupPage = lazy(
+  () => import('./pages/auth/SignupPage' /* webpackChunkName: "signup-page" */)
+)
+const CommonPage = lazy(
+  () =>
+    import('./pages/commons/CommonPage' /* webpackChunkName: "common-page" */)
+)
+const DashboardPage = lazy(
+  () =>
+    import(
+      './pages/dashboard/DashboardPage' /* webpackChunkName: "dashboard-page" */
+    )
+)
+const CategoryDetailPage = lazy(
+  () =>
+    import(
+      './pages/categories/CategoryDetailPage' /* webpackChunkName: "category-detail-page" */
+    )
+)
+const CategoryNewPage = lazy(
+  () =>
+    import(
+      './pages/categories/CategoryNewPage' /* webpackChunkName: "category-new-page" */
+    )
+)
+const CategoryPage = lazy(
+  () =>
+    import(
+      './pages/categories/CategoryPage' /* webpackChunkName: "category-page" */
+    )
+)
 
 const router = createBrowserRouter([
   {
@@ -77,15 +120,6 @@ const router = createBrowserRouter([
           {
             path: 'new',
             element: <CategoryNewPage />,
-          },
-        ],
-      },
-      {
-        path: 'specialties',
-        children: [
-          {
-            path: '',
-            element: <CommonPage />,
           },
         ],
       },

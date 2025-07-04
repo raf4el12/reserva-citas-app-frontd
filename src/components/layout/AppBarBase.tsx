@@ -1,4 +1,12 @@
-import { AppBar, Box, Button, Link, Toolbar, Typography } from '@mui/material'
+import {
+  AppBar,
+  Box,
+  Button,
+  LinearProgress,
+  Link,
+  Toolbar,
+  Typography,
+} from '@mui/material'
 import { type FC, useState } from 'react'
 import { useNavigate } from 'react-router'
 
@@ -39,7 +47,7 @@ const AppBarBase: FC<AppBarBaseProps> = ({
   }
 
   if (isPrivate && isLoading) {
-    return <LoadingPage />
+    return <LinearProgress />
   }
 
   if (!user && isPrivate && !isLoading) {

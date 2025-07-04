@@ -1,4 +1,4 @@
-import PersonAddIcon from '@mui/icons-material/PersonAdd'
+import AddIcon from '@mui/icons-material/Add'
 import {
   Box,
   Card,
@@ -16,26 +16,19 @@ interface CardNewProps {
 const CardNew: FC<CardNewProps> = ({ href, text = 'Nuevo' }) => {
   return (
     <Card sx={{ minWidth: 275, borderColor: 'green' }} variant="outlined">
-      <CardActionArea
-        component="a"
-        href={href}
-        sx={{ height: '100%', display: 'flex' }}
-      >
-        <CardContent>
+      <CardActionArea component="a" href={href} sx={{ height: '100%' }}>
+        <CardContent sx={{ height: '100%' }}>
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
-              gap: 0.5,
+              height: '100%',
             }}
           >
-            <PersonAddIcon />
-            <Typography
-              gutterBottom
-              sx={{ color: 'text.secondary', fontSize: 14 }}
-            >
+            <AddIcon />
+            <Typography sx={{ color: 'text.secondary', fontSize: 14 }}>
               {text}
             </Typography>
           </Box>
