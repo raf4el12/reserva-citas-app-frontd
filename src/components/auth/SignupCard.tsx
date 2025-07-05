@@ -20,10 +20,6 @@ const SignupCard = () => {
   } = useForm<SignupDto>({
     resolver: zodResolver(userSignupSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
       role: Role.USER,
     },
   })

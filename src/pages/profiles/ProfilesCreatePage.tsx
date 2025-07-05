@@ -12,12 +12,10 @@ import {
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import FormFieldError from '../../components/commons/FormFieldError'
-import useAuthContext from '../../context/AuthContext'
-import { useCreateProfile } from '../../hook/profiles/useProfilesCreate'
-import { type ProfileForm, profileSchema } from '../../types/profileSchema'
+import { useCreateProfile } from '../../hook/profiles/useCreatedProfiles'
+import { type CreateProfileDto, profileSchemaDto } from '../../types/profile'
 
 const ProfilesCreatePage = () => {
-  const { user } = useAuthContext()
   const createProfile = useCreateProfile()
   const navigate = useNavigate()
 
@@ -25,42 +23,22 @@ const ProfilesCreatePage = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<ProfileForm>({
-    resolver: zodResolver(profileSchema),
+  } = useForm<CreateProfileDto>({
+    resolver: zodResolver(profileSchemaDto),
     defaultValues: {
-      name: '',
-      lastName: '',
-      email: '',
-      birthday: '',
-      gender: '',
-      national: '',
-      photo: '',
-      phone: '',
-      address: '',
-      typeProfileId: '',
-      typeDocument: '',
-      numberDocument: '',
+      typeProfileId: 1,
     },
   })
 
-  const onSubmit = async (form: ProfileForm) => {
-    if (!user?.id) {
-      alert('No se encontró el usuario. No se puede crear el perfil.')
-      return
-    }
-
+  const onSubmit = async (form: CreateProfileDto) => {
     await createProfile.mutateAsync({
       ...form,
-      userId: user.id,
-      birthday: form.birthday
-        ? new Date(form.birthday).toISOString()
-        : undefined,
       photo: form.photo ? form.photo : undefined,
       typeProfileId: form.typeProfileId ? Number(form.typeProfileId) : null,
     })
     navigate('/admin/profiles')
   }
-
+console.log(errors)
   return (
     <Box maxWidth={700} mx="auto" mt={4}>
       <Card>
@@ -170,17 +148,6 @@ const ProfilesCreatePage = () => {
                 />
                 {errors.address && (
                   <FormFieldError>{errors.address.message}</FormFieldError>
-                )}
-                <TextField
-                  fullWidth
-                  margin="normal"
-                  label="Tipo de perfil (ID)"
-                  {...register('typeProfileId')}
-                />
-                {errors.typeProfileId && (
-                  <FormFieldError>
-                    {errors.typeProfileId.message}
-                  </FormFieldError>
                 )}
                 <TextField
                   fullWidth

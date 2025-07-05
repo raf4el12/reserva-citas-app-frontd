@@ -15,7 +15,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import FormFieldError from '../../components/commons/FormFieldError'
 import { useProfileById } from '../../hook/profiles/useProfilesById'
 import { useUpdateProfile } from '../../hook/profiles/useProfilesUpdate'
-import { type ProfileForm, profileSchema } from '../../types/profileSchema'
+import { type Profile, profileSchema, type UpdateProfileDto } from '../../types/profile'
 
 const ProfilesUpdatePage = () => {
   const { id } = useParams<{ id: string }>()
@@ -29,49 +29,21 @@ const ProfilesUpdatePage = () => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<ProfileForm>({
+  } = useForm<Profile>({
     resolver: zodResolver(profileSchema),
-    defaultValues: {
-      name: '',
-      lastName: '',
-      email: '',
-      birthday: '',
-      gender: '',
-      national: '',
-      photo: '',
-      phone: '',
-      address: '',
-      typeProfileId: '',
-      typeDocument: '',
-      numberDocument: '',
-    },
   })
 
   // Cuando llegan los datos, los seteamos en el formulario
   useEffect(() => {
     if (data) {
-      reset({
-        name: data.name ?? '',
-        lastName: data.lastName ?? '',
-        email: data.email ?? '',
-        birthday: data.birthday ?? '',
-        gender: data.gender ?? '',
-        national: data.national ?? '',
-        photo: data.photo ?? '',
-        phone: data.phone ?? '',
-        address: data.address ?? '',
-        typeProfileId: data.typeProfileId ? String(data.typeProfileId) : '',
-        typeDocument: data.typeDocument ?? '',
-        numberDocument: data.numberDocument ?? '',
-      })
+      reset(data)
     }
   }, [data, reset])
 
-  const onSubmit = async (form: ProfileForm) => {
+  const onSubmit = async (form: UpdateProfileDto) => {
     await updateProfile.mutateAsync({
       id: profileId,
       ...form,
-      birthday: form.birthday ? form.birthday : undefined,
       photo: form.photo ? form.photo : undefined,
       typeProfileId: form.typeProfileId ? Number(form.typeProfileId) : null,
     })

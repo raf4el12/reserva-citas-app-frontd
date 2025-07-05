@@ -1,31 +1,107 @@
+import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
-import LayoutAdmin from './components/layout/LayoutAdmin'
-import LayoutAuth from './components/layout/LayoutAuth'
-import LayoutMain from './components/layout/LayoutMain'
+// Layouts
+const LayoutAdmin = lazy(
+  () =>
+    import(
+      './components/layout/LayoutAdmin' /* webpackChunkName: "layout-admin" */
+    )
+)
+const LayoutAuth = lazy(
+  () =>
+    import(
+      './components/layout/LayoutAuth' /* webpackChunkName: "layout-auth" */
+    )
+)
+const LayoutMain = lazy(
+  () =>
+    import(
+      './components/layout/LayoutMain' /* webpackChunkName: "layout-main" */
+    )
+)
 
-import MainPage from './pages/Main'
+// Pages
+const MainPage = lazy(
+  () => import('./pages/Main' /* webpackChunkName: "main-page" */)
+)
+const LoginPage = lazy(
+  () => import('./pages/auth/LoginPage' /* webpackChunkName: "login-page" */)
+)
+const SignupPage = lazy(
+  () => import('./pages/auth/SignupPage' /* webpackChunkName: "signup-page" */)
+)
+const CommonPage = lazy(
+  () =>
+    import('./pages/commons/CommonPage' /* webpackChunkName: "common-page" */)
+)
+const DashboardPage = lazy(
+  () =>
+    import(
+      './pages/dashboard/DashboardPage' /* webpackChunkName: "dashboard-page" */
+    )
+)
+const CategoryDetailPage = lazy(
+  () =>
+    import(
+      './pages/categories/CategoryDetailPage' /* webpackChunkName: "category-detail-page" */
+    )
+)
+const CategoryNewPage = lazy(
+  () =>
+    import(
+      './pages/categories/CategoryNewPage' /* webpackChunkName: "category-new-page" */
+    )
+)
+const CategoryPage = lazy(
+  () =>
+    import(
+      './pages/categories/CategoryPage' /* webpackChunkName: "category-page" */
+    )
+)
+const DoctorDetailPage = lazy(
+  () =>
+    import(
+      './pages/doctors/DoctorDetailPage' /* webpackChunkName: "doctor-detail-page" */
+    )
+)
+const DoctorNewPage = lazy(
+  () =>
+    import(
+      './pages/doctors/DoctorNewPage' /* webpackChunkName: "doctor-new-page" */
+    )
+)
+const DoctorPage = lazy(
+  () =>
+    import('./pages/doctors/DoctorPage' /* webpackChunkName: "doctor-page" */)
+)
 
-import LoginPage from './pages/auth/LoginPage'
-import SignupPage from './pages/auth/SignupPage'
+// Specialties Pages
+const SpecialtiesPage = lazy(
+  () => import('./pages/specialties/SpecialtiesPage' /* webpackChunkName: "specialties-page" */)
+)
+const SpecialtiesDetailPage = lazy(
+  () => import('./pages/specialties/SpecialtiesDetailPage' /* webpackChunkName: "specialties-detail-page" */)
+)
+const SpecialtiesNewPage = lazy(
+  () => import('./pages/specialties/SpecialtiesNewPage' /* webpackChunkName: "specialties-new-page" */)
+)
 
-import CategoryDetailPage from './pages/categories/CategoryDetailPage'
-import CategoryNewPage from './pages/categories/CategoryNewPage'
-import CategoryPage from './pages/categories/CategoryPage'
-
-import SpecialtiesDetailPage from './pages/specialties/SpecialtiesDetailPage'
-import SpecialtiesNewPage from './pages/specialties/SpecialtiesNewPage'
-import SpecialtiesPage from './pages/specialties/SpecialtiesPage'
-
-import ProfilesCreatePage from './pages/profiles/ProfilesCreatePage'
-import ProfilesDetailPage from './pages/profiles/ProfilesDetailPage'
-import ProfilesPage from './pages/profiles/ProfilesPage'
-import ProfilesUpdatePage from './pages/profiles/ProfilesPageUpdate'
+// Patients Pages
+const PatientPage = lazy(
+  () => import('./pages/patients/PatientPage' /* webpackChunkName: "patient-page" */)
+)
+const PatientDetailPage = lazy(
+  () => import('./pages/patients/PatientDetailPage' /* webpackChunkName: "patient-detail-page" */)
+)
+const PatientsNewPage = lazy(
+  () => import('./pages/patients/PatientNewPage' /* webpackChunkName: "patients-new-page" */)
+)
 
 const router = createBrowserRouter([
   {
     path: '/',
-    Component: LayoutMain,
+    element: <LayoutMain />,  // Corrected from Component to element
     children: [
       {
         index: true,
@@ -35,44 +111,29 @@ const router = createBrowserRouter([
   },
   {
     path: 'admin',
-    Component: LayoutAdmin,
+    element: <LayoutAdmin />,
     children: [
       {
         index: true,
-        element: <CategoryPage />,
+        element: <DashboardPage />,
       },
       {
         path: 'dashboard',
-        children: [
-          {
-            path: '',
-            element: <CategoryPage />,
-          },
-        ],
+        element: <DashboardPage />,
       },
       {
         path: 'medical-appointments',
-        children: [
-          {
-            path: '',
-            element: <CategoryPage />,
-          },
-        ],
+        element: <CommonPage />,
       },
       {
         path: 'planning',
-        children: [
-          {
-            path: '',
-            element: <CategoryPage />,
-          },
-        ],
+        element: <CommonPage />,
       },
       {
         path: 'categories',
         children: [
           {
-            path: '',
+            index: true,
             element: <CategoryPage />,
           },
           {
@@ -89,37 +150,16 @@ const router = createBrowserRouter([
         path: 'specialties',
         children: [
           {
-            path: '',
+            index: true,
             element: <SpecialtiesPage />,
-          },
-          {
-            path: 'new',
-            element: <SpecialtiesNewPage />,
           },
           {
             path: ':id/detail',
             element: <SpecialtiesDetailPage />,
           },
-        ],
-      },
-      {
-        path: 'profiles',
-        children: [
-          {
-            path: '',
-            element: <ProfilesPage />,
-          },
           {
             path: 'new',
-            element: <ProfilesCreatePage />,
-          },
-          {
-            path: ':id/detail',
-            element: <ProfilesDetailPage />,
-          },
-          {
-            path: 'update/:id',
-            element: <ProfilesUpdatePage />,
+            element: <SpecialtiesNewPage />,
           },
         ],
       },
@@ -127,8 +167,16 @@ const router = createBrowserRouter([
         path: 'doctors',
         children: [
           {
-            path: '',
-            element: <CategoryPage />,
+            index: true,
+            element: <DoctorPage />,
+          },
+          {
+            path: ':id/detail',
+            element: <DoctorDetailPage />,
+          },
+          {
+            path: 'new',
+            element: <DoctorNewPage />,
           },
         ],
       },
@@ -136,8 +184,16 @@ const router = createBrowserRouter([
         path: 'patients',
         children: [
           {
-            path: '',
-            element: <CategoryPage />,
+            index: true,  // Ensure to have the `index` here for default path
+            element: <PatientPage />,
+          },
+          {
+            path: ':id/detail',
+            element: <PatientDetailPage />,
+          },
+          {
+            path: 'new',
+            element: <PatientsNewPage />,
           },
         ],
       },
@@ -145,8 +201,8 @@ const router = createBrowserRouter([
         path: 'settings',
         children: [
           {
-            path: '',
-            element: <CategoryPage />,
+            index: true,
+            element: <CommonPage />,
           },
         ],
       },
@@ -154,7 +210,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'auth',
-    Component: LayoutAuth,
+    element: <LayoutAuth />,
     children: [
       {
         index: true,
@@ -171,4 +227,5 @@ const router = createBrowserRouter([
     ],
   },
 ])
+
 export default router
