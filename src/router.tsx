@@ -78,30 +78,48 @@ const DoctorPage = lazy(
 
 // Specialties Pages
 const SpecialtiesPage = lazy(
-  () => import('./pages/specialties/SpecialtiesPage' /* webpackChunkName: "specialties-page" */)
+  () =>
+    import(
+      './pages/specialties/SpecialtiesPage' /* webpackChunkName: "specialties-page" */
+    )
 )
 const SpecialtiesDetailPage = lazy(
-  () => import('./pages/specialties/SpecialtiesDetailPage' /* webpackChunkName: "specialties-detail-page" */)
+  () =>
+    import(
+      './pages/specialties/SpecialtiesDetailPage' /* webpackChunkName: "specialties-detail-page" */
+    )
 )
 const SpecialtiesNewPage = lazy(
-  () => import('./pages/specialties/SpecialtiesNewPage' /* webpackChunkName: "specialties-new-page" */)
+  () =>
+    import(
+      './pages/specialties/SpecialtiesNewPage' /* webpackChunkName: "specialties-new-page" */
+    )
 )
 
 // Patients Pages
 const PatientPage = lazy(
-  () => import('./pages/patients/PatientPage' /* webpackChunkName: "patient-page" */)
+  () =>
+    import(
+      './pages/patients/PatientPage' /* webpackChunkName: "patient-page" */
+    )
 )
 const PatientDetailPage = lazy(
-  () => import('./pages/patients/PatientDetailPage' /* webpackChunkName: "patient-detail-page" */)
+  () =>
+    import(
+      './pages/patients/PatientDetailPage' /* webpackChunkName: "patient-detail-page" */
+    )
 )
 const PatientsNewPage = lazy(
-  () => import('./pages/patients/PatientNewPage' /* webpackChunkName: "patients-new-page" */)
+  () =>
+    import(
+      './pages/patients/PatientNewPage' /* webpackChunkName: "patients-new-page" */
+    )
 )
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <LayoutMain />,  // Corrected from Component to element
+    element: <LayoutMain />, // Corrected from Component to element
     children: [
       {
         index: true,
@@ -184,7 +202,7 @@ const router = createBrowserRouter([
         path: 'patients',
         children: [
           {
-            index: true,  // Ensure to have the `index` here for default path
+            index: true, // Ensure to have the `index` here for default path
             element: <PatientPage />,
           },
           {

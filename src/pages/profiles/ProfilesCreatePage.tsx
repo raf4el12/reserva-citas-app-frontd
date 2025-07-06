@@ -38,7 +38,7 @@ const ProfilesCreatePage = () => {
     })
     navigate('/admin/profiles')
   }
-console.log(errors)
+  console.log(errors)
   return (
     <Box maxWidth={700} mx="auto" mt={4}>
       <Card>

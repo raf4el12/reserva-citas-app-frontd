@@ -18,7 +18,9 @@ const PatientPage = () => {
         gap: 1,
       }}
     >
-      {!patients?.data && <Typography variant="h4">No hay pacientes</Typography>}
+      {!patients?.data && (
+        <Typography variant="h4">No hay pacientes</Typography>
+      )}
       {patients?.data?.map((item, index) => (
         <div key={`patient-card-${index}`}>
           <PatientCard item={item} />

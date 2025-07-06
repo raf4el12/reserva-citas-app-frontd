@@ -15,7 +15,11 @@ import { useNavigate, useParams } from 'react-router-dom'
 import FormFieldError from '../../components/commons/FormFieldError'
 import { useProfileById } from '../../hook/profiles/useProfilesById'
 import { useUpdateProfile } from '../../hook/profiles/useProfilesUpdate'
-import { type Profile, profileSchema, type UpdateProfileDto } from '../../types/profile'
+import {
+  type Profile,
+  profileSchema,
+  type UpdateProfileDto,
+} from '../../types/profile'
 
 const ProfilesUpdatePage = () => {
   const { id } = useParams<{ id: string }>()

@@ -5,8 +5,8 @@ import type { Doctor, DoctorCreateDto } from '../../types/doctors'
 
 export const useCreateDoctor = () => {
   return useMutation({
-    mutationFn: async (newCategory: DoctorCreateDto) => {
-      const data = await ApiBackend.post('/doctors', newCategory)
+    mutationFn: async (newDoctor: DoctorCreateDto) => {
+      const data = await ApiBackend.post('/doctors', newDoctor)
       return data as Doctor
     },
   })
