@@ -1,8 +1,9 @@
-import type { FC } from 'react'
+import { type FC, Fragment } from 'react'
 
 import { Divider, List } from '@mui/material'
+import { useDeleteCategory } from '../../hook/categories/useDeleteCategory'
+import { formatDateAndTime } from '../../shared/utils/format'
 import type { Category } from '../../types/category'
-import { formatDateAndTime } from '../../utils/format'
 import CardItem from '../commons/CardItem'
 import CardItemNew from '../commons/CardItemNew'
 import ListItem from '../commons/ListItem'
@@ -15,23 +16,27 @@ interface CategoryItemsProps {
 
 const CategoryItems: FC<CategoryItemsProps> = ({ categories }) => {
   const { toggleView } = useLayoutAdminContext()
+  const deleteCategory = useDeleteCategory()
+
+  const handleDelete = (id: number) => {
+    deleteCategory.mutate(id)
+  }
 
   if (toggleView === 'list')
     return (
       <>
         <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-          <ListItemNew href="/admin/categories/new" />
+          <ListItemNew to="/admin/categories/new" />
           <Divider component="li" />
           {categories.map((item, index) => (
-            <>
+            <Fragment key={`category-list-${index}`}>
               <ListItem
-                key={`category-list-${index}`}
-                href={`/admin/categories/${item.id}/detail`}
+                to={`/admin/categories/${item.id}/detail`}
                 textMain={`${item.id.toString()} - ${item.name}`}
                 textSecondary={formatDateAndTime(item.createdAt)}
               />
               {categories.length !== index + 1 && <Divider component="li" />}
-            </>
+            </Fragment>
           ))}
         </List>
       </>
@@ -39,11 +44,13 @@ const CategoryItems: FC<CategoryItemsProps> = ({ categories }) => {
 
   return (
     <>
-      <CardItemNew href="/admin/categories/new" />
+      <CardItemNew to="/admin/categories/new" />
       {categories.map((item, index) => (
         <CardItem
           key={`category-card-${index}`}
-          href={`/admin/categories/${item.id}/detail`}
+          onDelete={() => handleDelete(item.id)}
+          toEdit={`/admin/categories/${item.id}/edit`}
+          toDetail={`/admin/categories/${item.id}/detail`}
           textMain={item.name}
           textSecondary={item.id.toString()}
         />

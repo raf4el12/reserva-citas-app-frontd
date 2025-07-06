@@ -6,16 +6,17 @@ import {
   Typography,
 } from '@mui/material'
 import type { FC } from 'react'
+import { Link } from 'react-router-dom'
 
 interface ListItemNewProps {
-  href: string
+  to: string
   text?: string
 }
 
-const ListItemNew: FC<ListItemNewProps> = ({ href, text = 'Nuevo' }) => {
+const ListItemNew: FC<ListItemNewProps> = ({ to, text = 'Nuevo' }) => {
   return (
     <ListItemMui disablePadding>
-      <ListItemButton component="a" href={href}>
+      <ListItemButton component={Link} to={to}>
         <Box
           sx={{
             display: 'flex',

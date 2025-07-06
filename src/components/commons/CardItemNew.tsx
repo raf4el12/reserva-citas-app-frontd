@@ -7,16 +7,17 @@ import {
   Typography,
 } from '@mui/material'
 import type { FC } from 'react'
+import { Link } from 'react-router-dom'
 
 interface CardItemNewProps {
-  href: string
+  to: string
   text?: string
 }
 
-const CardItemNew: FC<CardItemNewProps> = ({ href, text = 'Nuevo' }) => {
+const CardItemNew: FC<CardItemNewProps> = ({ to, text = 'Nuevo' }) => {
   return (
     <Card sx={{ minWidth: 275, borderColor: 'green' }} variant="outlined">
-      <CardActionArea component="a" href={href} sx={{ height: '100%' }}>
+      <CardActionArea component={Link} to={to} sx={{ height: '100%' }}>
         <CardContent sx={{ height: '100%' }}>
           <Box
             sx={{

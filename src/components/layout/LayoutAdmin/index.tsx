@@ -17,10 +17,8 @@ const LayoutAdminBase = () => {
     _event: React.MouseEvent<HTMLElement>,
     nextView: string
   ) => {
-    console.log('nextView', nextView)
     onToggleView(nextView as ToggleViewType)
   }
-  console.log('toggleView', toggleView)
 
   return (
     <div className="flex min-h-screen">

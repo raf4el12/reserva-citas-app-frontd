@@ -24,7 +24,7 @@ const DoctorPage = () => {
           <DoctorCard item={item} />
         </div>
       ))}
-      <CardItemNew href="/admin/doctors/new" />
+      <CardItemNew to="/admin/doctors/new" />
     </Box>
   )
 }

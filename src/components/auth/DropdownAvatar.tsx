@@ -1,5 +1,6 @@
 import { Divider } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import type { User } from '../../types/user'
 
 interface DropdownAvatarProps {
@@ -52,13 +53,13 @@ const DropdownAvatar: React.FC<DropdownAvatarProps> = ({ onLogout, user }) => {
       </button>
       {open && (
         <div className="absolute right-0 mt-2 w-44 bg-white border border-gray-200 rounded shadow-lg z-50">
-          <a
-            href="/admin/settings"
+          <Link
+            to="/admin/settings"
             className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
             onClick={() => setOpen(false)}
           >
             Perfil
-          </a>
+          </Link>
           <Divider />
           <button
             type="button"

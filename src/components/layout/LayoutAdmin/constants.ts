@@ -9,8 +9,4 @@ export const TITLES: Record<string, string> = {
   '/admin/settings': 'Configuración',
 }
 
-export const HIDE_TOGGLE_VIEW_TITLES: string[] = [
-  TITLES['/admin/dashboard'],
-  TITLES['/admin/medical-appointments'],
-  TITLES['/admin/planning'],
-]
+export const SHOW_TOGGLE_VIEW_TITLES: string[] = [TITLES['/admin/categories']]

@@ -15,24 +15,24 @@ import SidebarAvatar from '../auth/SidebarAvatar'
 import SnackbarErrorBase from './SnackbarErrorBase'
 
 const menu = [
-  { label: 'Dashboard', icon: <DashboardIcon />, href: '/admin/dashboard' },
+  { label: 'Dashboard', icon: <DashboardIcon />, to: '/admin/dashboard' },
   {
     label: 'Citas Médicas',
     icon: <LocalHospitalIcon />,
-    href: '/admin/medical-appointments',
+    to: '/admin/medical-appointments',
   },
   {
     label: 'Planificación',
     icon: <CalendarMonthIcon />,
-    href: '/admin/planning',
+    to: '/admin/planning',
   },
 ]
 
 const docs = [
-  { label: 'Categorias', href: '/admin/categories' },
-  { label: 'Especialidades', href: '/admin/specialties' },
-  { label: 'Médicos', href: '/admin/doctors' },
-  { label: 'Pacientes', href: '/admin/patients' },
+  { label: 'Categorias', to: '/admin/categories' },
+  { label: 'Especialidades', to: '/admin/specialties' },
+  { label: 'Médicos', to: '/admin/doctors' },
+  { label: 'Pacientes', to: '/admin/patients' },
 ]
 
 export default function SidebarBase() {
@@ -81,7 +81,7 @@ export default function SidebarBase() {
           {menu.map((item) => (
             <li key={item.label}>
               <Link
-                to={item.href}
+                to={item.to}
                 className="flex items-center w-full px-3 py-2 rounded-lg text-left hover:bg-gray-100 transition"
               >
                 <span className="mr-3">{item.icon}</span>
@@ -97,7 +97,7 @@ export default function SidebarBase() {
           {docs.map((item) => (
             <li key={item.label}>
               <Link
-                to={item.href}
+                to={item.to}
                 className="flex items-center w-full px-3 py-2 rounded-lg text-left hover:bg-gray-100 transition"
               >
                 {item.label}

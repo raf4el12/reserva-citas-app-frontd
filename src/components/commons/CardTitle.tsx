@@ -5,17 +5,22 @@ import { Link } from 'react-router-dom'
 
 interface CardTitleProps {
   title: string
+  placeholder?: string
   to: string
 }
 
-const CardTitle: FC<CardTitleProps> = ({ title, to }) => {
+const CardTitle: FC<CardTitleProps> = ({ placeholder, title, to }) => {
   return (
-    <div className="flex gap-2 justify-between mb-6">
-      <h2 className="text-3xl font-bold text-primary mb-2">{title}</h2>
-      <IconButton size="small">
-        <Link to={to}>
-          <CloseIcon />
-        </Link>
+    <div className="flex gap-2 justify-between items-center mb-6">
+      {placeholder && !title ? (
+        <h2 className="text-2xl font-bold text-gray-400 italic">
+          {placeholder}
+        </h2>
+      ) : (
+        <h2 className="text-2xl font-bold text-primary">{title}</h2>
+      )}
+      <IconButton component={Link} size="small" to={to}>
+        <CloseIcon />
       </IconButton>
     </div>
   )

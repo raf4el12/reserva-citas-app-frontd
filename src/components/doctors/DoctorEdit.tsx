@@ -70,26 +70,22 @@ const DoctorEdit = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ProfileEdit register={register} errors={errors} />
-          <div>
-            <TextField
-              label="Número de licencia"
-              fullWidth
-              {...register('licenseNumber')}
-              error={!!errors.licenseNumber}
-              helperText={errors.licenseNumber?.message}
-              size="small"
-            />
-          </div>
-          <div>
-            <TextField
-              label="Resumen"
-              fullWidth
-              {...register('resume')}
-              error={!!errors.resume}
-              helperText={errors.resume?.message}
-              size="small"
-            />
-          </div>
+          <TextField
+            label="Número de licencia"
+            fullWidth
+            {...register('licenseNumber')}
+            error={!!errors.licenseNumber}
+            helperText={errors.licenseNumber?.message}
+            size="small"
+          />
+          <TextField
+            label="Resumen"
+            fullWidth
+            {...register('resume')}
+            error={!!errors.resume}
+            helperText={errors.resume?.message}
+            size="small"
+          />
         </div>
         {errors.root && (
           <Alert severity="error" className="mt-2">

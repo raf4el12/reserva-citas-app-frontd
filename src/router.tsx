@@ -41,18 +41,6 @@ const DashboardPage = lazy(
       './pages/dashboard/DashboardPage' /* webpackChunkName: "dashboard-page" */
     )
 )
-const CategoryDetailPage = lazy(
-  () =>
-    import(
-      './pages/categories/CategoryDetailPage' /* webpackChunkName: "category-detail-page" */
-    )
-)
-const CategoryNewPage = lazy(
-  () =>
-    import(
-      './pages/categories/CategoryNewPage' /* webpackChunkName: "category-new-page" */
-    )
-)
 const CategoryPage = lazy(
   () =>
     import(
@@ -130,12 +118,12 @@ const router = createBrowserRouter([
             element: <CategoryPage />,
           },
           {
-            path: ':id/detail',
-            element: <CategoryDetailPage />,
+            path: ':id/:view',
+            element: <CategoryPage />,
           },
           {
             path: 'new',
-            element: <CategoryNewPage />,
+            element: <CategoryPage />,
           },
         ],
       },

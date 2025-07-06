@@ -1,68 +1,40 @@
-import { Alert, Button, TextField } from '@mui/material'
-import { useState } from 'react'
-import { useNavigate } from 'react-router'
-import { Link } from 'react-router-dom'
+import { LinearProgress } from '@mui/material'
+import { type FC, useState } from 'react'
 
-import { useCreateCategory } from '../../hook/categories/useCreatedCategory'
-import CardTitle from '../commons/CardTitle'
+import { useGetCategoryById } from '../../hook/categories/useCategoryById'
+import { useEditCategory } from '../../hook/categories/useEditCategory'
+import type { CategoryDto } from '../../types/category'
+import CategoryUpsert from './CategoryUpsert'
 
-const CategoryEdit = () => {
-  const navigate = useNavigate()
-  const [name, setName] = useState('')
-  const createCategory = useCreateCategory()
+interface CategoryEditProps {
+  id: number
+  onSuccess?: () => void
+}
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    createCategory.mutate(
-      { name },
-      {
-        onSuccess: () => {
-          navigate('/admin/categories')
-        },
-      }
-    )
+const CategoryEdit: FC<CategoryEditProps> = ({ id, onSuccess }) => {
+  const [error, setError] = useState('')
+  const editCategory = useEditCategory(id)
+  const { isPending, data } = useGetCategoryById(id)
+
+  if (isPending) return <LinearProgress />
+
+  const handleSuccess = (data: CategoryDto) => {
+    editCategory.mutate(data, {
+      onSuccess: () => {
+        onSuccess?.()
+      },
+      onError: (err: any) => {
+        setError(err?.message || 'Error al editar la categoría')
+      },
+    })
   }
 
   return (
-    <div className="max-w-xl mx-auto mt-10 bg-white rounded-xl shadow-lg p-8 border border-gray-100">
-      <CardTitle title="Nueva Categoría" to="/admin/categories" />
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="mb-6">
-          <TextField
-            label="Nombre"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            fullWidth
-          />
-        </div>
-        {createCategory.isError && (
-          <Alert severity="error" className="mt-2">
-            {createCategory.error instanceof Error
-              ? createCategory.error.message
-              : 'Error al crear la categoría'}
-          </Alert>
-        )}
-        <div className="flex justify-end gap-2 mt-4">
-          <Button
-            variant="outlined"
-            color="secondary"
-            component={Link}
-            to="/admin/categories"
-          >
-            Cancelar
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            disabled={createCategory.isPending}
-          >
-            Guardar
-          </Button>
-        </div>
-      </form>
-    </div>
+    <CategoryUpsert
+      category={data}
+      rootError={error}
+      onSuccess={handleSuccess}
+    />
   )
 }
 

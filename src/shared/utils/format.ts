@@ -1,4 +1,4 @@
-export const formatDateAndTime = (date?: Date | string) => {
+export const formatDateAndTime = (date?: Date | string | null) => {
   if (!date) return ''
 
   const dateISOString =

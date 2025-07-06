@@ -1,7 +1,8 @@
-import { AppBar, Box, Button, Link, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
 import { type FC, useState } from 'react'
 import { useNavigate } from 'react-router'
 
+import { Link } from 'react-router-dom'
 import useAuthContext from '../../context/AuthContext'
 import { useLogoutMutation } from '../../hook/auth/useLogout'
 import DropdownAvatar from '../auth/DropdownAvatar'
@@ -67,10 +68,9 @@ const AppBarBase: FC<AppBarBaseProps> = ({
           >
             <Typography
               variant="h6"
-              sx={{ marginRight: 1 }}
+              sx={{ marginRight: 1, textDecoration: 'none' }}
               component={Link}
-              underline="none"
-              href="/"
+              to="/"
             >
               {title}
             </Typography>
@@ -78,7 +78,7 @@ const AppBarBase: FC<AppBarBaseProps> = ({
           {actionLeft}
           {user && <DropdownAvatar user={user} onLogout={handleLogout} />}
           {!user && (
-            <Button href="/auth/login" LinkComponent="a" color="inherit">
+            <Button to="/auth/login" component={Link} color="inherit">
               Iniciar Sesión
             </Button>
           )}

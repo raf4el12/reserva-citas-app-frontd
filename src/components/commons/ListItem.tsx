@@ -4,17 +4,18 @@ import {
   ListItemText,
 } from '@mui/material'
 import type { FC } from 'react'
+import { Link } from 'react-router-dom'
 
 interface ListItemProps {
-  href: string
+  to: string
   textMain: string
   textSecondary: string
 }
 
-const ListItem: FC<ListItemProps> = ({ href, textMain, textSecondary }) => {
+const ListItem: FC<ListItemProps> = ({ to, textMain, textSecondary }) => {
   return (
     <ListItemMui disablePadding>
-      <ListItemButton component="a" href={href}>
+      <ListItemButton component={Link} to={to}>
         <ListItemText primary={textMain} secondary={textSecondary} />
       </ListItemButton>
     </ListItemMui>

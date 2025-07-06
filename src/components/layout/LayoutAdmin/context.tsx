@@ -8,7 +8,7 @@ import {
 } from 'react'
 import { useLocation } from 'react-router'
 
-import { HIDE_TOGGLE_VIEW_TITLES, TITLES } from './constants'
+import { SHOW_TOGGLE_VIEW_TITLES, TITLES } from './constants'
 
 export type ToggleViewType = 'list' | 'module'
 
@@ -41,9 +41,9 @@ export const LayoutAdminProvider = ({ children }: AuthProviderProps) => {
   }, [location.pathname])
 
   useEffect(() => {
-    const hideToggleView = HIDE_TOGGLE_VIEW_TITLES.some((el) => el === title)
+    const showToggleView = SHOW_TOGGLE_VIEW_TITLES.some((el) => el === title)
 
-    handleShowToggleView(!hideToggleView)
+    handleShowToggleView(showToggleView)
   }, [title])
 
   const handleShowToggleView = (value: boolean) => {
