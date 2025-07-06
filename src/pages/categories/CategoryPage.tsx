@@ -1,7 +1,6 @@
 import { Box, LinearProgress, Typography } from '@mui/material'
 
-import CategoryCard from '../../components/categories/CategoryCard'
-import CardNew from '../../components/commons/CardNew'
+import CategoryItems from '../../components/categories/CategoryItems'
 import { useCategories } from '../../hook/categories/useCategories'
 
 const CategoryPage = () => {
@@ -21,12 +20,7 @@ const CategoryPage = () => {
       {!categories?.data && (
         <Typography variant="h4">No hay categorias</Typography>
       )}
-      {categories?.data?.map((item, index) => (
-        <div key={`category-card-${index}`}>
-          <CategoryCard item={item} />
-        </div>
-      ))}
-      <CardNew href="/admin/categories/new" />
+      <CategoryItems categories={categories?.data ?? []} />
     </Box>
   )
 }

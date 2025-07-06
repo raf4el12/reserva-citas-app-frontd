@@ -1,9 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  Alert,
-  Button,
-  TextField,
-} from '@mui/material'
+import { Alert, Button, TextField } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
@@ -12,8 +8,8 @@ import { useCreateDoctor } from '../../hook/doctors/useCreatedDoctor'
 import { useCreateProfiles } from '../../hook/profiles/useCreatedProfiles'
 import { doctorCreateSchema } from '../../types/doctor'
 import { type ProfileCreateDto, profileCreateSchema } from '../../types/profile'
-import ProfileEdit from '../profiles/ProfileEdit'
 import CardTitle from '../commons/CardTitle'
+import ProfileEdit from '../profiles/ProfileEdit'
 
 type FormValues = ProfileCreateDto & {
   licenseNumber: string
@@ -70,7 +66,7 @@ const DoctorEdit = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-10 bg-white rounded-xl shadow-lg p-8 border border-gray-100">
-      <CardTitle title='Nuevo Médico' to="/admin/doctors" />
+      <CardTitle title="Nuevo Médico" to="/admin/doctors" />
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ProfileEdit register={register} errors={errors} />
@@ -114,9 +110,7 @@ const DoctorEdit = () => {
             color="primary"
             type="submit"
             disabled={
-              isSubmitting ||
-              createProfile.isPending ||
-              createDoctor.isPending
+              isSubmitting || createProfile.isPending || createDoctor.isPending
             }
           >
             Guardar

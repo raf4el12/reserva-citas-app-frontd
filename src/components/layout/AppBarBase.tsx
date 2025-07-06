@@ -1,11 +1,4 @@
-import {
-  AppBar,
-  Box,
-  Button,
-  Link,
-  Toolbar,
-  Typography,
-} from '@mui/material'
+import { AppBar, Box, Button, Link, Toolbar, Typography } from '@mui/material'
 import { type FC, useState } from 'react'
 import { useNavigate } from 'react-router'
 

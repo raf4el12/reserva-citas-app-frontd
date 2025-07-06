@@ -1,6 +1,6 @@
 import { Box, LinearProgress, Typography } from '@mui/material'
 
-import CardNew from '../../components/commons/CardNew'
+import CardItemNew from '../../components/commons/CardItemNew'
 import DoctorCard from '../../components/doctors/DoctorCard'
 import { useDoctors } from '../../hook/doctors/useDoctors'
 
@@ -24,7 +24,7 @@ const DoctorPage = () => {
           <DoctorCard item={item} />
         </div>
       ))}
-      <CardNew href="/admin/doctors/new" />
+      <CardItemNew href="/admin/doctors/new" />
     </Box>
   )
 }

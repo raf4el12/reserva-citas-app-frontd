@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom'
 import useAuthContext from '../../context/AuthContext'
 import { useLogoutMutation } from '../../hook/auth/useLogout'
 import SidebarAvatar from '../auth/SidebarAvatar'
-import LoadingPage from '../commons/LoadingPage'
 import SnackbarErrorBase from './SnackbarErrorBase'
 
 const menu = [
@@ -57,13 +56,13 @@ export default function SidebarBase() {
   }
 
   if (isLoading) {
-    return <LoadingPage />
+    return null
   }
 
   if (!user && !isLoading) {
     window.location.href = '/auth/login'
 
-    return <LoadingPage />
+    return null
   }
 
   return (

@@ -8,12 +8,12 @@ import {
 } from '@mui/material'
 import type { FC } from 'react'
 
-interface CardNewProps {
+interface CardItemNewProps {
   href: string
   text?: string
 }
 
-const CardNew: FC<CardNewProps> = ({ href, text = 'Nuevo' }) => {
+const CardItemNew: FC<CardItemNewProps> = ({ href, text = 'Nuevo' }) => {
   return (
     <Card sx={{ minWidth: 275, borderColor: 'green' }} variant="outlined">
       <CardActionArea component="a" href={href} sx={{ height: '100%' }}>
@@ -38,4 +38,4 @@ const CardNew: FC<CardNewProps> = ({ href, text = 'Nuevo' }) => {
   )
 }
 
-export default CardNew
+export default CardItemNew
