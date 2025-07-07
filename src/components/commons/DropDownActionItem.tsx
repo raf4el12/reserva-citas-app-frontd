@@ -7,12 +7,14 @@ interface DropDownActionItemProps {
   toEdit?: string
   onEdit?: () => void
   onDelete?: () => void
+  disabledAbsolute?: boolean
 }
 
 const DropDownActionItem: FC<DropDownActionItemProps> = ({
   toEdit,
   onEdit,
   onDelete,
+  disabledAbsolute,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
@@ -37,7 +39,11 @@ const DropDownActionItem: FC<DropDownActionItemProps> = ({
   }
 
   return (
-    <div className="absolute top-2 right-2 z-10">
+    <div
+      {...(!disabledAbsolute && {
+        className: 'absolute top-2 right-2 z-10',
+      })}
+    >
       <IconButton size="small" onClick={handleClick}>
         <MoreVertIcon fontSize="inherit" />
       </IconButton>
