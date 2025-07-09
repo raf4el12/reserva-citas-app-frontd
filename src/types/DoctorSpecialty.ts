@@ -1,4 +1,4 @@
 export type DoctorsSpecialtyCreateDto = {
-  doctorId: number;
-  specialtyId: number;
-};
+  doctorId: number
+  specialtyId: number
+}

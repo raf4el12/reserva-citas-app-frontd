@@ -1,4 +1,4 @@
-import { LinearProgress, Alert } from '@mui/material'
+import { Alert, LinearProgress } from '@mui/material'
 import type { FC } from 'react'
 import { useGetDoctorsById } from '../../hook/doctors/useDoctorById'
 import { useGetDoctorSpecialtiesById } from '../../hook/doctors/useDoctorSpecialtiesById'

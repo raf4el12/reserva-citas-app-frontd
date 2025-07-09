@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import ApiBackend from '../../shared/services/api.backend'
-import type { DoctorUpdateDto, Doctor } from '../../types/doctors'
+import type { Doctor, DoctorUpdateDto } from '../../types/doctors'
 
 export const useUpdateDoctor = () => {
   const queryClient = useQueryClient()

@@ -17,8 +17,8 @@ import { useProfileById } from '../../hook/profiles/useProfilesById'
 import { useUpdateProfile } from '../../hook/profiles/useProfilesUpdate'
 import {
   type Profile,
-  profileSchema,
   type UpdateProfileDto,
+  profileSchema,
 } from '../../types/profile'
 
 const ProfilesUpdatePage = () => {

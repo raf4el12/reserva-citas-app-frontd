@@ -1,7 +1,7 @@
 import { Box, LinearProgress, Typography } from '@mui/material'
 
-import CardNew from '../../components/commons/CardNew'
 import AppointmentCard from '../../components/appointments/AppointmentsCard'
+import CardNew from '../../components/commons/CardNew'
 import { useAppointments } from '../../hook/appointments/useAppointments'
 
 const AppointmentPage = () => {
@@ -18,7 +18,9 @@ const AppointmentPage = () => {
         gap: 1,
       }}
     >
-      {!appointments?.data && <Typography variant="h4">No hay citas</Typography>}
+      {!appointments?.data && (
+        <Typography variant="h4">No hay citas</Typography>
+      )}
       {appointments?.data?.map((item, index) => (
         <div key={`appointment-card-${index}`}>
           <AppointmentCard item={item} />

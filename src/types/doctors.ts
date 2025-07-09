@@ -96,7 +96,6 @@ export type DoctorsSpecialtyCreateDto = z.infer<
   typeof doctorsSpecialtyCreateSchema
 >
 
-
 export const doctorsSpecialtySchema = z.object({
   id: z.number().int(),
   doctorId: z.number().int(),
@@ -110,8 +109,6 @@ export const doctorsSpecialtySchema = z.object({
 
 export type DoctorsSpecialty = z.infer<typeof doctorsSpecialtySchema>
 
-
-
 export const doctorSchema = z.object({
   ...doctorSchemaBase,
   id: z.number().int(),
@@ -119,26 +116,25 @@ export const doctorSchema = z.object({
     id: z.number().int(),
     lastName: z.string(),
     name: z.string(),
-    
   }),
 
-  specialties: z.array(doctorsSpecialtySchema).optional(), 
+  specialties: z.array(doctorsSpecialtySchema).optional(),
 })
 
 export type Doctor = z.infer<typeof doctorSchema>
 
 export const doctorCreateSchema = z.object({
-  ...doctorSchemaBase, 
+  ...doctorSchemaBase,
 })
 
 export type DoctorCreateDto = z.infer<typeof doctorCreateSchema>
 
 export const doctorUpdateSchema = z.object({
   id: z.number().int(),
-  profileId: z.number().int().optional(), 
-  licenseNumber: z.string().min(1, { message: 'requerido' }).optional(), 
+  profileId: z.number().int().optional(),
+  licenseNumber: z.string().min(1, { message: 'requerido' }).optional(),
   resume: z.string().nullable().optional(),
- 
+
   specialtyIds: z
     .array(z.number().int())
     .min(1, { message: 'Debe seleccionar al menos una especialidad' })

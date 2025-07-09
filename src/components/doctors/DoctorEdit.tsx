@@ -11,15 +11,15 @@ import {
   Select,
   TextField,
 } from '@mui/material'
-import { useForm, Controller, useWatch } from 'react-hook-form'
+import { Controller, useForm, useWatch } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
 import { z } from 'zod'
 
+import { useCreateDoctorSpecialty } from '../../hook/doctors/useCreateDoctorSpecialty'
 import { useCreateDoctor } from '../../hook/doctors/useCreatedDoctor'
 import { useCreateProfiles } from '../../hook/profiles/useCreatedProfiles'
 import { useSpecialties } from '../../hook/specialties/useSpecialties'
-import { useCreateDoctorSpecialty } from '../../hook/doctors/useCreateDoctorSpecialty'
 
 import { doctorCreateSchema } from '../../types/doctors'
 import { type ProfileCreateDto, profileCreateSchema } from '../../types/profile'

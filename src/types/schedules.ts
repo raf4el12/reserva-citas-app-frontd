@@ -46,11 +46,13 @@ export const scheduleUpdateSchema = z.object({
   appointments: z.array(z.object({})).optional(),
 })
 
-export const scheduleUpdateWithDates = scheduleUpdateSchema.transform((data) => ({
-  ...data,
-  scheduleDate: data.scheduleDate ? new Date(data.scheduleDate) : undefined,
-  timeFrom: data.timeFrom ? new Date(data.timeFrom) : undefined,
-  timeTo: data.timeTo ? new Date(data.timeTo) : undefined,
-}))
+export const scheduleUpdateWithDates = scheduleUpdateSchema.transform(
+  (data) => ({
+    ...data,
+    scheduleDate: data.scheduleDate ? new Date(data.scheduleDate) : undefined,
+    timeFrom: data.timeFrom ? new Date(data.timeFrom) : undefined,
+    timeTo: data.timeTo ? new Date(data.timeTo) : undefined,
+  })
+)
 
 export type ScheduleUpdateDto = z.infer<typeof scheduleUpdateWithDates>

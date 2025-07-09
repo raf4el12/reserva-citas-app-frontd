@@ -131,11 +131,7 @@ const AppointmentNewPage = lazy(
     )
 )
 const AppointmentDetailPage = lazy(
-  ()=>
-    import(
-      './pages/appointments/AppointmentDetail'
-    )
-
+  () => import('./pages/appointments/AppointmentDetail')
 )
 
 const router = createBrowserRouter([
@@ -162,20 +158,20 @@ const router = createBrowserRouter([
         element: <DashboardPage />,
       },
       {
-        path: 'medical-appointments',  // Path for viewing appointments
-        element: <AppointmentPage />,  // Use AppointmentPage to show appointments
+        path: 'medical-appointments', // Path for viewing appointments
+        element: <AppointmentPage />, // Use AppointmentPage to show appointments
       },
       {
-        path: 'appointments',  // Path for creating appointments
+        path: 'appointments', // Path for creating appointments
         children: [
           {
             path: 'new',
-            element: <AppointmentNewPage />,  // Page to create a new appointment
+            element: <AppointmentNewPage />, // Page to create a new appointment
           },
           {
             path: ':id/detail',
-            element: <AppointmentDetailPage />
-          }
+            element: <AppointmentDetailPage />,
+          },
         ],
       },
       {

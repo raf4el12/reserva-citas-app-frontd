@@ -8,8 +8,8 @@ import { useCreatePatients } from '../../hook/patients/useCreatedPatients'
 import { useCreateProfiles } from '../../hook/profiles/useCreatedProfiles'
 import { patientsCreateSchema } from '../../types/patients'
 import { type ProfileCreateDto, profileCreateSchema } from '../../types/profile'
-import ProfileEdit from '../profiles/ProfileEdit'
 import CardTitle from '../commons/CardTitle'
+import ProfileEdit from '../profiles/ProfileEdit'
 
 type FormValues = ProfileCreateDto & {
   emergencyContact: string
