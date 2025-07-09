@@ -96,8 +96,7 @@ export type DoctorsSpecialtyCreateDto = z.infer<
   typeof doctorsSpecialtyCreateSchema
 >
 
-// Schema for a DoctorsSpecialty entry when fetched (includes its own ID and nested relations)
-// This mirrors your Prisma model for DoctorsSpecialties and what your backend might return
+
 export const doctorsSpecialtySchema = z.object({
   id: z.number().int(),
   doctorId: z.number().int(),
@@ -111,7 +110,7 @@ export const doctorsSpecialtySchema = z.object({
 
 export type DoctorsSpecialty = z.infer<typeof doctorsSpecialtySchema>
 
-// --- Updated Doctor Schemas to include the new DoctorsSpecialty relation ---
+
 
 export const doctorSchema = z.object({
   ...doctorSchemaBase,
@@ -120,27 +119,26 @@ export const doctorSchema = z.object({
     id: z.number().int(),
     lastName: z.string(),
     name: z.string(),
-    // Add other profile fields if they are always included
+    
   }),
-  // When fetching a Doctor, its `specialties` field will be an array of `DoctorsSpecialty` objects (the join table entries)
-  // Each `DoctorsSpecialty` object might then include the actual `Specialty` details.
-  specialties: z.array(doctorsSpecialtySchema).optional(), // Use the new doctorsSpecialtySchema here
+
+  specialties: z.array(doctorsSpecialtySchema).optional(), 
 })
 
 export type Doctor = z.infer<typeof doctorSchema>
 
 export const doctorCreateSchema = z.object({
-  ...doctorSchemaBase, // This will include specialtyIds for the frontend submission
+  ...doctorSchemaBase, 
 })
 
 export type DoctorCreateDto = z.infer<typeof doctorCreateSchema>
 
 export const doctorUpdateSchema = z.object({
   id: z.number().int(),
-  profileId: z.number().int().optional(), // Make optional for updates if not always required
-  licenseNumber: z.string().min(1, { message: 'requerido' }).optional(), // Make optional for updates
+  profileId: z.number().int().optional(), 
+  licenseNumber: z.string().min(1, { message: 'requerido' }).optional(), 
   resume: z.string().nullable().optional(),
-  // For updates, specialtyIds would also be handled separately or require a more complex schema
+ 
   specialtyIds: z
     .array(z.number().int())
     .min(1, { message: 'Debe seleccionar al menos una especialidad' })
