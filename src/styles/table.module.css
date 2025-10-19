@@ -1,0 +1,30 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table th,
+.table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  color: #333;
+}
+
+.table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.table tbody tr.selected {
+  background-color: #e3f2fd;
+}
+
+.table tbody tr.selected:hover {
+  background-color: #bbdefb;
+}

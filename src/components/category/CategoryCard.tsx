@@ -1,39 +1,137 @@
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
-import PersonIcon from '@mui/icons-material/Person'
-import { Card, CardActionArea, CardContent, Typography } from '@mui/material'
+import { 
+  Card, 
+  CardContent, 
+  CardActions, 
+  Typography, 
+  Chip, 
+  IconButton,
+  Box,
+  Stack
+} from '@mui/material'
 import type { FC } from 'react'
 import type { Category } from '../../types/category'
-import ItemContainer from '../commons/ItemContainer'
 
 interface CategoryCardProps {
   item: Category
+  onEdit?: (item: Category) => void
+  onDelete?: (item: Category) => void
+  onView?: (item: Category) => void
 }
 
-const CategoryCard: FC<CategoryCardProps> = ({ item }) => {
+const CategoryCard: FC<CategoryCardProps> = ({ 
+  item, 
+  onEdit, 
+  onDelete, 
+  onView 
+}) => {
+  const handleEdit = () => onEdit?.(item)
+  const handleDelete = () => onDelete?.(item)
+  const handleView = () => onView?.(item)
+
   return (
-    <Card sx={{ minWidth: 275 }} variant="outlined">
-      <CardActionArea
-        component="a"
-        href={`/admin/categories/${item.id}/detail`}
-      >
-        <CardContent>
-          <ItemContainer>
-            <AlternateEmailIcon fontSize="small" />
-            <Typography
-              gutterBottom
-              sx={{ color: 'text.secondary', fontSize: 14 }}
+    <Card 
+      sx={{ 
+        minWidth: 280,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        transition: 'all 0.2s ease-in-out',
+        '&:hover': {
+          transform: 'translateY(-2px)',
+          boxShadow: 3
+        }
+      }} 
+      variant="outlined"
+    >
+      <CardContent sx={{ flex: 1 }}>
+        <Stack spacing={2}>
+          {/* Header con nombre y estado */}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <Typography 
+              variant="h6" 
+              component="h3"
+              sx={{ 
+                fontWeight: 600,
+                color: 'text.primary',
+                lineHeight: 1.2
+              }}
             >
               {item.name}
             </Typography>
-          </ItemContainer>
-          <ItemContainer>
-            <PersonIcon fontSize="small" />
-            <Typography variant="h5" component="div">
-              {item.deleted}
+            <Chip
+              label={item.isActive ? 'Activo' : 'Inactivo'}
+              color={item.isActive ? 'success' : 'default'}
+              size="small"
+              variant="outlined"
+            />
+          </Box>
+
+          {/* Descripción */}
+          {item.description && (
+            <Typography 
+              variant="body2" 
+              color="text.secondary"
+              sx={{
+                display: '-webkit-box',
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis'
+              }}
+            >
+              {item.description}
             </Typography>
-          </ItemContainer>
-        </CardContent>
-      </CardActionArea>
+          )}
+
+          {/* Información adicional */}
+          <Box sx={{ mt: 'auto' }}>
+            <Typography variant="caption" color="text.secondary">
+              Creado: {new Date(item.createdAt).toLocaleDateString('es-ES')}
+            </Typography>
+            {item.updatedAt && (
+              <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
+                Actualizado: {new Date(item.updatedAt).toLocaleDateString('es-ES')}
+              </Typography>
+            )}
+          </Box>
+        </Stack>
+      </CardContent>
+
+      {/* Acciones */}
+      <CardActions sx={{ justifyContent: 'space-between', px: 2, pb: 2 }}>
+        <Box>
+          <IconButton 
+            size="medium" 
+            onClick={handleView}
+            title="Ver detalles"
+          >
+            <i
+              className="ri-eye-line"
+              style={{ fontSize: '24px', color: '#5271FF' }}
+            />
+          </IconButton>
+          <IconButton 
+            size="medium" 
+            onClick={handleEdit}
+            title="Editar"
+          >
+            <i
+              className="ri-edit-box-line"
+              style={{ fontSize: '24px', color: '#5271FF' }}
+            />
+          </IconButton>
+        </Box>
+        <IconButton 
+          size="medium" 
+          onClick={handleDelete}
+          title="Eliminar"
+        >
+          <i
+            className="ri-delete-bin-6-line"
+            style={{ fontSize: '24px', color: '#FF3535' }}
+          />
+        </IconButton>
+      </CardActions>
     </Card>
   )
 }

@@ -1,53 +1,308 @@
-import { Box, Paper, Typography } from '@mui/material'
+import React from 'react';
+import {
+  Box,
+  Grid,
+ 
+  Typography,
+  Card,
+  CardContent,
+  Avatar,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Chip,
+  LinearProgress,
+  Divider
+} from '@mui/material';
+import {
+  People,
+  LocalHospital,
+  CalendarToday,
+  TrendingUp,
+  Schedule,
+  CheckCircle,
+  Cancel,
+  AccessTime
+} from '@mui/icons-material';
 
-const DashboardPage = () => {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 4,
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: '60vh',
-      }}
-    >
-      <Paper
-        elevation={3}
-        sx={{
-          p: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 2,
-          width: '100%',
-          maxWidth: 420,
-        }}
-      >
-        <svg
-          width="120"
-          height="120"
-          viewBox="0 0 120 120"
-          fill="none"
-          role="img"
-          aria-label="Ilustración de dashboard"
-        >
-          <title>Ilustración de dashboard</title>
-          <rect x="10" y="30" width="100" height="60" rx="12" fill="#E0E7FF" />
-          <rect x="25" y="45" width="70" height="30" rx="6" fill="#6366F1" />
-          <circle cx="60" cy="60" r="8" fill="#fff" />
-          <rect x="40" y="80" width="40" height="8" rx="4" fill="#A5B4FC" />
-        </svg>
-        <Typography variant="h5" fontWeight={700} align="center">
-          ¡Bienvenido al Panel de Administración!
-        </Typography>
-        <Typography variant="body1" color="text.secondary" align="center">
-          Aquí podrás visualizar estadísticas, gestionar citas médicas y
-          administrar la información de tu clínica.
-        </Typography>
-      </Paper>
-    </Box>
-  )
+interface StatCardProps {
+  title: string;
+  value: string | number;
+  icon: React.ReactNode;
+  color: string;
+  subtitle?: string;
 }
 
-export default DashboardPage
+interface Appointment {
+  id: number;
+  patient: string;
+  doctor: string;
+  time: string;
+  status: 'confirmed' | 'pending' | 'cancelled';
+  specialty: string;
+}
+
+interface AppointmentStats {
+  confirmed: number;
+  pending: number;
+  cancelled: number;
+}
+
+const DashboardPage: React.FC = () => {
+  const stats = {
+    totalPatients: 1247,
+    totalDoctors: 23,
+    todayAppointments: 47,
+    weeklyGrowth: 12.5
+  };
+
+  const appointmentStats: AppointmentStats = {
+    confirmed: 35,
+    pending: 8,
+    cancelled: 4
+  };
+
+  const recentAppointments: Appointment[] = [
+    {
+      id: 1,
+      patient: 'María González',
+      doctor: 'Dr. Carlos Ruiz',
+      time: '09:00',
+      status: 'confirmed',
+      specialty: 'Cardiología'
+    },
+    {
+      id: 2,
+      patient: 'Juan Pérez',
+      doctor: 'Dra. Ana López',
+      time: '10:30',
+      status: 'pending',
+      specialty: 'Pediatría'
+    },
+    {
+      id: 3,
+      patient: 'Carmen Silva',
+      doctor: 'Dr. Luis Torres',
+      time: '11:15',
+      status: 'confirmed',
+      specialty: 'Dermatología'
+    }
+  ];
+
+  const StatCard: React.FC<StatCardProps> = ({ title, value, icon, color, subtitle }) => (
+    <Card sx={{ height: '100%' }}>
+      <CardContent>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <Box>
+            <Typography color="textSecondary" gutterBottom variant="h6">
+              {title}
+            </Typography>
+            <Typography variant="h4" component="div" sx={{ fontWeight: 'bold', color: color }}>
+              {value}
+            </Typography>
+            {subtitle && (
+              <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
+                {subtitle}
+              </Typography>
+            )}
+          </Box>
+          <Avatar sx={{ bgcolor: color, width: 56, height: 56 }}>
+            {icon}
+          </Avatar>
+        </Box>
+      </CardContent>
+    </Card>
+  );
+
+  const getStatusColor = (status: string): 'success' | 'warning' | 'error' => {
+    switch (status) {
+      case 'confirmed': return 'success';
+      case 'pending': return 'warning';
+      case 'cancelled': return 'error';
+      default: return 'success';
+    }
+  };
+
+  const getStatusText = (status: string): string => {
+    switch (status) {
+      case 'confirmed': return 'Confirmada';
+      case 'pending': return 'Pendiente';
+      case 'cancelled': return 'Cancelada';
+      default: return status;
+    }
+  };
+
+  const getStatusIcon = (status: string): React.ReactNode => {
+    switch (status) {
+      case 'confirmed': return <CheckCircle fontSize="small" />;
+      case 'pending': return <Schedule fontSize="small" />;
+      case 'cancelled': return <Cancel fontSize="small" />;
+      default: return null;
+    }
+  };
+
+  return (
+    <Box sx={{ p: 3 }}>
+      {/* Header */}
+      <Box sx={{ mb: 4 }}>
+        <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+          Dashboard SISOL
+        </Typography>
+        <Typography variant="subtitle1" color="textSecondary">
+          Sistema de gestión de citas médicas
+        </Typography>
+      </Box>
+
+      {/* Stats Cards */}
+      <Grid container spacing={3} sx={{ mb: 4 }}>
+        <Grid item xs={12} sm={6} md={3}>
+          <StatCard
+            title="Pacientes Totales"
+            value={stats.totalPatients.toLocaleString()}
+            icon={<People />}
+            color="#2196f3"
+            subtitle="Registrados"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <StatCard
+            title="Médicos Activos"
+            value={stats.totalDoctors}
+            icon={<LocalHospital />}
+            color="#4caf50"
+            subtitle="Disponibles"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <StatCard
+            title="Citas Hoy"
+            value={stats.todayAppointments}
+            icon={<CalendarToday />}
+            color="#ff9800"
+            subtitle="Programadas"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <StatCard
+            title="Crecimiento"
+            value={`+${stats.weeklyGrowth}%`}
+            icon={<TrendingUp />}
+            color="#9c27b0"
+            subtitle="Esta semana"
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={3}>
+        {/* Appointment Statistics */}
+        <Grid item xs={12} md={6}>
+          <Card sx={{ height: '100%' }}>
+            <CardContent>
+              <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <Schedule color="primary" />
+                Estado de Citas
+              </Typography>
+              <Box sx={{ mt: 3 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                  <Typography variant="body2">Confirmadas</Typography>
+                  <Typography variant="body2" fontWeight="bold" color="success.main">
+                    {appointmentStats.confirmed}
+                  </Typography>
+                </Box>
+                <LinearProgress
+                  variant="determinate"
+                  value={(appointmentStats.confirmed / (appointmentStats.confirmed + appointmentStats.pending + appointmentStats.cancelled)) * 100}
+                  sx={{ mb: 2, height: 8, borderRadius: 4 }}
+                  color="success"
+                />
+
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                  <Typography variant="body2">Pendientes</Typography>
+                  <Typography variant="body2" fontWeight="bold" color="warning.main">
+                    {appointmentStats.pending}
+                  </Typography>
+                </Box>
+                <LinearProgress
+                  variant="determinate"
+                  value={(appointmentStats.pending / (appointmentStats.confirmed + appointmentStats.pending + appointmentStats.cancelled)) * 100}
+                  sx={{ mb: 2, height: 8, borderRadius: 4 }}
+                  color="warning"
+                />
+
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                  <Typography variant="body2">Canceladas</Typography>
+                  <Typography variant="body2" fontWeight="bold" color="error.main">
+                    {appointmentStats.cancelled}
+                  </Typography>
+                </Box>
+                <LinearProgress
+                  variant="determinate"
+                  value={(appointmentStats.cancelled / (appointmentStats.confirmed + appointmentStats.pending + appointmentStats.cancelled)) * 100}
+                  sx={{ height: 8, borderRadius: 4 }}
+                  color="error"
+                />
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Recent Appointments */}
+        <Grid item xs={12} md={6}>
+          <Card sx={{ height: '100%' }}>
+            <CardContent>
+              <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <CalendarToday color="primary" />
+                Citas de Hoy
+              </Typography>
+              <List dense>
+                {recentAppointments.map((appointment, index) => (
+                  <React.Fragment key={appointment.id}>
+                    <ListItem sx={{ px: 0, py: 1 }}>
+                      <ListItemAvatar>
+                        <Avatar sx={{ width: 32, height: 32, fontSize: '0.875rem' }}>
+                          {appointment.patient.split(' ').map(n => n[0]).join('').toUpperCase()}
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={
+                          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Typography variant="body2" fontWeight="medium">
+                              {appointment.patient}
+                            </Typography>
+                            <Chip
+                              label={getStatusText(appointment.status)}
+                              color={getStatusColor(appointment.status)}
+                              size="small"
+                              
+                              
+                              sx={{ ml: 1 }}
+                            />
+                          </Box>
+                        }
+                        secondary={
+                          <Box>
+                            <Typography variant="caption" display="block">
+                              {appointment.doctor} • {appointment.specialty}
+                            </Typography>
+                            <Typography variant="caption" color="primary" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                              <AccessTime fontSize="inherit" />
+                              {appointment.time}
+                            </Typography>
+                          </Box>
+                        }
+                      />
+                    </ListItem>
+                    {index < recentAppointments.length - 1 && <Divider component="li" />}
+                  </React.Fragment>
+                ))}
+              </List>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};
+
+export default DashboardPage;

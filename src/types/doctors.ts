@@ -138,7 +138,7 @@ export const doctorUpdateSchema = z.object({
   specialtyIds: z
     .array(z.number().int())
     .min(1, { message: 'Debe seleccionar al menos una especialidad' })
-    .optional(), // Make optional for updates if they aren't always updating specialties
+    .optional(), 
 })
 
 export type DoctorUpdateDto = z.infer<typeof doctorUpdateSchema>

@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import ApiBackend from '../../shared/services/api.backend'
-import type { Category, UpdateCategoryDto } from '../../types/category'
+import type { Category } from '../../types/category'
 
-export const useUpdateCategory = () => {
+export const useToggleCategoryStatus = () => {
   const queryClient = useQueryClient()
   
   return useMutation({
-    mutationFn: async ({ id, data }: { id: number; data: UpdateCategoryDto }) => {
-      const response = await ApiBackend.put(`/categories/${id}`, data)
+    mutationFn: async ({ id, isActive }: { id: number; isActive: boolean }) => {
+      const response = await ApiBackend.put(`/categories/${id}/toggle-status`, { isActive })
       return response as Category
     },
     onSuccess: (updatedCategory) => {
