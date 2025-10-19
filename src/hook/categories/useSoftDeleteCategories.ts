@@ -7,13 +7,10 @@ export const useSoftDeleteCategory = () => {
   
   return useMutation({
     mutationFn: async (categoryId: number) => {
-      const response = await ApiBackend.put(`/categories/${categoryId}/soft-delete`)
-      return response as Category
+      await ApiBackend.delete(`/categories/${categoryId}`)
     },
-    onSuccess: (deletedCategory) => {
-      // Invalidar queries relacionadas
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] })
-      queryClient.invalidateQueries({ queryKey: ['category', deletedCategory.id] })
     },
   })
 }
