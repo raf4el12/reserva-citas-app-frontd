@@ -17,7 +17,6 @@ import { useState } from 'react'
 import Button from '@mui/material/Button'
 // Components
 import Card from '@mui/material/Card'
-import CardHeader from '@mui/material/CardHeader'
 import Checkbox from '@mui/material/Checkbox'
 import Chip from '@mui/material/Chip'
 import Divider from '@mui/material/Divider'
