@@ -1,5 +1,5 @@
 import ApiBackend from '../../shared/services/api.backend'
-import type { Category } from '../../types/category'
+import type { Category } from '../../types/category/category'
 
 import { useQuery } from '@tanstack/react-query'
 

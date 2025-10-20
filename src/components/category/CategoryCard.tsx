@@ -1,15 +1,15 @@
-import { 
-  Card, 
-  CardContent, 
-  CardActions, 
-  Typography, 
-  Chip, 
-  IconButton,
+import {
   Box,
-  Stack
+  Card,
+  CardActions,
+  CardContent,
+  Chip,
+  IconButton,
+  Stack,
+  Typography,
 } from '@mui/material'
 import type { FC } from 'react'
-import type { Category } from '../../types/category'
+import type { Category } from '../../types/category/category'
 
 interface CategoryCardProps {
   item: Category
@@ -18,19 +18,19 @@ interface CategoryCardProps {
   onView?: (item: Category) => void
 }
 
-const CategoryCard: FC<CategoryCardProps> = ({ 
-  item, 
-  onEdit, 
-  onDelete, 
-  onView 
+const CategoryCard: FC<CategoryCardProps> = ({
+  item,
+  onEdit,
+  onDelete,
+  onView,
 }) => {
   const handleEdit = () => onEdit?.(item)
   const handleDelete = () => onDelete?.(item)
   const handleView = () => onView?.(item)
 
   return (
-    <Card 
-      sx={{ 
+    <Card
+      sx={{
         minWidth: 280,
         height: '100%',
         display: 'flex',
@@ -38,22 +38,28 @@ const CategoryCard: FC<CategoryCardProps> = ({
         transition: 'all 0.2s ease-in-out',
         '&:hover': {
           transform: 'translateY(-2px)',
-          boxShadow: 3
-        }
-      }} 
+          boxShadow: 3,
+        },
+      }}
       variant="outlined"
     >
       <CardContent sx={{ flex: 1 }}>
         <Stack spacing={2}>
           {/* Header con nombre y estado */}
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <Typography 
-              variant="h6" 
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+            }}
+          >
+            <Typography
+              variant="h6"
               component="h3"
-              sx={{ 
+              sx={{
                 fontWeight: 600,
                 color: 'text.primary',
-                lineHeight: 1.2
+                lineHeight: 1.2,
               }}
             >
               {item.name}
@@ -68,15 +74,15 @@ const CategoryCard: FC<CategoryCardProps> = ({
 
           {/* Descripción */}
           {item.description && (
-            <Typography 
-              variant="body2" 
+            <Typography
+              variant="body2"
               color="text.secondary"
               sx={{
                 display: '-webkit-box',
                 WebkitLineClamp: 3,
                 WebkitBoxOrient: 'vertical',
                 overflow: 'hidden',
-                textOverflow: 'ellipsis'
+                textOverflow: 'ellipsis',
               }}
             >
               {item.description}
@@ -89,8 +95,13 @@ const CategoryCard: FC<CategoryCardProps> = ({
               Creado: {new Date(item.createdAt).toLocaleDateString('es-ES')}
             </Typography>
             {item.updatedAt && (
-              <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
-                Actualizado: {new Date(item.updatedAt).toLocaleDateString('es-ES')}
+              <Typography
+                variant="caption"
+                color="text.secondary"
+                sx={{ display: 'block' }}
+              >
+                Actualizado:{' '}
+                {new Date(item.updatedAt).toLocaleDateString('es-ES')}
               </Typography>
             )}
           </Box>
@@ -100,32 +111,20 @@ const CategoryCard: FC<CategoryCardProps> = ({
       {/* Acciones */}
       <CardActions sx={{ justifyContent: 'space-between', px: 2, pb: 2 }}>
         <Box>
-          <IconButton 
-            size="medium" 
-            onClick={handleView}
-            title="Ver detalles"
-          >
+          <IconButton size="medium" onClick={handleView} title="Ver detalles">
             <i
               className="ri-eye-line"
               style={{ fontSize: '24px', color: '#5271FF' }}
             />
           </IconButton>
-          <IconButton 
-            size="medium" 
-            onClick={handleEdit}
-            title="Editar"
-          >
+          <IconButton size="medium" onClick={handleEdit} title="Editar">
             <i
               className="ri-edit-box-line"
               style={{ fontSize: '24px', color: '#5271FF' }}
             />
           </IconButton>
         </Box>
-        <IconButton 
-          size="medium" 
-          onClick={handleDelete}
-          title="Eliminar"
-        >
+        <IconButton size="medium" onClick={handleDelete} title="Eliminar">
           <i
             className="ri-delete-bin-6-line"
             style={{ fontSize: '24px', color: '#FF3535' }}

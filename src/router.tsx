@@ -75,18 +75,6 @@ const SpecialtiesPage = lazy(
       './pages/specialties/SpecialtiesPage' /* webpackChunkName: "specialties-page" */
     )
 )
-const SpecialtiesDetailPage = lazy(
-  () =>
-    import(
-      './pages/specialties/SpecialtiesDetailPage' /* webpackChunkName: "specialties-detail-page" */
-    )
-)
-const SpecialtiesNewPage = lazy(
-  () =>
-    import(
-      './pages/specialties/SpecialtiesNewPage' /* webpackChunkName: "specialties-new-page" */
-    )
-)
 
 // Patients Pages
 const PatientPage = lazy(
@@ -176,20 +164,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'specialties',
-        children: [
-          {
-            index: true,
-            element: <SpecialtiesPage />,
-          },
-          {
-            path: ':id/detail',
-            element: <SpecialtiesDetailPage />,
-          },
-          {
-            path: 'new',
-            element: <SpecialtiesNewPage />,
-          },
-        ],
+        element: <SpecialtiesPage />,
       },
       {
         path: 'doctors',

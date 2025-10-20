@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import {
-  Drawer,
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Stack,
-  IconButton,
-  Divider,
-  FormControlLabel,
-  Switch
-} from '@mui/material'
 import { Close as CloseIcon } from '@mui/icons-material'
+import {
+  Box,
+  Button,
+  Divider,
+  Drawer,
+  FormControlLabel,
+  IconButton,
+  Stack,
+  Switch,
+  TextField,
+  Typography,
+} from '@mui/material'
+import { useState } from 'react'
 import { useCreateCategory } from '../../hook/categories/useCreatedCategories'
 
 interface CategoryAddDrawerProps {
@@ -23,37 +23,40 @@ const CategoryAddDrawer = ({ open, onClose }: CategoryAddDrawerProps) => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    isActive: true
+    isActive: true,
   })
-  const [errors, setErrors] = useState<{ name?: string; description?: string }>({})
+  const [errors, setErrors] = useState<{ name?: string; description?: string }>(
+    {}
+  )
 
   const createCategory = useCreateCategory()
 
-  const handleInputChange = (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value
-    setFormData(prev => ({ ...prev, [field]: value }))
-    
-    // Limpiar error cuando el usuario empiece a escribir
-    if (errors[field as keyof typeof errors]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }))
+  const handleInputChange =
+    (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value
+      setFormData((prev) => ({ ...prev, [field]: value }))
+
+      // Limpiar error cuando el usuario empiece a escribir
+      if (errors[field as keyof typeof errors]) {
+        setErrors((prev) => ({ ...prev, [field]: undefined }))
+      }
     }
-  }
 
   const validateForm = () => {
     const newErrors: { name?: string; description?: string } = {}
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'El nombre es requerido'
     }
-    
+
     if (formData.name.length > 100) {
       newErrors.name = 'El nombre no puede exceder 100 caracteres'
     }
-    
+
     if (formData.description && formData.description.length > 500) {
       newErrors.description = 'La descripción no puede exceder 500 caracteres'
     }
-    
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -65,11 +68,11 @@ const CategoryAddDrawer = ({ open, onClose }: CategoryAddDrawerProps) => {
       await createCategory.mutateAsync({
         name: formData.name.trim(),
         description: formData.description.trim() || undefined,
-        isActive: formData.isActive
+        isActive: formData.isActive,
       })
-      
+
       // Resetear formulario y cerrar drawer
-  setFormData({ name: '', description: '', isActive: true })
+      setFormData({ name: '', description: '', isActive: true })
       setErrors({})
       onClose()
     } catch (error) {
@@ -78,7 +81,7 @@ const CategoryAddDrawer = ({ open, onClose }: CategoryAddDrawerProps) => {
   }
 
   const handleClose = () => {
-  setFormData({ name: '', description: '', isActive: true })
+    setFormData({ name: '', description: '', isActive: true })
     setErrors({})
     onClose()
   }
@@ -89,12 +92,21 @@ const CategoryAddDrawer = ({ open, onClose }: CategoryAddDrawerProps) => {
       open={open}
       onClose={handleClose}
       PaperProps={{
-        sx: { width: { xs: '100%', sm: 400 } }
+        sx: { width: { xs: '100%', sm: 400 } },
       }}
     >
-      <Box sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Box
+        sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}
+      >
         {/* Header */}
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            mb: 2,
+          }}
+        >
           <Typography variant="h6" component="h2">
             Nueva Categoría
           </Typography>
@@ -102,9 +114,9 @@ const CategoryAddDrawer = ({ open, onClose }: CategoryAddDrawerProps) => {
             <CloseIcon />
           </IconButton>
         </Box>
-        
+
         <Divider sx={{ mb: 3 }} />
-        
+
         {/* Form */}
         <Box sx={{ flex: 1 }}>
           <Stack spacing={3}>
@@ -118,7 +130,7 @@ const CategoryAddDrawer = ({ open, onClose }: CategoryAddDrawerProps) => {
               required
               autoFocus
             />
-            
+
             <TextField
               fullWidth
               label="Descripción"
@@ -135,7 +147,10 @@ const CategoryAddDrawer = ({ open, onClose }: CategoryAddDrawerProps) => {
                 <Switch
                   checked={formData.isActive}
                   onChange={(event) =>
-                    setFormData(prev => ({ ...prev, isActive: event.target.checked }))
+                    setFormData((prev) => ({
+                      ...prev,
+                      isActive: event.target.checked,
+                    }))
                   }
                 />
               }
@@ -143,7 +158,7 @@ const CategoryAddDrawer = ({ open, onClose }: CategoryAddDrawerProps) => {
             />
           </Stack>
         </Box>
-        
+
         {/* Actions */}
         <Box sx={{ pt: 3, display: 'flex', gap: 2 }}>
           <Button
@@ -160,7 +175,7 @@ const CategoryAddDrawer = ({ open, onClose }: CategoryAddDrawerProps) => {
             fullWidth
             disabled={createCategory.isPending || !formData.name.trim()}
           >
-            {createCategory.isPending ? 'Creando...' : 'Crear Categoría'}
+            {createCategory.isPending ? 'Creando...' : 'Crear'}
           </Button>
         </Box>
       </Box>

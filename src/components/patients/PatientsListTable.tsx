@@ -1,23 +1,23 @@
+import { Add, Delete, Edit, Search, Visibility } from '@mui/icons-material'
 import {
+  Box,
+  Button,
+  Card,
+  Chip,
+  IconButton,
+  InputAdornment,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
-  IconButton,
-  Chip,
-  Typography,
-  Box,
-  Card,
-  TextField,
-  InputAdornment,
-  Button,
   TablePagination,
+  TableRow,
+  TextField,
+  Typography,
 } from '@mui/material'
-import { Edit, Delete, Visibility, Add, Search } from '@mui/icons-material'
-import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import type { Patients } from '../../types/patients'
 
 interface PatientsListTableProps {
@@ -34,13 +34,13 @@ interface PatientsListTableProps {
   onPageChange?: (page: number, pageSize: number) => void
 }
 
-const PatientsListTable = ({ 
-  patients, 
-  onDelete, 
+const PatientsListTable = ({
+  patients,
+  onDelete,
   onAdd,
   loading = false,
   pagination,
-  onPageChange 
+  onPageChange,
 }: PatientsListTableProps) => {
   const navigate = useNavigate()
   const [globalFilter, setGlobalFilter] = useState('')
@@ -62,7 +62,7 @@ const PatientsListTable = ({
   }
 
   // Filtrar pacientes según el filtro global
-  const filteredPatients = patients.filter(patient => {
+  const filteredPatients = patients.filter((patient) => {
     if (!globalFilter) return true
     const searchText = globalFilter.toLowerCase()
     return (
@@ -80,7 +80,9 @@ const PatientsListTable = ({
     }
   }
 
-  const handleRowsPerPageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRowsPerPageChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const newPageSize = Number.parseInt(event.target.value, 10)
     if (onPageChange && pagination) {
       onPageChange(1, newPageSize)
@@ -90,16 +92,28 @@ const PatientsListTable = ({
   return (
     <Card>
       {/* HEADER CON TÍTULO, BOTÓN ADD Y SEARCH */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '16px', padding: '24px' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: '16px',
+          padding: '24px',
+        }}
+      >
         <div>
-          <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: '4px' }}>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: 600, marginBottom: '4px' }}
+          >
             Pacientes
           </Typography>
-          <Typography variant='body2' color="text.secondary">
+          <Typography variant="body2" color="text.secondary">
             Gestiona la información de los pacientes
           </Typography>
         </div>
-        
+
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           {/* Buscador */}
           <TextField
@@ -112,19 +126,19 @@ const PatientsListTable = ({
                 <InputAdornment position="start">
                   <Search sx={{ color: 'text.secondary' }} />
                 </InputAdornment>
-              )
+              ),
             }}
             sx={{ minWidth: 250 }}
           />
-          
+
           {/* Botón Add */}
           <Button
             variant="contained"
             startIcon={<Add />}
             onClick={handleAddPatient}
-            sx={{ 
+            sx={{
               minWidth: 'auto',
-              px: 3
+              px: 3,
             }}
           >
             Nuevo Paciente
@@ -137,13 +151,27 @@ const PatientsListTable = ({
         <Table sx={{ minWidth: 650 }} aria-label="patients table">
           <TableHead>
             <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
-              <TableCell><strong>ID</strong></TableCell>
-              <TableCell><strong>Nombre Completo</strong></TableCell>
-              <TableCell><strong>Tipo de Sangre</strong></TableCell>
-              <TableCell><strong>Contacto Emergencia</strong></TableCell>
-              <TableCell><strong>Alergias</strong></TableCell>
-              <TableCell><strong>Condiciones Crónicas</strong></TableCell>
-              <TableCell align="center"><strong>Acciones</strong></TableCell>
+              <TableCell>
+                <strong>ID</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Nombre Completo</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Tipo de Sangre</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Contacto Emergencia</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Alergias</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Condiciones Crónicas</strong>
+              </TableCell>
+              <TableCell align="center">
+                <strong>Acciones</strong>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -153,13 +181,14 @@ const PatientsListTable = ({
                 <TableRow key={index}>
                   {Array.from({ length: 7 }).map((_, cellIndex) => (
                     <TableCell key={cellIndex}>
-                      <Box 
-                        sx={{ 
-                          height: 20, 
-                          backgroundColor: 'grey.200', 
+                      <Box
+                        sx={{
+                          height: 20,
+                          backgroundColor: 'grey.200',
                           borderRadius: 1,
-                          animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-                        }} 
+                          animation:
+                            'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        }}
                       />
                     </TableCell>
                   ))}
@@ -168,8 +197,14 @@ const PatientsListTable = ({
             ) : filteredPatients.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={7} align="center">
-                  <Typography variant="body2" color="text.secondary" sx={{ py: 4 }}>
-                    {globalFilter ? 'No se encontraron pacientes que coincidan con la búsqueda' : 'No hay pacientes registrados'}
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ py: 4 }}
+                  >
+                    {globalFilter
+                      ? 'No se encontraron pacientes que coincidan con la búsqueda'
+                      : 'No hay pacientes registrados'}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -177,9 +212,9 @@ const PatientsListTable = ({
               filteredPatients.map((patient) => (
                 <TableRow
                   key={patient.id}
-                  sx={{ 
+                  sx={{
                     '&:hover': { backgroundColor: '#f9f9f9' },
-                    '&:nth-of-type(odd)': { backgroundColor: '#fafafa' }
+                    '&:nth-of-type(odd)': { backgroundColor: '#fafafa' },
                   }}
                 >
                   <TableCell>
@@ -189,7 +224,11 @@ const PatientsListTable = ({
                   </TableCell>
                   <TableCell>
                     <Box>
-                      <Typography variant="body2" fontWeight="medium" color="text.primary">
+                      <Typography
+                        variant="body2"
+                        fontWeight="medium"
+                        color="text.primary"
+                      >
                         {patient.profile.name} {patient.profile.lastName}
                       </Typography>
                       <Typography variant="caption" color="text.secondary">
@@ -212,12 +251,24 @@ const PatientsListTable = ({
                     </Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="body2" color={patient.allergies ? 'text.primary' : 'text.secondary'}>
+                    <Typography
+                      variant="body2"
+                      color={
+                        patient.allergies ? 'text.primary' : 'text.secondary'
+                      }
+                    >
                       {patient.allergies || 'Ninguna'}
                     </Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="body2" color={patient.chronic_conditions ? 'text.primary' : 'text.secondary'}>
+                    <Typography
+                      variant="body2"
+                      color={
+                        patient.chronic_conditions
+                          ? 'text.primary'
+                          : 'text.secondary'
+                      }
+                    >
                       {patient.chronic_conditions || 'Ninguna'}
                     </Typography>
                   </TableCell>
@@ -228,8 +279,8 @@ const PatientsListTable = ({
                         onClick={() => handleView(patient.id)}
                         color="info"
                         title="Ver detalles"
-                        sx={{ 
-                          '&:hover': { backgroundColor: 'info.lighter' }
+                        sx={{
+                          '&:hover': { backgroundColor: 'info.lighter' },
                         }}
                       >
                         <Visibility fontSize="small" />
@@ -239,8 +290,8 @@ const PatientsListTable = ({
                         onClick={() => handleEdit(patient.id)}
                         color="primary"
                         title="Editar"
-                        sx={{ 
-                          '&:hover': { backgroundColor: 'primary.lighter' }
+                        sx={{
+                          '&:hover': { backgroundColor: 'primary.lighter' },
                         }}
                       >
                         <Edit fontSize="small" />
@@ -250,8 +301,8 @@ const PatientsListTable = ({
                         onClick={() => onDelete(patient.id)}
                         color="error"
                         title="Eliminar"
-                        sx={{ 
-                          '&:hover': { backgroundColor: 'error.lighter' }
+                        sx={{
+                          '&:hover': { backgroundColor: 'error.lighter' },
                         }}
                       >
                         <Delete fontSize="small" />
@@ -264,22 +315,22 @@ const PatientsListTable = ({
           </TableBody>
         </Table>
       </TableContainer>
-      
+
       {/* PAGINACIÓN */}
       {pagination && (
         <TablePagination
           rowsPerPageOptions={[10, 25, 50]}
-          component='div'
+          component="div"
           count={pagination.totalRows}
           rowsPerPage={pagination.pageSize}
           page={pagination.currentPage - 1}
           SelectProps={{
-            inputProps: { 'aria-label': 'filas por página' }
+            inputProps: { 'aria-label': 'filas por página' },
           }}
           onPageChange={handlePageChange}
           onRowsPerPageChange={handleRowsPerPageChange}
           labelRowsPerPage="Filas por página:"
-          labelDisplayedRows={({ from, to, count }) => 
+          labelDisplayedRows={({ from, to, count }) =>
             `${from}-${to} de ${count !== -1 ? count : `más de ${to}`}`
           }
         />

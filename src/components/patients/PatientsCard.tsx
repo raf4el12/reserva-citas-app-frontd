@@ -18,4 +18,3 @@ const PatientsCard: FC<PatientsCardDrops> = ({ item }) => {
 }
 
 export default PatientsCard
-  

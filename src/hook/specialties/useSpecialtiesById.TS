@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import ApiBackend from '../../shared/services/api.backend'
-import type { Specialties } from '../../types/specialties'
+import type { Specialties } from '../../types/specialties/specialties'
 
 export const useGetSpecialtyById = (specialtyId: number) => {
   const query = useQuery({

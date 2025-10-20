@@ -1,13 +1,13 @@
-import { useState } from 'react'
+import { MoreVert as MoreVertIcon } from '@mui/icons-material'
 import {
   IconButton,
-  Menu,
-  MenuItem,
+  type IconButtonProps,
   ListItemIcon,
   ListItemText,
-  type IconButtonProps
+  Menu,
+  MenuItem,
 } from '@mui/material'
-import { MoreVert as MoreVertIcon } from '@mui/icons-material'
+import { useState } from 'react'
 
 interface OptionMenuItem {
   text: string
@@ -22,10 +22,10 @@ interface OptionMenuProps {
   options: OptionMenuItem[]
 }
 
-const OptionMenu = ({ 
-  iconButtonProps, 
-  iconClassName, 
-  options 
+const OptionMenu = ({
+  iconButtonProps,
+  iconClassName,
+  options,
 }: OptionMenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)

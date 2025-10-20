@@ -8,26 +8,27 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
-import type { Category } from '../../types/category/category'
 
-interface CategoryDetailDrawerProps {
+import type { Specialties } from '../../types/specialties/specialties'
+
+interface SpecialtiesDetailDrawerProps {
   open: boolean
   onClose: () => void
-  onEdit?: (category: Category) => void
-  category: Category | null
+  onEdit?: (specialty: Specialties) => void
+  specialty: Specialties | null
 }
 
-const CategoryDetailDrawer = ({
+const SpecialtiesDetailDrawer = ({
   open,
   onClose,
   onEdit,
-  category,
-}: CategoryDetailDrawerProps) => {
-  if (!category) return null
+  specialty,
+}: SpecialtiesDetailDrawerProps) => {
+  if (!specialty) return null
 
   const handleEdit = () => {
     if (onEdit) {
-      onEdit(category)
+      onEdit(specialty)
     }
   }
 
@@ -36,14 +37,11 @@ const CategoryDetailDrawer = ({
       anchor="right"
       open={open}
       onClose={onClose}
-      PaperProps={{
-        sx: { width: { xs: '100%', sm: 400 } },
-      }}
+      PaperProps={{ sx: { width: { xs: '100%', sm: 420 } } }}
     >
       <Box
         sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}
       >
-        {/* Header */}
         <Box
           sx={{
             display: 'flex',
@@ -53,7 +51,7 @@ const CategoryDetailDrawer = ({
           }}
         >
           <Typography variant="h6" component="h2">
-            Detalles de Categoría
+            Detalles de la Especialidad
           </Typography>
           <Box sx={{ display: 'flex', gap: 1 }}>
             {onEdit && (
@@ -69,14 +67,13 @@ const CategoryDetailDrawer = ({
 
         <Divider sx={{ mb: 3 }} />
 
-        {/* Content */}
-        <Stack spacing={3}>
+        <Stack spacing={3} sx={{ flex: 1 }}>
           <Box>
             <Typography variant="caption" color="text.secondary" gutterBottom>
               ID
             </Typography>
             <Typography variant="body1" fontWeight="medium">
-              #{category.id}
+              #{specialty.id}
             </Typography>
           </Box>
 
@@ -85,16 +82,16 @@ const CategoryDetailDrawer = ({
               Nombre
             </Typography>
             <Typography variant="body1" fontWeight="medium">
-              {category.name}
+              {specialty.name}
             </Typography>
           </Box>
 
           <Box>
             <Typography variant="caption" color="text.secondary" gutterBottom>
-              Descripción
+              Categoría
             </Typography>
             <Typography variant="body1">
-              {category.description || 'Sin descripción'}
+              {specialty.category?.name || 'Sin categoría'}
             </Typography>
           </Box>
 
@@ -104,12 +101,12 @@ const CategoryDetailDrawer = ({
             </Typography>
             <Stack direction="row" spacing={1}>
               <Chip
-                label={category.isActive ? 'Activa' : 'Inactiva'}
-                color={category.isActive ? 'success' : 'default'}
+                label={specialty.isActive ? 'Activa' : 'Inactiva'}
+                color={specialty.isActive ? 'success' : 'default'}
                 size="small"
                 variant="outlined"
               />
-              {category.deleted && (
+              {specialty.deleted && (
                 <Chip
                   label="Eliminada"
                   color="error"
@@ -120,30 +117,71 @@ const CategoryDetailDrawer = ({
             </Stack>
           </Box>
 
-          {category.createdAt && (
+          <Box>
+            <Typography variant="caption" color="text.secondary" gutterBottom>
+              Descripción
+            </Typography>
+            <Typography variant="body1">
+              {specialty.description || 'Sin descripción'}
+            </Typography>
+          </Box>
+
+          <Stack direction="row" spacing={2}>
             <Box>
               <Typography variant="caption" color="text.secondary" gutterBottom>
-                Fecha de Creación
+                Duración
               </Typography>
-              <Typography variant="body2">
-                {new Date(category.createdAt).toLocaleDateString('es-ES', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })}
+              <Typography variant="body1">
+                {specialty.duration
+                  ? `${specialty.duration} minutos`
+                  : 'No especificado'}
               </Typography>
             </Box>
-          )}
+            <Box>
+              <Typography variant="caption" color="text.secondary" gutterBottom>
+                Precio
+              </Typography>
+              <Typography variant="body1">
+                {specialty.price !== null && specialty.price !== undefined
+                  ? `$${Number(specialty.price).toFixed(2)}`
+                  : 'No especificado'}
+              </Typography>
+            </Box>
+          </Stack>
 
-          {category.updatedAt && (
+          <Box>
+            <Typography variant="caption" color="text.secondary" gutterBottom>
+              Requisitos
+            </Typography>
+            <Typography variant="body1">
+              {specialty.requirements || 'Sin requisitos definidos'}
+            </Typography>
+          </Box>
+
+          <Divider />
+
+          <Box>
+            <Typography variant="caption" color="text.secondary" gutterBottom>
+              Fecha de Creación
+            </Typography>
+            <Typography variant="body2">
+              {new Date(specialty.createdAt).toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
+            </Typography>
+          </Box>
+
+          {specialty.updatedAt && (
             <Box>
               <Typography variant="caption" color="text.secondary" gutterBottom>
                 Última Actualización
               </Typography>
               <Typography variant="body2">
-                {new Date(category.updatedAt).toLocaleDateString('es-ES', {
+                {new Date(specialty.updatedAt).toLocaleDateString('es-ES', {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
@@ -159,4 +197,4 @@ const CategoryDetailDrawer = ({
   )
 }
 
-export default CategoryDetailDrawer
+export default SpecialtiesDetailDrawer

@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react'
-import {
-  Drawer,
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Stack,
-  IconButton,
-  Divider,
-  FormControlLabel,
-  Switch
-} from '@mui/material'
 import { Close as CloseIcon } from '@mui/icons-material'
+import {
+  Box,
+  Button,
+  Divider,
+  Drawer,
+  FormControlLabel,
+  IconButton,
+  Stack,
+  Switch,
+  TextField,
+  Typography,
+} from '@mui/material'
+import { useEffect, useState } from 'react'
 import { useUpdateCategory } from '../../hook/categories/useUpdateCategories'
-import type { Category } from '../../types/category'
+import type { Category } from '../../types/category/category'
 
 interface CategoryEditDrawerProps {
   open: boolean
@@ -21,13 +21,19 @@ interface CategoryEditDrawerProps {
   category: Category | null
 }
 
-const CategoryEditDrawer = ({ open, onClose, category }: CategoryEditDrawerProps) => {
+const CategoryEditDrawer = ({
+  open,
+  onClose,
+  category,
+}: CategoryEditDrawerProps) => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    isActive: true
+    isActive: true,
   })
-  const [errors, setErrors] = useState<{ name?: string; description?: string }>({})
+  const [errors, setErrors] = useState<{ name?: string; description?: string }>(
+    {}
+  )
 
   const updateCategory = useUpdateCategory()
 
@@ -37,36 +43,37 @@ const CategoryEditDrawer = ({ open, onClose, category }: CategoryEditDrawerProps
       setFormData({
         name: category.name || '',
         description: category.description || '',
-        isActive: category.isActive ?? true
+        isActive: category.isActive ?? true,
       })
     }
   }, [category])
 
-  const handleInputChange = (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value
-    setFormData(prev => ({ ...prev, [field]: value }))
-    
-    // Limpiar error cuando el usuario empiece a escribir
-    if (errors[field as keyof typeof errors]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }))
+  const handleInputChange =
+    (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value
+      setFormData((prev) => ({ ...prev, [field]: value }))
+
+      // Limpiar error cuando el usuario empiece a escribir
+      if (errors[field as keyof typeof errors]) {
+        setErrors((prev) => ({ ...prev, [field]: undefined }))
+      }
     }
-  }
 
   const validateForm = () => {
     const newErrors: { name?: string; description?: string } = {}
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'El nombre es requerido'
     }
-    
+
     if (formData.name.length > 100) {
       newErrors.name = 'El nombre no puede exceder 100 caracteres'
     }
-    
+
     if (formData.description && formData.description.length > 500) {
       newErrors.description = 'La descripción no puede exceder 500 caracteres'
     }
-    
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -80,10 +87,10 @@ const CategoryEditDrawer = ({ open, onClose, category }: CategoryEditDrawerProps
         data: {
           name: formData.name.trim(),
           description: formData.description.trim() || undefined,
-          isActive: formData.isActive
-        }
+          isActive: formData.isActive,
+        },
       })
-      
+
       // Cerrar drawer
       handleClose()
     } catch (error) {
@@ -92,7 +99,7 @@ const CategoryEditDrawer = ({ open, onClose, category }: CategoryEditDrawerProps
   }
 
   const handleClose = () => {
-  setFormData({ name: '', description: '', isActive: true })
+    setFormData({ name: '', description: '', isActive: true })
     setErrors({})
     onClose()
   }
@@ -103,12 +110,21 @@ const CategoryEditDrawer = ({ open, onClose, category }: CategoryEditDrawerProps
       open={open}
       onClose={handleClose}
       PaperProps={{
-        sx: { width: { xs: '100%', sm: 400 } }
+        sx: { width: { xs: '100%', sm: 400 } },
       }}
     >
-      <Box sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Box
+        sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}
+      >
         {/* Header */}
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            mb: 2,
+          }}
+        >
           <Typography variant="h6" component="h2">
             Editar Categoría
           </Typography>
@@ -116,9 +132,9 @@ const CategoryEditDrawer = ({ open, onClose, category }: CategoryEditDrawerProps
             <CloseIcon />
           </IconButton>
         </Box>
-        
+
         <Divider sx={{ mb: 3 }} />
-        
+
         {/* Form */}
         <Box sx={{ flex: 1 }}>
           <Stack spacing={3}>
@@ -132,7 +148,7 @@ const CategoryEditDrawer = ({ open, onClose, category }: CategoryEditDrawerProps
               required
               autoFocus
             />
-            
+
             <TextField
               fullWidth
               label="Descripción"
@@ -149,7 +165,10 @@ const CategoryEditDrawer = ({ open, onClose, category }: CategoryEditDrawerProps
                 <Switch
                   checked={formData.isActive}
                   onChange={(event) =>
-                    setFormData(prev => ({ ...prev, isActive: event.target.checked }))
+                    setFormData((prev) => ({
+                      ...prev,
+                      isActive: event.target.checked,
+                    }))
                   }
                 />
               }
@@ -157,7 +176,7 @@ const CategoryEditDrawer = ({ open, onClose, category }: CategoryEditDrawerProps
             />
           </Stack>
         </Box>
-        
+
         {/* Actions */}
         <Box sx={{ pt: 3, display: 'flex', gap: 2 }}>
           <Button

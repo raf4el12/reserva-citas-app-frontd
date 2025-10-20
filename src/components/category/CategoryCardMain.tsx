@@ -1,21 +1,21 @@
-import { Box, Typography, Button, Grid } from '@mui/material'
-import { useState } from 'react'
 import { Add as AddIcon } from '@mui/icons-material'
+import { Box, Button, Grid, Typography } from '@mui/material'
+import { useState } from 'react'
 
+import ConfirmDialog from '../commons/ConfimDialog'
+import CategoryAddDrawer from './CategoryAddDrawer'
 // Components
 import CategoryCard from './CategoryCard'
-import CategoryListTable from './CategoryListTable'
-import CategoryAddDrawer from './CategoryAddDrawer'
-import CategoryEditDrawer from './CategoryEditDrawer'
 import CategoryDetailDrawer from './CategoryDetailDrawer'
-import ConfirmDialog from '../commons/ConfimDialog'
+import CategoryEditDrawer from './CategoryEditDrawer'
+import CategoryListTable from './CategoryListTable'
 
 // Hooks
 import { useCategories } from '../../hook/categories/useCategories'
 import { useSoftDeleteCategory } from '../../hook/categories/useSoftDeleteCategories'
 
 // Types
-import type { Category } from '../../types/category'
+import type { Category } from '../../types/category/category'
 
 const CategoryCardMain = () => {
   const { isPending, data } = useCategories()
@@ -26,27 +26,29 @@ const CategoryCardMain = () => {
   const [openEditDrawer, setOpenEditDrawer] = useState(false)
   const [openDetailDrawer, setOpenDetailDrawer] = useState(false)
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    null
+  )
   const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards')
 
   // Handlers
   const handleAddCategory = () => setOpenAddDrawer(true)
-  
+
   const handleEditCategory = (category: Category) => {
     setSelectedCategory(category)
     setOpenEditDrawer(true)
   }
-  
+
   const handleViewCategory = (category: Category) => {
     setSelectedCategory(category)
     setOpenDetailDrawer(true)
   }
-  
+
   const handleDeleteCategory = (category: Category) => {
     setSelectedCategory(category)
     setOpenDeleteDialog(true)
   }
-  
+
   const handleConfirmDelete = () => {
     if (selectedCategory) {
       deleteCategory(selectedCategory.id)
@@ -69,12 +71,14 @@ const CategoryCardMain = () => {
   return (
     <Box sx={{ p: 3 }}>
       {/* Header con acciones */}
-      <Box sx={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
-        mb: 3 
-      }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          mb: 3,
+        }}
+      >
         <Box sx={{ display: 'flex', gap: 2 }}>
           <Button
             variant={viewMode === 'cards' ? 'contained' : 'outlined'}
@@ -126,22 +130,18 @@ const CategoryCardMain = () => {
               ))}
             </Grid>
           ) : (
-            <CategoryListTable 
-              categoryData={data} 
+            <CategoryListTable
+              categoryData={data}
               onEdit={handleEditCategory}
               onDelete={handleDeleteCategory}
               onAdd={handleAddCategory}
-              
             />
           )}
         </>
       )}
 
       {/* Modales */}
-      <CategoryAddDrawer
-        open={openAddDrawer}
-        onClose={handleCloseDrawers}
-      />
+      <CategoryAddDrawer open={openAddDrawer} onClose={handleCloseDrawers} />
 
       <CategoryEditDrawer
         open={openEditDrawer}

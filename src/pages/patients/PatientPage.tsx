@@ -19,8 +19,8 @@ const PatientPage = () => {
   if (isPending) return <LinearProgress />
 
   return (
-    <PatientsListTable 
-      patients={patients} 
+    <PatientsListTable
+      patients={patients}
       onDelete={handleDelete}
       onAdd={handleAdd}
       loading={isPending}

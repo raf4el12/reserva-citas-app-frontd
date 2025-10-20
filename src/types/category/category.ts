@@ -36,5 +36,3 @@ export interface CategoryFilters {
   deleted?: boolean
   search?: string
 }
-
-

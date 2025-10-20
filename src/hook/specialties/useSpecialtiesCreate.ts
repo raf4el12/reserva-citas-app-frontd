@@ -1,31 +1,36 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { toast } from 'react-hot-toast'
 import ApiBackend from '../../shared/services/api.backend'
 import {
   type CreateSpecialtyDto,
   createSpecialtySchema,
-} from '../../types/specialtiesSchema' // Importación correcta
+} from '../../types/specialties/specialtiesSchema'
 
 export const useSpecialtiesCreate = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: async (data: CreateSpecialtyDto) => {
-      // Validación usando Zod
       const validation = createSpecialtySchema.safeParse(data)
-
       if (!validation.success) {
-        // Si la validación falla, lanzamos un error
         throw new Error(
           validation.error.errors.map((err) => err.message).join(', ')
         )
       }
-
-      // Si la validación es exitosa, se realiza la solicitud al backend
-      await ApiBackend.post('/specialties', data)
+      const response = await ApiBackend.post('/specialties', validation.data)
+      return response.data
     },
     onSuccess: () => {
-      // Invalidar la consulta de especialidades después de la mutación exitosa
       queryClient.invalidateQueries({ queryKey: ['specialties'] })
+      toast.success('Especialidad creada exitosamente')
+    },
+    onError: (error: any) => {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        'Error al crear la especialidad'
+      toast.error(errorMessage)
+      console.error('Error creating specialty:', error)
     },
   })
 }

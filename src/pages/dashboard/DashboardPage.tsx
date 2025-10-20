@@ -1,52 +1,51 @@
-import React from 'react';
 import {
+  AccessTime,
+  CalendarToday,
+  Cancel,
+  CheckCircle,
+  LocalHospital,
+  People,
+  Schedule,
+  TrendingUp,
+} from '@mui/icons-material'
+import {
+  Avatar,
   Box,
-  Grid,
- 
-  Typography,
   Card,
   CardContent,
-  Avatar,
+  Chip,
+  Divider,
+  Grid,
+  LinearProgress,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Chip,
-  LinearProgress,
-  Divider
-} from '@mui/material';
-import {
-  People,
-  LocalHospital,
-  CalendarToday,
-  TrendingUp,
-  Schedule,
-  CheckCircle,
-  Cancel,
-  AccessTime
-} from '@mui/icons-material';
+  Typography,
+} from '@mui/material'
+import React from 'react'
 
 interface StatCardProps {
-  title: string;
-  value: string | number;
-  icon: React.ReactNode;
-  color: string;
-  subtitle?: string;
+  title: string
+  value: string | number
+  icon: React.ReactNode
+  color: string
+  subtitle?: string
 }
 
 interface Appointment {
-  id: number;
-  patient: string;
-  doctor: string;
-  time: string;
-  status: 'confirmed' | 'pending' | 'cancelled';
-  specialty: string;
+  id: number
+  patient: string
+  doctor: string
+  time: string
+  status: 'confirmed' | 'pending' | 'cancelled'
+  specialty: string
 }
 
 interface AppointmentStats {
-  confirmed: number;
-  pending: number;
-  cancelled: number;
+  confirmed: number
+  pending: number
+  cancelled: number
 }
 
 const DashboardPage: React.FC = () => {
@@ -54,14 +53,14 @@ const DashboardPage: React.FC = () => {
     totalPatients: 1247,
     totalDoctors: 23,
     todayAppointments: 47,
-    weeklyGrowth: 12.5
-  };
+    weeklyGrowth: 12.5,
+  }
 
   const appointmentStats: AppointmentStats = {
     confirmed: 35,
     pending: 8,
-    cancelled: 4
-  };
+    cancelled: 4,
+  }
 
   const recentAppointments: Appointment[] = [
     {
@@ -70,7 +69,7 @@ const DashboardPage: React.FC = () => {
       doctor: 'Dr. Carlos Ruiz',
       time: '09:00',
       status: 'confirmed',
-      specialty: 'Cardiología'
+      specialty: 'Cardiología',
     },
     {
       id: 2,
@@ -78,7 +77,7 @@ const DashboardPage: React.FC = () => {
       doctor: 'Dra. Ana López',
       time: '10:30',
       status: 'pending',
-      specialty: 'Pediatría'
+      specialty: 'Pediatría',
     },
     {
       id: 3,
@@ -86,19 +85,35 @@ const DashboardPage: React.FC = () => {
       doctor: 'Dr. Luis Torres',
       time: '11:15',
       status: 'confirmed',
-      specialty: 'Dermatología'
-    }
-  ];
+      specialty: 'Dermatología',
+    },
+  ]
 
-  const StatCard: React.FC<StatCardProps> = ({ title, value, icon, color, subtitle }) => (
+  const StatCard: React.FC<StatCardProps> = ({
+    title,
+    value,
+    icon,
+    color,
+    subtitle,
+  }) => (
     <Card sx={{ height: '100%' }}>
       <CardContent>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+          }}
+        >
           <Box>
             <Typography color="textSecondary" gutterBottom variant="h6">
               {title}
             </Typography>
-            <Typography variant="h4" component="div" sx={{ fontWeight: 'bold', color: color }}>
+            <Typography
+              variant="h4"
+              component="div"
+              sx={{ fontWeight: 'bold', color: color }}
+            >
               {value}
             </Typography>
             {subtitle && (
@@ -107,46 +122,61 @@ const DashboardPage: React.FC = () => {
               </Typography>
             )}
           </Box>
-          <Avatar sx={{ bgcolor: color, width: 56, height: 56 }}>
-            {icon}
-          </Avatar>
+          <Avatar sx={{ bgcolor: color, width: 56, height: 56 }}>{icon}</Avatar>
         </Box>
       </CardContent>
     </Card>
-  );
+  )
 
   const getStatusColor = (status: string): 'success' | 'warning' | 'error' => {
     switch (status) {
-      case 'confirmed': return 'success';
-      case 'pending': return 'warning';
-      case 'cancelled': return 'error';
-      default: return 'success';
+      case 'confirmed':
+        return 'success'
+      case 'pending':
+        return 'warning'
+      case 'cancelled':
+        return 'error'
+      default:
+        return 'success'
     }
-  };
+  }
 
   const getStatusText = (status: string): string => {
     switch (status) {
-      case 'confirmed': return 'Confirmada';
-      case 'pending': return 'Pendiente';
-      case 'cancelled': return 'Cancelada';
-      default: return status;
+      case 'confirmed':
+        return 'Confirmada'
+      case 'pending':
+        return 'Pendiente'
+      case 'cancelled':
+        return 'Cancelada'
+      default:
+        return status
     }
-  };
+  }
 
   const getStatusIcon = (status: string): React.ReactNode => {
     switch (status) {
-      case 'confirmed': return <CheckCircle fontSize="small" />;
-      case 'pending': return <Schedule fontSize="small" />;
-      case 'cancelled': return <Cancel fontSize="small" />;
-      default: return null;
+      case 'confirmed':
+        return <CheckCircle fontSize="small" />
+      case 'pending':
+        return <Schedule fontSize="small" />
+      case 'cancelled':
+        return <Cancel fontSize="small" />
+      default:
+        return null
     }
-  };
+  }
 
   return (
     <Box sx={{ p: 3 }}>
       {/* Header */}
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+        <Typography
+          variant="h4"
+          component="h1"
+          gutterBottom
+          sx={{ fontWeight: 'bold' }}
+        >
           Dashboard SISOL
         </Typography>
         <Typography variant="subtitle1" color="textSecondary">
@@ -199,46 +229,98 @@ const DashboardPage: React.FC = () => {
         <Grid item xs={12} md={6}>
           <Card sx={{ height: '100%' }}>
             <CardContent>
-              <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
+              >
                 <Schedule color="primary" />
                 Estado de Citas
               </Typography>
               <Box sx={{ mt: 3 }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    mb: 1,
+                  }}
+                >
                   <Typography variant="body2">Confirmadas</Typography>
-                  <Typography variant="body2" fontWeight="bold" color="success.main">
+                  <Typography
+                    variant="body2"
+                    fontWeight="bold"
+                    color="success.main"
+                  >
                     {appointmentStats.confirmed}
                   </Typography>
                 </Box>
                 <LinearProgress
                   variant="determinate"
-                  value={(appointmentStats.confirmed / (appointmentStats.confirmed + appointmentStats.pending + appointmentStats.cancelled)) * 100}
+                  value={
+                    (appointmentStats.confirmed /
+                      (appointmentStats.confirmed +
+                        appointmentStats.pending +
+                        appointmentStats.cancelled)) *
+                    100
+                  }
                   sx={{ mb: 2, height: 8, borderRadius: 4 }}
                   color="success"
                 />
 
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    mb: 1,
+                  }}
+                >
                   <Typography variant="body2">Pendientes</Typography>
-                  <Typography variant="body2" fontWeight="bold" color="warning.main">
+                  <Typography
+                    variant="body2"
+                    fontWeight="bold"
+                    color="warning.main"
+                  >
                     {appointmentStats.pending}
                   </Typography>
                 </Box>
                 <LinearProgress
                   variant="determinate"
-                  value={(appointmentStats.pending / (appointmentStats.confirmed + appointmentStats.pending + appointmentStats.cancelled)) * 100}
+                  value={
+                    (appointmentStats.pending /
+                      (appointmentStats.confirmed +
+                        appointmentStats.pending +
+                        appointmentStats.cancelled)) *
+                    100
+                  }
                   sx={{ mb: 2, height: 8, borderRadius: 4 }}
                   color="warning"
                 />
 
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    mb: 1,
+                  }}
+                >
                   <Typography variant="body2">Canceladas</Typography>
-                  <Typography variant="body2" fontWeight="bold" color="error.main">
+                  <Typography
+                    variant="body2"
+                    fontWeight="bold"
+                    color="error.main"
+                  >
                     {appointmentStats.cancelled}
                   </Typography>
                 </Box>
                 <LinearProgress
                   variant="determinate"
-                  value={(appointmentStats.cancelled / (appointmentStats.confirmed + appointmentStats.pending + appointmentStats.cancelled)) * 100}
+                  value={
+                    (appointmentStats.cancelled /
+                      (appointmentStats.confirmed +
+                        appointmentStats.pending +
+                        appointmentStats.cancelled)) *
+                    100
+                  }
                   sx={{ height: 8, borderRadius: 4 }}
                   color="error"
                 />
@@ -251,7 +333,11 @@ const DashboardPage: React.FC = () => {
         <Grid item xs={12} md={6}>
           <Card sx={{ height: '100%' }}>
             <CardContent>
-              <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
+              >
                 <CalendarToday color="primary" />
                 Citas de Hoy
               </Typography>
@@ -260,13 +346,25 @@ const DashboardPage: React.FC = () => {
                   <React.Fragment key={appointment.id}>
                     <ListItem sx={{ px: 0, py: 1 }}>
                       <ListItemAvatar>
-                        <Avatar sx={{ width: 32, height: 32, fontSize: '0.875rem' }}>
-                          {appointment.patient.split(' ').map(n => n[0]).join('').toUpperCase()}
+                        <Avatar
+                          sx={{ width: 32, height: 32, fontSize: '0.875rem' }}
+                        >
+                          {appointment.patient
+                            .split(' ')
+                            .map((n) => n[0])
+                            .join('')
+                            .toUpperCase()}
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText
                         primary={
-                          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              alignItems: 'center',
+                            }}
+                          >
                             <Typography variant="body2" fontWeight="medium">
                               {appointment.patient}
                             </Typography>
@@ -274,8 +372,6 @@ const DashboardPage: React.FC = () => {
                               label={getStatusText(appointment.status)}
                               color={getStatusColor(appointment.status)}
                               size="small"
-                              
-                              
                               sx={{ ml: 1 }}
                             />
                           </Box>
@@ -285,7 +381,15 @@ const DashboardPage: React.FC = () => {
                             <Typography variant="caption" display="block">
                               {appointment.doctor} • {appointment.specialty}
                             </Typography>
-                            <Typography variant="caption" color="primary" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                            <Typography
+                              variant="caption"
+                              color="primary"
+                              sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 0.5,
+                              }}
+                            >
                               <AccessTime fontSize="inherit" />
                               {appointment.time}
                             </Typography>
@@ -293,7 +397,9 @@ const DashboardPage: React.FC = () => {
                         }
                       />
                     </ListItem>
-                    {index < recentAppointments.length - 1 && <Divider component="li" />}
+                    {index < recentAppointments.length - 1 && (
+                      <Divider component="li" />
+                    )}
                   </React.Fragment>
                 ))}
               </List>
@@ -302,7 +408,7 @@ const DashboardPage: React.FC = () => {
         </Grid>
       </Grid>
     </Box>
-  );
-};
+  )
+}
 
-export default DashboardPage;
+export default DashboardPage

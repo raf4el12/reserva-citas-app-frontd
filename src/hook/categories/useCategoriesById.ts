@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import ApiBackend from '../../shared/services/api.backend'
-import type { Category } from '../../types/category'
+import type { Category } from '../../types/category/category'
 
 export const useGetCategoryById = (categoryId: number) => {
   const query = useQuery({
