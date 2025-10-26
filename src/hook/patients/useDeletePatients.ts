@@ -1,27 +1,26 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-hot-toast'
-
 import ApiBackend from '../../shared/services/api.backend'
-import type { Profile, ProfileCreateDto } from '../../types/profile'
 
-export const useCreateProfiles = () => {
+export const useDeletePatients = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (newProfile: ProfileCreateDto) => {
-      const data = await ApiBackend.post('/profiles', newProfile)
-      return data as Profile
+    mutationFn: async (id: number) => {
+      const data = await ApiBackend.delete(`/patients/${id}`)
+      return data
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['profiles'] })
-      toast.success('Perfil creado exitosamente')
+      queryClient.invalidateQueries({ queryKey: ['patients'] })
+      toast.success('Paciente eliminado exitosamente')
     },
     onError: (error: any) => {
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
-        'Error al crear el perfil'
+        'Error al eliminar el paciente'
       toast.error(errorMessage)
+      console.error('Error deleting patient:', error)
     },
   })
 }

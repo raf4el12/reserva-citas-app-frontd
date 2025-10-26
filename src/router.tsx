@@ -51,18 +51,6 @@ const CategoryPage = lazy(
 )
 
 // Doctor Pages
-const DoctorDetailPage = lazy(
-  () =>
-    import(
-      './pages/doctors/DoctorDetailPage' /* webpackChunkName: "doctor-detail-page" */
-    )
-)
-const DoctorNewPage = lazy(
-  () =>
-    import(
-      './pages/doctors/DoctorNewPage' /* webpackChunkName: "doctor-new-page" */
-    )
-)
 const DoctorPage = lazy(
   () =>
     import('./pages/doctors/DoctorPage' /* webpackChunkName: "doctor-page" */)
@@ -80,19 +68,7 @@ const SpecialtiesPage = lazy(
 const PatientPage = lazy(
   () =>
     import(
-      './pages/patients/PatientPage' /* webpackChunkName: "patients-list-table-page" */
-    )
-)
-const PatientDetailPage = lazy(
-  () =>
-    import(
-      './pages/patients/PatientDetailPage' /* webpackChunkName: "patient-detail-page" */
-    )
-)
-const PatientsNewPage = lazy(
-  () =>
-    import(
-      './pages/patients/PatientNewPage' /* webpackChunkName: "patients-new-page" */
+      './pages/patients/PatientPage' /* webpackChunkName: "patients-page" */
     )
 )
 
@@ -168,37 +144,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'doctors',
-        children: [
-          {
-            index: true,
-            element: <DoctorPage />,
-          },
-          {
-            path: ':id/detail',
-            element: <DoctorDetailPage />,
-          },
-          {
-            path: 'new',
-            element: <DoctorNewPage />,
-          },
-        ],
+        element: <DoctorPage />,
       },
       {
         path: 'patients',
-        children: [
-          {
-            index: true,
-            element: <PatientPage />,
-          },
-          {
-            path: ':id/detail',
-            element: <PatientDetailPage />,
-          },
-          {
-            path: 'new',
-            element: <PatientsNewPage />,
-          },
-        ],
+        element: <PatientPage />,
       },
       {
         path: 'settings',

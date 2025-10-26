@@ -1,20 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
-
 import ApiBackend from '../../shared/services/api.backend'
-import type { Doctor } from '../../types/doctors'
+import type { Doctor } from '../../types/doctors/doctorSchema'
 
-export const useGetDoctorsById = (doctorId: number) => {
-  const query = useQuery({
+export const useDoctorById = (doctorId: number) => {
+  return useQuery({
     queryKey: ['doctor', doctorId],
     queryFn: async () => {
       if (!doctorId) return null
-
       const data = await ApiBackend.get(`/doctors/${doctorId}`)
-
       return data as Doctor
     },
     enabled: !!doctorId,
   })
-
-  return query
 }

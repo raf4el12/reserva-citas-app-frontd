@@ -67,7 +67,7 @@ export default function SidebarBase() {
   }
 
   return (
-    <aside className="flex flex-col w-64 h-screen bg-white border-r px-4 py-6">
+    <aside className="fixed left-0 top-0 bottom-0 flex flex-col w-64 bg-white border-r px-4 py-6 overflow-y-auto">
       <Link
         to="/"
         className="flex items-center mb-8 rounded-lg p-3 text-white bg-black hover:bg-gray-900 transition"

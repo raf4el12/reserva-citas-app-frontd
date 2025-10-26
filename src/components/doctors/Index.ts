@@ -1,0 +1,7 @@
+export { default as DoctorAddHeader } from './components/DoctorAddHeader'
+export { default as DoctorCard } from './components/DoctorCard'
+export { default as DoctorDetailsProfile } from './components/DoctorDetailsProfile'
+export { default as DoctorInformation } from './components/DoctorInformation'
+export { default as DoctorListTable } from './components/DoctorListTable'
+export { default as DoctorVariants } from './components/DoctorVariants'
+export { default as DoctorMain } from './DoctorMain'

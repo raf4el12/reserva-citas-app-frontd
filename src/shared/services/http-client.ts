@@ -110,10 +110,17 @@ export default class HttpClient {
     }
 
     if (data && method !== 'GET') {
-      config.body = JSON.stringify(data)
-      config.headers = {
-        ...config.headers,
-        'Content-Type': 'application/json',
+      if (data instanceof FormData) {
+        config.body = data
+
+        const { 'Content-Type': _, ...headersWithoutContentType } = headers
+        config.headers = headersWithoutContentType
+      } else {
+        config.body = JSON.stringify(data)
+        config.headers = {
+          ...config.headers,
+          'Content-Type': 'application/json',
+        }
       }
     }
 
